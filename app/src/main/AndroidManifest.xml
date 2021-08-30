@@ -8,6 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Superhero" />
+        android:theme="@style/Theme.Superhero">
+    <activity android:name=".MainActivity_">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER"/>
+            <action android:name="android.intent.action.MAIN"/>
+        </intent-filter>
+    </activity>
+</application>
 
 </manifest>
