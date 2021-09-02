@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="listNameFont" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="gothamBold">
+        <item name="android:fontFamily">@font/gotham_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamBoldItalic">
+        <item name="android:fontFamily">@font/gotham_bold_italic</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamBook">
+        <item name="android:fontFamily">@font/gotham_book</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamBookItalic">
+        <item name="android:fontFamily">@font/gotham_book_italic</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamLight">
+        <item name="android:fontFamily">@font/gotham_light</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamLightItalic">
+        <item name="android:fontFamily">@font/gotham_light_italic</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamMedium">
+        <item name="android:fontFamily">@font/gotham_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="gothamMediumItalic">
+        <item name="android:fontFamily">@font/gotham_medium_italic</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="superheroItemNameFont" parent="gothamMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/hero_item_color</item>
+    </style>
+
+    <style name="GothamBold24" parent="gothamBold">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/search_header_color</item>
+    </style>
+
+    <style name="GothamBook18" parent="gothamBook">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/selector_search_text_color</item>
+    </style>
+
+    <style name="searchbar_icon">
+        <item name="android:textColor">@color/selector_search_text_color</item>
+    </style>
+</resources>

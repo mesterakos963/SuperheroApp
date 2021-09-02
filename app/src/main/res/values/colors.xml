@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#3C3C3C</color>
+    <color name="gradient_start">#00535353</color>
+    <color name="gradient_end">#FF535353</color>
+    <color name="listBackgroundColor">#F5F5F5</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="search_header_color">#7E7E7E</color>
+    <color name="hero_item_color">#FFFFFF</color>
+    <color name="searchbar_background">#FFFFFF</color>
+    <color name="search_text_color">#7E7E7E</color>
+    <color name="searchbar_text_focused">#000000</color>
+    <color name="search_icon_focused">#000000</color>
+    <color name="searchbar_text_not_focused">#7E7E7E</color>
 </resources>

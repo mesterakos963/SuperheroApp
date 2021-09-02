@@ -15,4 +15,6 @@ public class Superhero implements Serializable {
     public String getName(){
         return name;
     }
+
+    public Image getImage() { return image; }
 }

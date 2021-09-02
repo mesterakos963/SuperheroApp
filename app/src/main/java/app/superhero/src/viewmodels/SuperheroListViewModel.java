@@ -10,7 +10,7 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.api.SuperheroesResponse;
+import app.superhero.src.model.response.SuperheroesResponse;
 import app.superhero.src.models.Superhero;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,15 +29,15 @@ public class SuperheroListViewModel extends ViewModel {
         return superheroes;
     }
 
-    public LiveData<Throwable> getError() {
-        return error;
-    }
-
-    public void fetchSuperheroes() {
-        superheroesRepository.searchByName("batman", new Callback<SuperheroesResponse>() {
+    public void fetchSuperheroes(String name) {
+        superheroesRepository.searchByName(name, new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                superheroes.postValue(response.body().getResults());
+                if (response.body().isValid()) {
+                    superheroes.postValue(response.body().getResults());
+                } else {
+                    response.body().getError();
+                }
             }
 
             @Override

@@ -1,6 +1,6 @@
 package app.superhero.src.interfaces;
 
-import app.superhero.src.api.SuperheroesResponse;
+import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

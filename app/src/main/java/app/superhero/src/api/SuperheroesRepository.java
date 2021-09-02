@@ -4,6 +4,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import app.superhero.src.interfaces.SuperheroesService;
+import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
