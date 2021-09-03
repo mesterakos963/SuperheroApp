@@ -22,4 +22,5 @@
     <color name="bottom_navigation_unselected_item_color">#898989</color>
     <color name="navigation_bar_background">#F0F0F0</color>
     <color name="cursor_color">#FFBB3B</color>
+    <color name="shadow_color">#FF00FB</color>
 </resources>

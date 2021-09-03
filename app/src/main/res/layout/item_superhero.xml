@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<net.orandja.shadowlayout.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardViewContainer"
-    android:background="@android:color/transparent"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="20dp"
+    app:shadow_color="#59000000"
+    app:shadow_radius="8"
+    app:shadow_y_shift="4dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/root"
-        android:layout_width="170dp"
-        android:layout_height="240dp"
-        app:cardCornerRadius="10dp"
-        android:layout_gravity="center_horizontal"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="10dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            app:riv_corner_radius="10dp"
+            android:id="@+id/heroImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,3:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/heroImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/nameText"
+            style="@style/superheroItemNameFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/super_hero_item_name_background"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Superhero" />
 
-            <TextView
-                android:id="@+id/nameText"
-                style="@style/superheroItemNameFont"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/super_hero_item_name_background"
-                android:gravity="center"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Superhero" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+</net.orandja.shadowlayout.ShadowLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-</FrameLayout>

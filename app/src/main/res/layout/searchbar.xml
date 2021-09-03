@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/searchbar_background"
     app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
+    app:cardElevation="9dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
