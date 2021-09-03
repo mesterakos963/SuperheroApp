@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/searchbar_background"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="9dp"
+    app:cardCornerRadius="@dimen/design_10dp"
+    app:cardElevation="@dimen/design_9dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,9 +16,9 @@
 
         <ImageView
             android:id="@+id/searchIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="12dp"
+            android:layout_width="@dimen/design_16dp"
+            android:layout_height="@dimen/design_16dp"
+            android:layout_marginStart="@dimen/design_12dp"
             android:src="@drawable/ic_search_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +31,10 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="12dp"
+            android:paddingStart="@dimen/design_12dp"
+            android:paddingTop="@dimen/design_15dp"
+            android:paddingEnd="@dimen/design_12dp"
+            android:paddingBottom="@dimen/design_12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchIcon"
             app:layout_constraintTop_toTopOf="parent"

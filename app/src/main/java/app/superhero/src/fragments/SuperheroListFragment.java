@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import app.superhero.src.models.Superhero;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.SearchbarView;
 
+import static app.superhero.src.api.Utils.pxFromDp;
+
 @EFragment(R.layout.fragment_superhero_list)
 public class SuperheroListFragment extends BaseFragment implements ItemClickListener {
 
@@ -49,7 +52,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     @AfterViews
     void init() {
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager = new GridLayoutManager(getContext(), (int) getNumberOfColumns());
         adapter = new SuperheroesAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -103,7 +106,15 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @UiThread
-    protected void refreshAdapter(List<Superhero> superheroes){
+    protected void refreshAdapter(List<Superhero> superheroes) {
         adapter.refreshData(superheroes);
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public float getNumberOfColumns() {
+        return getScreenWidth()/pxFromDp(getContext(), 170);
     }
 }

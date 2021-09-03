@@ -8,8 +8,8 @@
         android:endColor="#292929"
         android:angle="270" />
     <corners
-        android:bottomLeftRadius="10dp"
-        android:bottomRightRadius="10dp"/>
+        android:bottomLeftRadius="@dimen/design_10dp"
+        android:bottomRightRadius="@dimen/design_10dp"/>
 
 
 </shape>

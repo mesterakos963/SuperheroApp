@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="listNameFont" parent="@style/TextAppearance.AppCompat.Medium">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/design_20sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -47,26 +47,26 @@
     </style>
 
     <style name="superheroItemNameFont" parent="gothamMedium">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/design_18sp</item>
         <item name="android:textColor">@color/hero_item_color</item>
     </style>
 
     <style name="GothamBold24" parent="gothamBold">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/design_24sp</item>
         <item name="android:textColor">@color/search_header_color</item>
     </style>
 
     <style name="GothamBook18" parent="gothamBook">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/design_18sp</item>
         <item name="android:textColor">@color/selector_search_text_color</item>
     </style>
 
     <style name="BottomNavigationUnSelectedItemTextStyle" parent="gothamBold">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">@dimen/design_9sp</item>
     </style>
 
     <style name="BottomNavigationSelectedItemTextStyle" parent="gothamBold">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">@dimen/design_9sp</item>
     </style>
 
 </resources>

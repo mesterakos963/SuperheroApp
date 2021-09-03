@@ -32,6 +32,7 @@ public class SuperheroCardView extends CardView {
         nameText.setText(superhero.getName());
         Glide.with(heroImage.getContext())
                 .load(superhero.getImage().getUrl())
+                .placeholder(R.drawable.ic_place)
                 .into(heroImage);
     }
 }

@@ -5,12 +5,12 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="20dp"
+    android:paddingStart="@dimen/design_10dp"
+    android:paddingEnd="@dimen/design_10dp"
+    android:paddingBottom="@dimen/design_20dp"
     app:shadow_color="#59000000"
     app:shadow_radius="8"
-    app:shadow_y_shift="4dp">
+    app:shadow_y_shift="@dimen/design_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardViewContainer"
@@ -18,11 +18,12 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:minWidth="@dimen/_132sdp">
 
 
         <com.makeramen.roundedimageview.RoundedImageView
-            app:riv_corner_radius="10dp"
+            app:riv_corner_radius="@dimen/design_10dp"
             android:id="@+id/heroImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -41,8 +42,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/super_hero_item_name_background"
             android:gravity="center"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingTop="@dimen/design_6dp"
+            android:paddingBottom="@dimen/design_6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Superhero" />
 
