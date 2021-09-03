@@ -1,24 +1,24 @@
 package app.superhero.src.models;
 
-import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class Biography implements Serializable {
 
-    @SerializedName("full-name")
+    @Json(name = "full-name")
     String fullName;
 
-    @SerializedName("alter-egos")
+    @Json(name = "alter-egos")
     String alterEgos;
 
     List<String> aliases;
 
-    @SerializedName("place-of-birth")
+    @Json(name = "place-of-birth")
     String placeOfBirth;
 
-    @SerializedName("first-appearance")
+    @Json(name = "first-appearance")
     String firstAppearance;
 
     String publisher;

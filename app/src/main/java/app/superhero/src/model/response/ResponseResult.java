@@ -1,12 +1,12 @@
 package app.superhero.src.model.response;
 
-import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 
 public enum ResponseResult implements Serializable {
-    @SerializedName("success")
+    @Json(name = "success")
     SUCCESS,
-    @SerializedName("error")
+    @Json(name = "error")
     ERROR
 }

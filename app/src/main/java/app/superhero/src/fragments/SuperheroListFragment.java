@@ -4,7 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,9 +35,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     @ViewById
     RecyclerView recyclerView;
-
-    @ViewById
-    ConstraintLayout recyclerViewContainer;
 
     @ViewById
     TextView nameText;

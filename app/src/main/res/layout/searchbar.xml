@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/searchbar_background"
     android:id="@+id/searchBarContainer"
-    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/searchbar_background"
+    app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
-    app:cardCornerRadius="10dp">
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/searchIcon"
@@ -23,24 +22,23 @@
             android:src="@drawable/ic_search_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:tint="@color/search_icon_focused"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/textField"
+            style="@style/GothamBook18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:maxLines="1"
+            android:paddingStart="12dp"
             android:paddingTop="15dp"
             android:paddingEnd="12dp"
-            android:paddingStart="12dp"
             android:paddingBottom="12dp"
-            app:layout_constraintStart_toEndOf="@+id/searchIcon"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchIcon"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/transparent"
-            style="@style/GothamBook18"
-            tools:text="@tools:sample/full_names"
-            android:maxLines="1"/>
+            tools:text="@tools:sample/full_names" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

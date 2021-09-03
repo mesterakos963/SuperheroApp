@@ -1,6 +1,6 @@
 package app.superhero.src.models;
 
-import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ public class Appearance implements Serializable {
     String race;
     List<String> height;
     List<String> weight;
-    @SerializedName("eye-color")
+    @Json(name = "eye-color")
     String eyeColor;
 
-    @SerializedName("hair-color")
+    @Json(name = "hair-color")
     String hairColor;
 }

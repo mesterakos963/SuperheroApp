@@ -61,7 +61,12 @@
         <item name="android:textColor">@color/selector_search_text_color</item>
     </style>
 
-    <style name="searchbar_icon">
-        <item name="android:textColor">@color/selector_search_text_color</item>
+    <style name="BottomNavigationUnSelectedItemTextStyle" parent="gothamBold">
+        <item name="android:textSize">9sp</item>
     </style>
+
+    <style name="BottomNavigationSelectedItemTextStyle" parent="gothamBold">
+        <item name="android:textSize">9sp</item>
+    </style>
+
 </resources>
