@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.superhero">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Superhero">
-    <activity android:name=".MainActivity_">
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER"/>
-            <action android:name="android.intent.action.MAIN"/>
-        </intent-filter>
-    </activity>
-</application>
+        <activity
+            android:name=".MainActivity_"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

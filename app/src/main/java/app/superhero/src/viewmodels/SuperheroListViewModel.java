@@ -24,9 +24,11 @@ public class SuperheroListViewModel extends ViewModel {
 
     private final MutableLiveData<List<Superhero>> superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
+    public MutableLiveData<String> searchText = new MutableLiveData<String>();
 
-    public LiveData<List<Superhero>> getSuperheroes() {
-        return superheroes;
+    public LiveData<List<Superhero>> getSuperheroes() { return superheroes; }
+    public LiveData<String> getSearchText() {
+        return searchText;
     }
 
     public void fetchSuperheroes(String name) {
@@ -47,4 +49,7 @@ public class SuperheroListViewModel extends ViewModel {
         });
     }
 
+    public void postSearch(String search) {
+        searchText.postValue(search);
+    }
 }

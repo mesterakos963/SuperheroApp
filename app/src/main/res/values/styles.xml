@@ -69,4 +69,9 @@
         <item name="android:textSize">@dimen/design_9sp</item>
     </style>
 
+    <style name="EmptyViewTextStyle" parent="gothamMedium">
+        <item name="android:textSize">@dimen/design_18sp</item>
+        <item name="android:color">@color/empty_view_text_color</item>
+    </style>
+
 </resources>

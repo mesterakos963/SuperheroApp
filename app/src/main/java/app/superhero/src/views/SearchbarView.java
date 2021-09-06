@@ -36,8 +36,7 @@ public class SearchbarView extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void bind(String hint, TextWatcher textWatcher) {
-        textField.setHint(hint);
+    public void bind(TextWatcher textWatcher) {
         textField.addTextChangedListener(textWatcher);
     }
 
