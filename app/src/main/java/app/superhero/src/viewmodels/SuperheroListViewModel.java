@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
@@ -38,7 +39,7 @@ public class SuperheroListViewModel extends ViewModel {
                 if (response.body().isValid()) {
                     superheroes.postValue(response.body().getResults());
                 } else {
-                    response.body().getError();
+                    superheroes.postValue(new ArrayList<>());
                 }
             }
 
@@ -52,4 +53,9 @@ public class SuperheroListViewModel extends ViewModel {
     public void postSearch(String search) {
         searchText.postValue(search);
     }
+
+    public String getSearchTextString() {
+        return searchText.getValue();
+    }
+
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerViewEmptySupport extends RecyclerView {
     private View emptyView;
 
-    private RecyclerView.AdapterDataObserver emptyObserver = new AdapterDataObserver() {
+    private final RecyclerView.AdapterDataObserver emptyObserver = new AdapterDataObserver() {
 
         @Override
         public void onChanged() {

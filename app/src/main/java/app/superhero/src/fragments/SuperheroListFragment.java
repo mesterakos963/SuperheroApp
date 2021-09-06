@@ -3,11 +3,14 @@ package app.superhero.src.fragments;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -53,6 +56,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @ViewById
     TextView emptyViewText;
 
+    @ViewById
+    CollapsingToolbarLayout toolbarLayout;
+
     SuperheroesAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
 
@@ -66,6 +72,13 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
         emptyViewText.setText(R.string.empty_view_text);
+        toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
         observeSuperheroes();
         bindSearchView();
         observeSearchText();
@@ -118,6 +131,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @UiThread
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
+            setEmptyViewText();
             superheroListViewModel.fetchSuperheroes(searchText);
         });
     }
@@ -135,14 +149,11 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         return getScreenWidth() / pxFromDp(getContext(), 170);
     }
 
-    //loading, amíg nem írok, addig emptyView szöveggel, sikertelen keresésnél szintén
-    //frame layout -> emptyView alapból visible, rv meg gone
-    //adapternek observer (EmptyDataObserver.java)
-    //Frame -> RV (bg transparent)
-    //CustomEmptyView extends ContraintLayout
-    //Hint
-    //icon színe is változzon
-    //empty view legyen custom
-
-    //loading(frameLayout) (+1 view) -> progress bar -> xml-ben az empty view fölött legyen, amikor elmegy a request
+    public void setEmptyViewText() {
+        if(superheroListViewModel.getSearchTextString() == null || superheroListViewModel.getSearchTextString().isEmpty()) {
+            emptyViewText.setText(R.string.empty_view_text);
+        } else {
+            emptyViewText.setText(R.string.empty_view_error_text);
+        }
+    }
 }

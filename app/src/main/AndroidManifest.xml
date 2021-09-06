@@ -13,7 +13,8 @@
         android:theme="@style/Theme.Superhero">
         <activity
             android:name=".MainActivity_"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
