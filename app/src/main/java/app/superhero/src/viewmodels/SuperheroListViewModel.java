@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
@@ -25,14 +26,23 @@ public class SuperheroListViewModel extends ViewModel {
 
     private final MutableLiveData<List<Superhero>> superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
-    public MutableLiveData<String> searchText = new MutableLiveData<String>();
+    private MutableLiveData<String> searchText = new MutableLiveData<String>();
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public LiveData<List<Superhero>> getSuperheroes() { return superheroes; }
+    public LiveData<List<Superhero>> getSuperheroes() {
+        return superheroes;
+    }
+
     public LiveData<String> getSearchText() {
         return searchText;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
+    }
+
     public void fetchSuperheroes(String name) {
+        isLoading.postValue(true);
         superheroesRepository.searchByName(name, new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
@@ -41,13 +51,20 @@ public class SuperheroListViewModel extends ViewModel {
                 } else {
                     superheroes.postValue(new ArrayList<>());
                 }
+                isLoading.postValue(false);
             }
 
             @Override
             public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
                 error.postValue(t);
+                isLoading.postValue(false);
             }
         });
+    }
+
+    @AfterInject
+    protected void init() {
+        isLoading.postValue(false);
     }
 
     public void postSearch(String search) {

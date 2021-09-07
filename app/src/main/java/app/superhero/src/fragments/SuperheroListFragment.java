@@ -32,6 +32,7 @@ import app.superhero.src.models.Superhero;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
+import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SearchbarView;
 
 import static app.superhero.src.utils.Utils.pxFromDp;
@@ -62,6 +63,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @ViewById
     CollapsingToolbarLayout toolbarLayout;
 
+    @ViewById
+    LoadingView loadingView;
+
     SuperheroesAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
 
@@ -77,7 +81,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         emptyView.setOnClickListenerToEmptyView(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideKeyboard(getActivity());
+                if (getActivity() != null) {
+                    hideKeyboard(getActivity());
+                }
                 searchBar.clearEditTextFocus();
             }
         });
@@ -86,12 +92,14 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
             @Override
             public void onGlobalLayout() {
                 emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
                 toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
         observeSuperheroes();
         bindSearchView();
         observeSearchText();
+        observeIsLoading();
     }
 
     private void bindSearchView() {
@@ -147,6 +155,17 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @UiThread
+    public void observeIsLoading() {
+        superheroListViewModel.getIsLoading().observe(this, isLoading -> {
+            if(isLoading) {
+                loadingView.setVisibility(View.VISIBLE);
+            } else {
+                loadingView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @UiThread
     protected void refreshAdapter(List<Superhero> superheroes) {
         adapter.refreshData(superheroes);
     }
@@ -160,7 +179,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     public void setEmptyViewText() {
-        if(superheroListViewModel.getSearchTextString() == null || superheroListViewModel.getSearchTextString().isEmpty()) {
+        if (superheroListViewModel.getSearchTextString() == null || superheroListViewModel.getSearchTextString().isEmpty()) {
             emptyViewText.setText(R.string.empty_view_text);
         } else {
             emptyViewText.setText(R.string.empty_view_error_text);
