@@ -25,7 +25,7 @@ public class SuperheroesRepository {
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if(response.body() != null){
+                if (response.body() != null) {
                     callback.onResponse(call, response);
                 }
             }

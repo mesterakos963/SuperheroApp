@@ -49,7 +49,7 @@ public class SearchbarView extends FrameLayout {
         textField.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(hasFocus()) {
+                if (hasFocus()) {
                     searchIcon.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.searchbar_text_focused), PorterDuff.Mode.SRC_IN);
                 } else {
                     searchIcon.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.searchbar_text_not_focused), PorterDuff.Mode.SRC_IN);

@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity {
     BottomNavigationView bottomNavigationView;
 
     void onKeyboardVisibilityChanged(boolean opened) {
-        if(opened) {
+        if (opened) {
             bottomNavigationView.setVisibility(View.GONE);
         } else {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -52,8 +52,7 @@ public class MainActivity extends FragmentActivity {
                             isKeyboardShowing = true;
                             onKeyboardVisibilityChanged(true);
                         }
-                    }
-                    else {
+                    } else {
                         // keyboard is closed
                         if (isKeyboardShowing) {
                             isKeyboardShowing = false;

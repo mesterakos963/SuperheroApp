@@ -14,7 +14,7 @@ public class ApiClient {
     private Retrofit retrofit;
 
     public Retrofit getClient() {
-        if(retrofit == null) {
+        if (retrofit == null) {
 
             Moshi moshi = new Moshi.Builder().add(new ZeroWhenNullAdapter()).build();
 

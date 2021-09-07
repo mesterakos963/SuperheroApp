@@ -12,9 +12,11 @@ public class Superhero implements Serializable {
     Connections connections;
     Image image;
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public Image getImage() { return image; }
+    public Image getImage() {
+        return image;
+    }
 }

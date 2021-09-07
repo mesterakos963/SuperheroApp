@@ -1,7 +1,5 @@
 package app.superhero.src.fragments;
 
-import androidx.fragment.app.Fragment;
-
 import org.androidannotations.annotations.EFragment;
 
 import app.superhero.R;

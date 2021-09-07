@@ -16,14 +16,12 @@
         android:id="@+id/cardViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minWidth="@dimen/_132sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:minWidth="@dimen/_132sdp">
-
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            app:riv_corner_radius="@dimen/design_10dp"
             android:id="@+id/heroImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -33,6 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/design_10dp"
             tools:src="@tools:sample/avatars" />
 
         <TextView

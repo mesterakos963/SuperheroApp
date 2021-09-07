@@ -9,9 +9,9 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/_80sdp"
-        android:minWidth="@dimen/_80sdp"
+        android:layout_gravity="center"
         android:indeterminateTint="@color/search_header_color"
-        android:layout_gravity="center"/>
+        android:minWidth="@dimen/_80sdp"
+        android:minHeight="@dimen/_80sdp" />
 
 </FrameLayout>

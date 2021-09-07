@@ -112,7 +112,6 @@
     <dimen name="design_194dp">@dimen/_170sdp</dimen>
     <dimen name="design_250dp">@dimen/_219sdp</dimen>
 
-
     <dimen name="design_1sp">@dimen/_1ssp</dimen>
     <dimen name="design_2sp">@dimen/_2ssp</dimen>
     <dimen name="design_3sp">@dimen/_2ssp</dimen>
