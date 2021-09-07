@@ -33,6 +33,10 @@ public class EmptyView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    public void setOnClickListenerToEmptyView(OnClickListener onClickListener) {
+        emptyViewRoot.setOnClickListener(onClickListener);
+    }
+
     public void setPaddingBottom(int padding) {
         emptyViewRoot.setPadding(0, 0, 0, padding);
     }

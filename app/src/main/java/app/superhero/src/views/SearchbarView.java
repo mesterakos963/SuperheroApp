@@ -62,4 +62,7 @@ public class SearchbarView extends FrameLayout {
         textField.addTextChangedListener(textWatcher);
     }
 
+    public void clearEditTextFocus() {
+        textField.clearFocus();
+    }
 }
