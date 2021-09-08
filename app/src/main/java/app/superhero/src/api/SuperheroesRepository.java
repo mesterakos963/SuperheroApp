@@ -37,4 +37,109 @@ public class SuperheroesRepository {
             }
         });
     }
+
+    public void getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
+        if (superheroesService == null) {
+            superheroesService = apiClient.getClient().create(SuperheroesService.class);
+        }
+        Call<SuperheroesResponse> call = superheroesService.listPowerstats(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    callback.onResponse(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void getBiographyById(int id, Callback<SuperheroesResponse> callback) {
+        if (superheroesService == null) {
+            superheroesService = apiClient.getClient().create(SuperheroesService.class);
+        }
+        Call<SuperheroesResponse> call = superheroesService.listBiography(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    callback.onResponse(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void getAppearanceById(int id, Callback<SuperheroesResponse> callback) {
+        if (superheroesService == null) {
+            superheroesService = apiClient.getClient().create(SuperheroesService.class);
+        }
+        Call<SuperheroesResponse> call = superheroesService.listAppearance(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    callback.onResponse(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void getWorkById(int id, Callback<SuperheroesResponse> callback) {
+        if (superheroesService == null) {
+            superheroesService = apiClient.getClient().create(SuperheroesService.class);
+        }
+        Call<SuperheroesResponse> call = superheroesService.listWork(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    callback.onResponse(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void getConnections(int id, Callback<SuperheroesResponse> callback) {
+        if (superheroesService == null) {
+            superheroesService = apiClient.getClient().create(SuperheroesService.class);
+        }
+        Call<SuperheroesResponse> call = superheroesService.listConnections(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    callback.onResponse(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                callback.onFailure(call, t);
+            }
+        });
+    }
 }

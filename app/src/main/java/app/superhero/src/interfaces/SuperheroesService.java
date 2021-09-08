@@ -9,4 +9,19 @@ public interface SuperheroesService {
 
     @GET("search/{name}")
     Call<SuperheroesResponse> listSuperheroes(@Path("name") String name);
+
+    @GET("{id}/powerstats")
+    Call<SuperheroesResponse> listPowerstats(@Path("id") int id);
+
+    @GET("{id}/biography")
+    Call<SuperheroesResponse> listBiography(@Path("id") int id);
+
+    @GET("{id}/appearance")
+    Call<SuperheroesResponse> listAppearance(@Path("id") int id);
+
+    @GET("{id}/work")
+    Call<SuperheroesResponse> listWork(@Path("id") int id);
+
+    @GET("{id}/connections")
+    Call<SuperheroesResponse> listConnections(@Path("id") int id);
 }
