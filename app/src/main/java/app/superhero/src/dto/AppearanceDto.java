@@ -1,11 +1,11 @@
-package app.superhero.src.models;
+package app.superhero.src.dto;
 
 import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Appearance implements Serializable {
+public class AppearanceDto implements Serializable {
     String gender;
     String race;
     List<String> height;

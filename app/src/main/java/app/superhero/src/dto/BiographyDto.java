@@ -1,11 +1,11 @@
-package app.superhero.src.models;
+package app.superhero.src.dto;
 
 import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Biography implements Serializable {
+public class BiographyDto implements Serializable {
 
     @Json(name = "full-name")
     String fullName;

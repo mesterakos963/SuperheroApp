@@ -2,12 +2,12 @@ package app.superhero.src.model.response;
 
 import java.util.List;
 
-import app.superhero.src.models.Superhero;
+import app.superhero.src.dto.SuperheroDto;
 
 public class SuperheroesResponse extends BaseResponse {
-    private List<Superhero> results;
+    private List<SuperheroDto> results;
 
-    public List<Superhero> getResults() {
+    public List<SuperheroDto> getResults() {
         return this.results;
     }
 }

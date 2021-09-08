@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
+import app.superhero.src.dto.SuperheroDto;
 import app.superhero.src.model.response.SuperheroesResponse;
-import app.superhero.src.models.Superhero;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,12 +24,12 @@ public class SuperheroListViewModel extends ViewModel {
     @Bean
     SuperheroesRepository superheroesRepository;
 
-    private final MutableLiveData<List<Superhero>> superheroes = new MutableLiveData<>();
+    private final MutableLiveData<List<SuperheroDto>> superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
-    private MutableLiveData<String> searchText = new MutableLiveData<String>();
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<String> searchText = new MutableLiveData<String>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public LiveData<List<Superhero>> getSuperheroes() {
+    public LiveData<List<SuperheroDto>> getSuperheroes() {
         return superheroes;
     }
 

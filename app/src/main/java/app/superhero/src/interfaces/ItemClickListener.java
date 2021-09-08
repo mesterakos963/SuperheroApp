@@ -1,7 +1,7 @@
 package app.superhero.src.interfaces;
 
-import app.superhero.src.models.Superhero;
+import app.superhero.src.dto.SuperheroDto;
 
 public interface ItemClickListener {
-    void onItemClick(Superhero superhero) throws Exception;
+    void onItemClick(SuperheroDto superheroDto) throws Exception;
 }

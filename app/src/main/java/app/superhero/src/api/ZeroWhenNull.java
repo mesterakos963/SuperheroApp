@@ -8,4 +8,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
 @JsonQualifier
-public @interface ZeroWhenNull {}
+public @interface ZeroWhenNull {
+}

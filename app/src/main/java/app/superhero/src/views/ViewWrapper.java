@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewWrapper<V extends View> extends RecyclerView.ViewHolder {
 
-    private V view;
+    private final V view;
 
     public ViewWrapper(V itemView) {
         super(itemView);

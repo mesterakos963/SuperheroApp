@@ -91,6 +91,6 @@ public abstract class RecyclerViewBaseAdapter<T, V extends View> extends Recycle
     }
 
     public interface AdapterChanged {
-        public void onChange();
+        void onChange();
     }
 }

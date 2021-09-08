@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/superheroListFragment_"
-        android:name="app.superhero.src.fragments.SuperheroListFragment_"
+        android:name="app.superheroDto.src.fragments.SuperheroListFragment_"
         android:label="SuperheroListFragment_" >
         <action
             android:id="@+id/action_superheroListFragment__to_superheroProfileFragment_2"
@@ -16,11 +16,11 @@
 
     <fragment
         android:id="@+id/superheroProfileFragment_"
-        android:name="app.superhero.src.fragments.SuperheroProfileFragment_"
+        android:name="app.superheroDto.src.fragments.SuperheroProfileFragment_"
         android:label="SuperheroProfileFragment_" >
         <argument
-            android:name="superhero"
-            app:argType="app.superhero.src.models.Superhero" />
+            android:name="superheroDto"
+            app:argType="app.superheroDto.src.models.Superhero" />
     </fragment>
 
 </navigation>

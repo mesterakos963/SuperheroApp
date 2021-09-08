@@ -25,15 +25,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
+import app.superhero.src.dto.SuperheroDto;
 import app.superhero.src.interfaces.ItemClickListener;
-import app.superhero.src.models.Superhero;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
 import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SearchbarView;
+import app.superheroDto.R;
 
 import static app.superhero.src.utils.Utils.pxFromDp;
 
@@ -132,10 +132,10 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @Override
-    public void onItemClick(Superhero superhero) {
+    public void onItemClick(SuperheroDto superheroDto) {
         if (getActivity() != null) {
             Navigation.findNavController(getActivity(), R.id.navHostFragment)
-                    .navigate(SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroProfileFragment2(superhero));
+                    .navigate(SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroProfileFragment2(superheroDto));
         }
     }
 
@@ -164,8 +164,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @UiThread
-    protected void refreshAdapter(List<Superhero> superheroes) {
-        adapter.refreshData(superheroes);
+    protected void refreshAdapter(List<SuperheroDto> superheroDtos) {
+        adapter.refreshData(superheroDtos);
     }
 
     public static int getScreenWidth() {

@@ -10,6 +10,6 @@ public class BaseResponse {
     }
 
     public boolean isValid() {
-        return this.response == response.SUCCESS;
+        return this.response == ResponseResult.SUCCESS;
     }
 }

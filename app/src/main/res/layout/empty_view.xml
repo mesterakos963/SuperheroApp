@@ -17,6 +17,6 @@
         android:layout_marginStart="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_40sdp"
         android:gravity="center"
-        tools:text="The World is in danger and no superhero to save it..." />
+        tools:text="The World is in danger and no superheroDto to save it..." />
 
 </LinearLayout>

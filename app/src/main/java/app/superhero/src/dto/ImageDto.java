@@ -1,8 +1,8 @@
-package app.superhero.src.models;
+package app.superhero.src.dto;
 
 import java.io.Serializable;
 
-public class Image implements Serializable {
+public class ImageDto implements Serializable {
     String url;
 
     public String getUrl() {

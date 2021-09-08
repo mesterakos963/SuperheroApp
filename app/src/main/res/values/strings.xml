@@ -10,6 +10,6 @@
     <string name="errorMsg">Error: %1%s</string>
     <string name="heroes">Heroes</string>
     <string name="searchbar_hint_label">Type here to search...</string>
-    <string name="empty_view_text">The World is in danger and no superhero to save it...</string>
+    <string name="empty_view_text">The World is in danger and no superheroDto to save it...</string>
     <string name="empty_view_error_text">There is no hero with this name. Try to search another hero.</string>
 </resources>
