@@ -1,4 +1,4 @@
-package app.superhero.src.entities;
+package app.superhero.src.dao;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

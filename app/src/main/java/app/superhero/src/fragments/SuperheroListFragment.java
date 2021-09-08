@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +24,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dto.SuperheroDto;
 import app.superhero.src.interfaces.ItemClickListener;
@@ -33,7 +33,6 @@ import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
 import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SearchbarView;
-import app.superheroDto.R;
 
 import static app.superhero.src.utils.Utils.pxFromDp;
 
@@ -134,8 +133,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @Override
     public void onItemClick(SuperheroDto superheroDto) {
         if (getActivity() != null) {
-            Navigation.findNavController(getActivity(), R.id.navHostFragment)
-                    .navigate(SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroProfileFragment2(superheroDto));
         }
     }
 

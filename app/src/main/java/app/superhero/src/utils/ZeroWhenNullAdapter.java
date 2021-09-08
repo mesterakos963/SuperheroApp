@@ -1,4 +1,4 @@
-package app.superhero.src.api;
+package app.superhero.src.utils;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;

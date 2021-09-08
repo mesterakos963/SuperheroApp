@@ -1,13 +1,18 @@
 package app.superhero.src.api;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import app.superhero.SuperheroApplication;
+import app.superhero.src.dao.SuperheroMasterDataDao;
 import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static app.superhero.src.database.DatabaseModule.provideDatabase;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class SuperheroesRepository {
@@ -15,7 +20,16 @@ public class SuperheroesRepository {
     @Bean
     ApiClient apiClient;
 
+    SuperheroMasterDataDao superheroDao;
+
+    SuperheroApplication application;
     SuperheroesService superheroesService;
+
+
+    @AfterInject
+    public void init() {
+        superheroDao = provideDatabase(application).superheroMasterDataDao();
+    }
 
     public void searchByName(String name, Callback<SuperheroesResponse> callback) {
         if (superheroesService == null) {
@@ -26,6 +40,7 @@ public class SuperheroesRepository {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null) {
+                    //superheroDao.insertSuperheros(response.body().getResults());
                     callback.onResponse(call, response);
                 }
             }
@@ -142,4 +157,5 @@ public class SuperheroesRepository {
             }
         });
     }
+
 }

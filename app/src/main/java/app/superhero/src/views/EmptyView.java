@@ -11,6 +11,7 @@ import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
 
+
 @EViewGroup(R.layout.empty_view)
 public class EmptyView extends LinearLayout {
 

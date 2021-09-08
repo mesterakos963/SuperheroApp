@@ -1,18 +1,14 @@
-package app.superhero.src.entities;
+package app.superhero.src.dao;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Work {
     @PrimaryKey
-    int workId;
+    public int workId;
 
-    @ColumnInfo
     String occupation;
 
-    @ColumnInfo
     String base;
-
 }

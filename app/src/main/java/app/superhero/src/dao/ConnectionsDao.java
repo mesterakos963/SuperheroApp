@@ -8,8 +8,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import app.superhero.src.entities.Connections;
-
 @Dao
 public interface ConnectionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

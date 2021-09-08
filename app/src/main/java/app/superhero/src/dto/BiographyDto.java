@@ -5,7 +5,16 @@ import com.squareup.moshi.Json;
 import java.io.Serializable;
 import java.util.List;
 
+import app.superhero.src.utils.ZeroWhenNull;
+
 public class BiographyDto implements Serializable {
+
+    String response;
+
+    @ZeroWhenNull
+    int id;
+
+    String name;
 
     @Json(name = "full-name")
     String fullName;

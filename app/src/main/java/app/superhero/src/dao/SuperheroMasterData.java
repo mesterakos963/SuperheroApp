@@ -1,4 +1,4 @@
-package app.superhero.src.entities;
+package app.superhero.src.dao;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class SuperheroMasterData {
     @PrimaryKey
-    int superheroId;
+    public int superheroId;
 
     @ColumnInfo
-    String name;
+    public String name;
 }

@@ -8,8 +8,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import app.superhero.src.entities.Biography;
-
 @Dao
 public interface BiographyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

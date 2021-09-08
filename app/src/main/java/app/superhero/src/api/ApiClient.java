@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi;
 
 import org.androidannotations.annotations.EBean;
 
+import app.superhero.src.utils.ZeroWhenNullAdapter;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

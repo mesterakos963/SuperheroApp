@@ -1,4 +1,4 @@
-package app.superhero.src.entities;
+package app.superhero.src.dao;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Biography {
     @PrimaryKey
-    int biographyID;
+    int biographyId;
 
     @ColumnInfo
     String fullName;

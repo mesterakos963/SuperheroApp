@@ -19,6 +19,7 @@ import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
 
+
 @EViewGroup(R.layout.searchbar)
 public class SearchbarView extends FrameLayout {
 

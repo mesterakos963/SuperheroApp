@@ -8,8 +8,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import app.superhero.src.entities.Appearance;
-
 @Dao
 public interface AppearanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
