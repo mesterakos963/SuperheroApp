@@ -1,11 +1,20 @@
 package app.superhero.src.api;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.List;
+
 import app.superhero.SuperheroApplication;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dao.SuperheroMasterDataDao;
+import app.superhero.src.interfaces.CustomCallback;
 import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
@@ -20,15 +29,16 @@ public class SuperheroesRepository {
     @Bean
     ApiClient apiClient;
 
-    SuperheroMasterDataDao superheroDao;
+    SuperheroMasterDataDao superheroMasterDataDao;
 
+    @App
     SuperheroApplication application;
-    SuperheroesService superheroesService;
 
+    SuperheroesService superheroesService;
 
     @AfterInject
     public void init() {
-        superheroDao = provideDatabase(application).superheroMasterDataDao();
+        superheroMasterDataDao = provideDatabase(application).superheroMasterDataDao();
     }
 
     public void searchByName(String name, Callback<SuperheroesResponse> callback) {
@@ -40,8 +50,7 @@ public class SuperheroesRepository {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null) {
-                    //superheroDao.insertSuperheros(response.body().getResults());
-                    callback.onResponse(call, response);
+                    cacheSuperHeroes(call, response, callback);
                 }
             }
 
@@ -51,6 +60,18 @@ public class SuperheroesRepository {
                 callback.onFailure(call, t);
             }
         });
+    }
+
+    @Background
+    protected void cacheSuperHeroes(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response, Callback<SuperheroesResponse> callback) {
+        List<SuperheroMasterData> superheroMasterDataList = Stream.of(response.body().getResults())
+                .map(superhero ->
+                        new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getUrl())
+                ).collect(Collectors.toList());
+        superheroMasterDataDao.insertSuperheros(superheroMasterDataList);
+        CustomCallback.onResponse();
+        superheroMasterDataDao.getSuperheroes();
+
     }
 
     public void getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {

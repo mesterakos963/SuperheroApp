@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/superheroListFragment_"
-        android:name="app.superheroDto.src.fragments.SuperheroListFragment_"
+        android:name="app.superhero.src.fragments.SuperheroListFragment_"
         android:label="SuperheroListFragment_" />
 
 </navigation>

@@ -31,7 +31,7 @@ public class SuperheroCardView extends CardView {
     public void bind(SuperheroDto superheroDto) {
         nameText.setText(superheroDto.getName());
         Glide.with(heroImage.getContext())
-                .load(superheroDto.getImageDto().getUrl())
+                .load(superheroDto.getUrl())
                 .placeholder(R.drawable.ic_place)
                 .into(heroImage);
     }

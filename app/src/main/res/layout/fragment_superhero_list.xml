@@ -34,7 +34,7 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <app.superheroDto.src.views.SearchbarView_
+        <app.superhero.src.views.SearchbarView_
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <app.superheroDto.src.utils.RecyclerViewEmptySupport
+        <app.superhero.src.utils.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -61,13 +61,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_superhero" />
 
-        <app.superheroDto.src.views.EmptyView_
+        <app.superhero.src.views.EmptyView_
             android:id="@+id/emptyView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="true" />
 
-        <app.superheroDto.src.views.LoadingView_
+        <app.superhero.src.views.LoadingView_
             android:id="@+id/loadingView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

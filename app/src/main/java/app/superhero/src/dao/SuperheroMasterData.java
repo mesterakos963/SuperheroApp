@@ -1,6 +1,5 @@
 package app.superhero.src.dao;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,6 +8,13 @@ public class SuperheroMasterData {
     @PrimaryKey
     public int superheroId;
 
-    @ColumnInfo
     public String name;
+
+    public String imageUrl;
+
+    public SuperheroMasterData(int superheroId, String name, String imageUrl) {
+        this.superheroId = superheroId;
+        this.name = name;
+        this.imageUrl = imageUrl;
+    }
 }

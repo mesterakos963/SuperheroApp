@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/battleFragment_"
-        android:name="app.superheroDto.src.fragments.BattleFragment_"
+        android:name="app.superhero.src.fragments.BattleFragment_"
         android:label="BattleFragment_" />
 </navigation>

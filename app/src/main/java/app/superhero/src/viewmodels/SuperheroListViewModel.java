@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dto.SuperheroDto;
+import app.superhero.src.interfaces.CustomCallback;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,9 +45,9 @@ public class SuperheroListViewModel extends ViewModel {
 
     public void fetchSuperheroes(String name) {
         isLoading.postValue(true);
-        superheroesRepository.searchByName(name, new Callback<SuperheroesResponse>() {
+        superheroesRepository.searchByName(name, new CustomCallback<SuperheroMasterData>() {
             @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+            public void onSuccess(List<SuperheroMasterData> results) {
                 if (response.body().isValid()) {
                     superheroes.postValue(response.body().getResults());
                 } else {
@@ -55,7 +57,7 @@ public class SuperheroListViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+            public void onError(Throwable t) {
                 error.postValue(t);
                 isLoading.postValue(false);
             }
