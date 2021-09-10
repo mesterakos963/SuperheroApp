@@ -21,7 +21,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import app.superhero.R;
@@ -67,8 +66,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     SuperheroesAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
-
-    private Timer timer;
 
     app.superhero.src.utils.Debouncer debouncer;
 

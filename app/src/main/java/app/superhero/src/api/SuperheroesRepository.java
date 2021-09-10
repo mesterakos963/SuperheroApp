@@ -9,7 +9,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import java.util.Collections;
 import java.util.List;
 
 import app.superhero.SuperheroApplication;
@@ -44,7 +43,7 @@ public class SuperheroesRepository {
         return apiClient.getSuperheroesService();
     }
 
-    public void searchByName(String name, CustomCallback<SuperheroesResponse> customCallback) {
+    public void searchByName(String name, CustomCallback<SuperheroMasterData> customCallback) {
         Call<SuperheroesResponse> call = getSuperheroService().listSuperheroes(name);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
@@ -56,20 +55,29 @@ public class SuperheroesRepository {
 
             @Override
             public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                customCallback.onError(Collections.emptyList(), t);
+                passCachedSuperHeroesFromDbWithError(name, t, customCallback);
             }
         });
     }
 
     @Background
-    protected void cacheSuperHeroes(Response<SuperheroesResponse> response, CustomCallback<SuperheroesResponse> customCallback, String name) {
+    protected void passCachedSuperHeroesFromDbWithError(String name, Throwable t, CustomCallback<SuperheroMasterData> customCallback) {
+        List<SuperheroMasterData> superheroMasterDataList = getSuperHeroesFromDbByName(name);
+        customCallback.onError(superheroMasterDataList, t);
+    }
+
+    @Background
+    protected void cacheSuperHeroes(Response<SuperheroesResponse> response, CustomCallback<SuperheroMasterData> customCallback, String name) {
         List<SuperheroMasterData> superheroMasterDataList = Stream.of(response.body().getResults())
                 .map(superhero ->
                         new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getImageDto().getUrl())
                 ).collect(Collectors.toList());
         superheroMasterDataDao.insertSuperheros(superheroMasterDataList);
-        customCallback.onSuccess(superheroMasterDataDao.getSuperheroesByName("%" + name + "%"));
+        customCallback.onSuccess(getSuperHeroesFromDbByName(name));
+    }
+
+    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name){
+        return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 
     public void getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
