@@ -14,7 +14,6 @@
         android:name=".SuperheroApplication_">
         <activity
             android:name="app.superhero.MainActivity_"
-            android:configChanges="orientation|screenSize|screenLayout"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

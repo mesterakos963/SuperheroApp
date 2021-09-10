@@ -74,7 +74,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     @AfterViews
     void init() {
-        layoutManager = new GridLayoutManager(getContext(), (int) getNumberOfColumns());
+        layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
         adapter = new SuperheroesAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -170,8 +170,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
-    public float getNumberOfColumns() {
-        return getScreenWidth() / pxFromDp(getContext(), 170);
+    public int getNumberOfColumns() {
+        return (int) (getScreenWidth() / pxFromDp(getContext(), 170));
     }
 
     public void setEmptyViewText() {
