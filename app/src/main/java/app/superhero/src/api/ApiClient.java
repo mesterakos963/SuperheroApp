@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi;
 
 import org.androidannotations.annotations.EBean;
 
+import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.utils.ZeroWhenNullAdapter;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -13,6 +14,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @EBean(scope = EBean.Scope.Singleton)
 public class ApiClient {
     private Retrofit retrofit;
+    private final String URL = "https://superheroapi.com/api/2915390945376495/";
+
+    SuperheroesService superheroesService;
 
     public Retrofit getClient() {
         if (retrofit == null) {
@@ -24,7 +28,7 @@ public class ApiClient {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://superheroapi.com/api/2915390945376495/")
+                    .baseUrl(URL)
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .client(client)
                     .build();
@@ -32,4 +36,13 @@ public class ApiClient {
 
         return retrofit;
     }
+
+    public SuperheroesService getSuperheroesService() {
+        if (superheroesService == null) {
+            return superheroesService = this.getClient().create(SuperheroesService.class);
+        } else {
+            return superheroesService;
+        }
+    }
+
 }

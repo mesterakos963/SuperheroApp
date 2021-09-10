@@ -10,11 +10,19 @@ public class SuperheroMasterData {
 
     public String name;
 
-    public String imageUrl;
+    public String url;
 
-    public SuperheroMasterData(int superheroId, String name, String imageUrl) {
+    public SuperheroMasterData(int superheroId, String name, String url) {
         this.superheroId = superheroId;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

@@ -1,12 +1,15 @@
 package app.superhero.src.dto;
 
+import com.squareup.moshi.Json;
+
 import java.io.Serializable;
 
 public class SuperheroDto implements Serializable {
     int id;
     String name;
 
-    String url;
+    @Json(name = "image")
+    ImageDto imageDto;
 
     public int getId() {
         return id;
@@ -16,5 +19,7 @@ public class SuperheroDto implements Serializable {
         return name;
     }
 
-    public String getUrl() { return url; }
+    public ImageDto getImageDto() {
+        return imageDto;
+    }
 }

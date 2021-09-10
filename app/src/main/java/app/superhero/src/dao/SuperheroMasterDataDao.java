@@ -14,8 +14,8 @@ public interface SuperheroMasterDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSuperheros(List<SuperheroMasterData> superheroMasterData);
 
-    @Query("SELECT * FROM SuperheroMasterData")
-    List<SuperheroMasterData> getSuperheroes();
+    @Query("SELECT * FROM SuperheroMasterData WHERE name LIKE :name")
+    List<SuperheroMasterData> getSuperheroesByName(String name);
 
     @Delete
     void delete(SuperheroMasterData superheroMasterData);

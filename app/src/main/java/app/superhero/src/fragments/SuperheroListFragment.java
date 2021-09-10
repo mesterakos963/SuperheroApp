@@ -26,6 +26,7 @@ import java.util.TimerTask;
 
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dto.SuperheroDto;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
@@ -161,8 +162,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @UiThread
-    protected void refreshAdapter(List<SuperheroDto> superheroDtos) {
-        adapter.refreshData(superheroDtos);
+    protected void refreshAdapter(List<SuperheroMasterData> superheroMasterDatas) {
+        adapter.refreshData(superheroMasterDatas);
     }
 
     public static int getScreenWidth() {

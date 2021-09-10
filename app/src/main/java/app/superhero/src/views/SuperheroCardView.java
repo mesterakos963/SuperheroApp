@@ -13,7 +13,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
-import app.superhero.src.dto.SuperheroDto;
+import app.superhero.src.dao.SuperheroMasterData;
 
 @EViewGroup(R.layout.item_superhero)
 public class SuperheroCardView extends CardView {
@@ -28,10 +28,10 @@ public class SuperheroCardView extends CardView {
         super(context);
     }
 
-    public void bind(SuperheroDto superheroDto) {
-        nameText.setText(superheroDto.getName());
+    public void bind(SuperheroMasterData superheroMasterData) {
+        nameText.setText(superheroMasterData.getName());
         Glide.with(heroImage.getContext())
-                .load(superheroDto.getUrl())
+                .load(superheroMasterData.getUrl())
                 .placeholder(R.drawable.ic_place)
                 .into(heroImage);
     }

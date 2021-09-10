@@ -11,7 +11,7 @@ public class Superhero {
             parentColumn = "superheroId",
             entityColumn = "appearanceId"
     )
-    public  Appearance appearance;
+    public Appearance appearance;
 
     @Relation(
             parentColumn = "superheroId",

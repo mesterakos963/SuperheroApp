@@ -87,7 +87,6 @@ public abstract class RecyclerViewBaseAdapter<T, V extends View> extends Recycle
         if (callback != null) {
             callback.onChange();
         }
-        //notifyDataSetChanged();
     }
 
     public interface AdapterChanged {

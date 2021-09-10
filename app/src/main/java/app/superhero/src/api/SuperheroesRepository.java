@@ -9,6 +9,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.Collections;
 import java.util.List;
 
 import app.superhero.SuperheroApplication;
@@ -26,59 +27,53 @@ import static app.superhero.src.database.DatabaseModule.provideDatabase;
 @EBean(scope = EBean.Scope.Singleton)
 public class SuperheroesRepository {
 
-    @Bean
-    ApiClient apiClient;
-
     SuperheroMasterDataDao superheroMasterDataDao;
 
     @App
     SuperheroApplication application;
 
-    SuperheroesService superheroesService;
+    @Bean
+    ApiClient apiClient;
 
     @AfterInject
     public void init() {
         superheroMasterDataDao = provideDatabase(application).superheroMasterDataDao();
     }
 
-    public void searchByName(String name, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listSuperheroes(name);
+    public SuperheroesService getSuperheroService() {
+        return apiClient.getSuperheroesService();
+    }
+
+    public void searchByName(String name, CustomCallback<SuperheroesResponse> customCallback) {
+        Call<SuperheroesResponse> call = getSuperheroService().listSuperheroes(name);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    cacheSuperHeroes(call, response, callback);
+                if (response.body() != null && response.body().isValid()) {
+                    cacheSuperHeroes(response, customCallback, name);
                 }
             }
 
             @Override
             public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
                 call.cancel();
-                callback.onFailure(call, t);
+                customCallback.onError(Collections.emptyList(), t);
             }
         });
     }
 
     @Background
-    protected void cacheSuperHeroes(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response, Callback<SuperheroesResponse> callback) {
+    protected void cacheSuperHeroes(Response<SuperheroesResponse> response, CustomCallback<SuperheroesResponse> customCallback, String name) {
         List<SuperheroMasterData> superheroMasterDataList = Stream.of(response.body().getResults())
                 .map(superhero ->
-                        new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getUrl())
+                        new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getImageDto().getUrl())
                 ).collect(Collectors.toList());
         superheroMasterDataDao.insertSuperheros(superheroMasterDataList);
-        CustomCallback.onResponse();
-        superheroMasterDataDao.getSuperheroes();
-
+        customCallback.onSuccess(superheroMasterDataDao.getSuperheroesByName("%" + name + "%"));
     }
 
     public void getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listPowerstats(id);
+        Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
@@ -96,10 +91,7 @@ public class SuperheroesRepository {
     }
 
     public void getBiographyById(int id, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listBiography(id);
+        Call<SuperheroesResponse> call = getSuperheroService().listBiography(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
@@ -117,10 +109,7 @@ public class SuperheroesRepository {
     }
 
     public void getAppearanceById(int id, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listAppearance(id);
+        Call<SuperheroesResponse> call = getSuperheroService().listAppearance(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
@@ -138,10 +127,7 @@ public class SuperheroesRepository {
     }
 
     public void getWorkById(int id, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listWork(id);
+        Call<SuperheroesResponse> call = getSuperheroService().listWork(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
@@ -159,10 +145,7 @@ public class SuperheroesRepository {
     }
 
     public void getConnections(int id, Callback<SuperheroesResponse> callback) {
-        if (superheroesService == null) {
-            superheroesService = apiClient.getClient().create(SuperheroesService.class);
-        }
-        Call<SuperheroesResponse> call = superheroesService.listConnections(id);
+        Call<SuperheroesResponse> call = getSuperheroService().listConnections(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
