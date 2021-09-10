@@ -14,7 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @EBean(scope = EBean.Scope.Singleton)
 public class ApiClient {
     private Retrofit retrofit;
-    private final String URL = "https://superheroapi.com/api/2915390945376495/";
+    private final String URL = "https://www.superheroapi.com/api.php/2915390945376495/";
 
     SuperheroesService superheroesService;
 

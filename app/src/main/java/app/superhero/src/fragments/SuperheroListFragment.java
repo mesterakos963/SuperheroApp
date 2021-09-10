@@ -22,12 +22,13 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dto.SuperheroDto;
+import app.superhero.src.interfaces.Debouncer;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
@@ -69,6 +70,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     private Timer timer;
 
+    app.superhero.src.utils.Debouncer debouncer;
+
     @AfterViews
     void init() {
         layoutManager = new GridLayoutManager(getContext(), (int) getNumberOfColumns());
@@ -98,6 +101,12 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         bindSearchView();
         observeSearchText();
         observeIsLoading();
+        debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS, new Debouncer() {
+            @Override
+            public void callback(String message) {
+                superheroListViewModel.postSearch(message);
+            }
+        });
     }
 
     private void bindSearchView() {
@@ -108,20 +117,11 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (timer != null) {
-                    timer.cancel();
-                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        superheroListViewModel.postSearch(editable.toString());
-                    }
-                }, 200);
+                debouncer.process(editable.toString());
             }
         });
     }
