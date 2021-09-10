@@ -9,6 +9,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.SuperheroApplication;
@@ -50,6 +51,8 @@ public class SuperheroesRepository {
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null && response.body().isValid()) {
                     cacheSuperHeroes(response, customCallback, name);
+                } else {
+                    customCallback.onError(new ArrayList<>(), new Throwable(response.body().getError()));
                 }
             }
 
