@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.annimon:stream:1.2.2'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
