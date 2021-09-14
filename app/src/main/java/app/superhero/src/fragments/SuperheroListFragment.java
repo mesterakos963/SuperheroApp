@@ -9,6 +9,8 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,8 +28,6 @@ import java.util.concurrent.TimeUnit;
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dao.SuperheroMasterData;
-import app.superhero.src.dto.SuperheroDto;
-import app.superhero.src.interfaces.Debouncer;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
@@ -72,7 +72,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @AfterViews
     void init() {
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
-        adapter = new SuperheroesAdapter();
+        adapter = new SuperheroesAdapter(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
@@ -98,12 +98,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         bindSearchView();
         observeSearchText();
         observeIsLoading();
-        debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS, new Debouncer() {
-            @Override
-            public void callback(String message) {
-                superheroListViewModel.postSearch(message);
-            }
-        });
+        debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
+                message -> superheroListViewModel.postSearch(message)
+        );
     }
 
     private void bindSearchView() {
@@ -129,8 +126,11 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @Override
-    public void onItemClick(SuperheroDto superheroDto) {
+    public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
+            NavDirections action =
+                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero.getId());
+            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
     }
 

@@ -24,4 +24,20 @@
     <color name="cursor_color">#FFBB3B</color>
     <color name="shadow_color">#FF00FB</color>
     <color name="empty_view_text_color">#F5F5F5</color>
+    <color name="button_text_unselected">#030303</color>
+    <color name="button_text_selected">#F5F5F5</color>
+    <color name="button_bg_selected">#FFBB3B</color>
+    <color name="button_bg_unselected">#FFFFFF</color>
+    <color name="button_border_selected">#FFBB3b</color>
+    <color name="button_border_unselected">#707070</color>
+    <color name="unselected_button_border">#707070</color>
+    <color name="unselected_button_bg">#FFFFFF</color>
+    <color name="selected_button_bg">#FFBB3B</color>
+    <color name="details_header_color">#5A5A5A</color>
+    <color name="details_title_color">#030303</color>
+    <color name="details_data_color">#7E7E7E</color>
+    <color name="profile_gradient_start">#F5F5F5</color>
+    <color name="profile_gradient_end">#00F5F5F5</color>
+    <color name="hero_name_color">#505050</color>
+    <color name="profile_bg_color">#F5F5F5</color>
 </resources>

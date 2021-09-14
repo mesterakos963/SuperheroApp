@@ -35,6 +35,8 @@
     <dimen name="design_30dp">@dimen/_26sdp</dimen>
     <dimen name="minus_design_30dp">@dimen/_minus26sdp</dimen>
     <dimen name="design_31dp">@dimen/_27sdp</dimen>
+    <dimen name="design_190dp">@dimen/_166sdp</dimen>
+    <dimen name="design_150dp">@dimen/_131sdp</dimen>
     <dimen name="design_32dp">@dimen/_28sdp</dimen>
     <dimen name="design_33dp">@dimen/_29sdp</dimen>
     <dimen name="design_34dp">@dimen/_30sdp</dimen>
@@ -111,7 +113,7 @@
     <dimen name="design_192dp">@dimen/_168sdp</dimen>
     <dimen name="design_194dp">@dimen/_170sdp</dimen>
     <dimen name="design_250dp">@dimen/_219sdp</dimen>
-
+    <dimen name="design_420dp">@dimen/_368sdp</dimen>
     <dimen name="design_1sp">@dimen/_1ssp</dimen>
     <dimen name="design_2sp">@dimen/_2ssp</dimen>
     <dimen name="design_3sp">@dimen/_2ssp</dimen>

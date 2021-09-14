@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/profile_bg_color">
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/design_420dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/fade"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/design_190dp"
+        android:background="@drawable/fade_shape"
+        app:layout_constraintBottom_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        style="@style/gothamBold38"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/design_16dp"
+        android:paddingBottom="@dimen/design_10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+        app:layout_constraintStart_toStartOf="@id/profileImage"
+        tools:text="Batman" />
+
+    <app.superhero.src.views.ButtonView_
+        android:id="@+id/powerstatsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toStartOf="@id/profileImage"/>
+
+    <app.superhero.src.views.ButtonView_
+        android:id="@+id/characteristicsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toEndOf="@id/powerstatsButton"/>
+
+    <app.superhero.src.views.ButtonView_
+        android:id="@+id/commentsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toEndOf="@id/characteristicsButton"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

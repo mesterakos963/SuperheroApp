@@ -10,13 +10,15 @@
     android:paddingBottom="@dimen/design_20dp"
     app:shadow_color="#59000000"
     app:shadow_radius="8"
+    android:clickable="true"
+    android:focusable="true"
     app:shadow_y_shift="@dimen/design_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minWidth="@dimen/_150sdp"
+        android:minWidth="@dimen/design_150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

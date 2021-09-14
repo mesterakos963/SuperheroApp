@@ -74,4 +74,29 @@
         <item name="android:color">@color/empty_view_text_color</item>
     </style>
 
+    <style name="gothamMedium14" parent="gothamMedium">
+        <item name="android:textSize">@dimen/design_14sp</item>
+        <item name="android:textColor">@color/selector_button_text_color</item>
+    </style>
+
+    <style name="gothamBold20" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_20sp</item>
+        <item name="android:textColor">@color/details_header_color</item>
+    </style>
+
+    <style name="gothamMediumTitle" parent="gothamMedium">
+        <item name="android:textSize">@dimen/design_14sp</item>
+        <item name="android:textColor">@color/details_title_color</item>
+    </style>
+
+    <style name="gothamBook14" parent="gothamBook">
+        <item name="android:textSize">@dimen/design_14sp</item>
+        <item name="android:textColor">@color/details_data_color</item>
+    </style>
+
+    <style name="gothamBold38" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_30sp</item>
+        <item name="android:textColor">@color/hero_name_color</item>
+    </style>
+
 </resources>

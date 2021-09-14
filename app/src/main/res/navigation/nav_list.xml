@@ -6,6 +6,18 @@
     <fragment
         android:id="@+id/superheroListFragment_"
         android:name="app.superhero.src.fragments.SuperheroListFragment_"
-        android:label="SuperheroListFragment_" />
+        android:label="SuperheroListFragment_" >
+        <action
+            android:id="@+id/action_superheroListFragment__to_superheroDetailsFragment_"
+            app:destination="@id/superheroDetailsFragment_" />
+    </fragment>
+    <fragment
+        android:id="@+id/superheroDetailsFragment_"
+        android:name="app.superhero.src.fragments.SuperheroDetailsFragment_"
+        android:label="SuperheroDetailsFragment_" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

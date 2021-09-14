@@ -1,7 +1,7 @@
 package app.superhero.src.interfaces;
 
-import app.superhero.src.dto.SuperheroDto;
+import app.superhero.src.dao.SuperheroMasterData;
 
 public interface ItemClickListener {
-    void onItemClick(SuperheroDto superheroDto) throws Exception;
+    void onItemClick(SuperheroMasterData superheroDto);
 }

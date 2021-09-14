@@ -25,4 +25,8 @@ public class SuperheroMasterData {
     public String getUrl() {
         return url;
     }
+
+    public int getId() {
+        return superheroId;
+    }
 }
