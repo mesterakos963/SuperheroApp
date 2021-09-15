@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailsItemViewRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/title"
+        style="@style/gothamMedium14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/data"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Full name:"
-        style="@style/gothamMedium14"/>
+        tools:text="Title:" />
 
     <TextView
         android:id="@+id/data"
+        style="@style/gothamBook14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Terry McGinnis"
-        style="@style/gothamBook14"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Some information about the actual hero" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

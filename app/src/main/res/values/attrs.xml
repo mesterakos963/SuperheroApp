@@ -3,4 +3,8 @@
     <declare-styleable name="ButtonView">
         <attr name="label" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="DetailsItemView">
+        <attr name="itemTitle" format="reference" />
+    </declare-styleable>
 </resources>

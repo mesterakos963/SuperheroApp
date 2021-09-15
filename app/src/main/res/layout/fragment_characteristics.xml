@@ -1,7 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_200sdp"
-    android:background="@color/search_header_color">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/details_background_color"
+    android:padding="@dimen/design_16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:textAppearance="@style/gothamBold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/biography_label"
+        android:paddingBottom="@dimen/design_18dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/full_name_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/alter_egos_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/aliases_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/pob_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/first_appearance_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/publisher_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/alignment_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <TextView
+        android:textAppearance="@style/gothamBold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appearance_label"
+        android:paddingBottom="@dimen/design_18dp"
+        android:paddingTop="@dimen/design_16dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/gender_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/race_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/height_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/weigh_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/eye_color_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/hair_color_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <TextView
+        android:textAppearance="@style/gothamBold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/work_label"
+        android:paddingBottom="@dimen/design_18dp"
+        android:paddingTop="@dimen/design_16dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/occupation_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/base_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <TextView
+        android:textAppearance="@style/gothamBold20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connections_label"
+        android:paddingBottom="@dimen/design_18dp"
+        android:paddingTop="@dimen/design_16dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/group_affiliation_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
+    <app.superhero.src.views.DetailsItemView_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitle="@string/relatives_label"
+        android:paddingBottom="@dimen/design_12dp"/>
+
 
 </LinearLayout>

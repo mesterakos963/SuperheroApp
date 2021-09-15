@@ -77,8 +77,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        android:background="@color/yellow"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/design_16dp"
         app:layout_constraintTop_toBottomOf="@id/tabButtonsContainer">
 
     </androidx.viewpager2.widget.ViewPager2>

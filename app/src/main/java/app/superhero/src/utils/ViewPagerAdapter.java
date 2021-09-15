@@ -4,9 +4,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import app.superhero.src.fragments.CharacteristicsFragment;
-import app.superhero.src.fragments.CommentsFragment;
-import app.superhero.src.fragments.PowerstatsFragment;
+import java.util.ArrayList;
+import java.util.List;
+
+import app.superhero.src.fragments.CharacteristicsFragment_;
+import app.superhero.src.fragments.CommentsFragment_;
+import app.superhero.src.fragments.PowerstatsFragment_;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -19,25 +22,34 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         super(fa);
     }
 
+    List<Fragment> fragments = new ArrayList<>();
+
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
         switch (position) {
             case POWERSTATS_POSITION:
-                fragment = new PowerstatsFragment();
+                fragment = new PowerstatsFragment_().builder().build();
+                fragments.add(fragment);
                 break;
 
             case CHARACTERISTICS_POSITION:
-                fragment = new CharacteristicsFragment();
+                fragment = new CharacteristicsFragment_().builder().build();
+                fragments.add(fragment);
                 break;
 
             case COMMENTS_POSITION:
-                fragment = new CommentsFragment();
+                fragment = new CommentsFragment_().builder().build();
+                fragments.add(fragment);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + position);
         }
         return fragment;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
     }
 
     @Override

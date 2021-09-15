@@ -15,4 +15,25 @@
     <string name="powerstats_button_label">Powerstats</string>
     <string name="comments_button_label">Comments</string>
     <string name="characteristics_button_label">Characteristics</string>
+    <string name="biography_label">Biography</string>
+    <string name="full_name_label">Full name:</string>
+    <string name="alter_egos_label">Alter egos:</string>
+    <string name="aliases_label">Aliases:</string>
+    <string name="pob_label">Place of birth:</string>
+    <string name="first_appearance_label">First appearance:</string>
+    <string name="publisher_label">Publisher:</string>
+    <string name="alignment_label">Alignment:</string>
+    <string name="appearance_label">Appearance</string>
+    <string name="gender_label">Gender:</string>
+    <string name="race_label">Race:</string>
+    <string name="height_label">Height:</string>
+    <string name="weigh_label">Weigh:</string>
+    <string name="eye_color_label">Eye color:</string>
+    <string name="hair_color_label">Hair color:</string>
+    <string name="work_label">Work</string>
+    <string name="occupation_label">Occupation:</string>
+    <string name="base_label">Base:</string>
+    <string name="connections_label">Connections</string>
+    <string name="group_affiliation_label">Group affiliation:</string>
+    <string name="relatives_label">Relatives:</string>/>
 </resources>
