@@ -38,7 +38,7 @@
 
     <style name="gothamMedium">
         <item name="android:fontFamily">@font/gotham_medium</item>
-        <item name="android:includeFontPadding">false</item>
+        <item name="android:includeFontPadding">true</item>
     </style>
 
     <style name="gothamMediumItalic">
@@ -95,7 +95,7 @@
     </style>
 
     <style name="gothamBold38" parent="gothamBold">
-        <item name="android:textSize">@dimen/design_30sp</item>
+        <item name="android:textSize">@dimen/design_38sp</item>
         <item name="android:textColor">@color/hero_name_color</item>
     </style>
 

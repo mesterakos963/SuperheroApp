@@ -3,22 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/buttonViewRoot"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/design_28dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/selector_button_background_selector"
     android:clickable="true"
-    android:focusable="true"
-    android:layout_margin="@dimen/design_16dp">
+    android:focusable="true">
 
     <TextView
         android:id="@+id/buttonViewText"
-        style="@style/gothamMedium14"
+        android:textAppearance="@style/gothamMedium14"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/design_28dp"
         android:gravity="center"
-        android:padding="@dimen/design_6dp"
-        android:paddingStart="@dimen/design_8dp"
+        android:layout_gravity="center"
         android:paddingTop="@dimen/design_6dp"
+        android:paddingBottom="@dimen/design_6dp"
+        android:paddingStart="@dimen/design_8dp"
         android:paddingEnd="@dimen/design_8dp"
-        tools:text="Button text"
-        android:text="BUTTON"/>
+        tools:text="Button text"/>
 </FrameLayout>

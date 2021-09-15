@@ -12,4 +12,7 @@
     <string name="searchbar_hint_label">Type here to search...</string>
     <string name="empty_view_text">The World is in danger and no superhero to save it...</string>
     <string name="empty_view_error_text">There is no hero with this name. Try to search another hero.</string>
+    <string name="powerstats_button_label">Powerstats</string>
+    <string name="comments_button_label">Comments</string>
+    <string name="characteristics_button_label">Characteristics</string>
 </resources>

@@ -32,26 +32,55 @@
         app:layout_constraintStart_toStartOf="@id/profileImage"
         tools:text="Batman" />
 
-    <app.superhero.src.views.ButtonView_
-        android:id="@+id/powerstatsButton"
+    <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profileImage"
-        app:layout_constraintStart_toStartOf="@id/profileImage"/>
+        android:id="@+id/tabButtonsContainer"
+        android:layout_marginTop="@dimen/design_16dp"
+        android:paddingStart="@dimen/design_16dp"
+        android:paddingEnd="@dimen/design_16dp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage">
 
-    <app.superhero.src.views.ButtonView_
-        android:id="@+id/characteristicsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profileImage"
-        app:layout_constraintStart_toEndOf="@id/powerstatsButton"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <app.superhero.src.views.ButtonView_
-        android:id="@+id/commentsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profileImage"
-        app:layout_constraintStart_toEndOf="@id/characteristicsButton"/>
+            <app.superhero.src.views.ButtonView_
+                android:id="@+id/powerstatsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/design_8dp"
+                app:label="@string/powerstats_button_label"/>
 
+            <app.superhero.src.views.ButtonView_
+                android:id="@+id/characteristicsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/design_8dp"
+                app:label="@string/characteristics_button_label" />
+
+            <app.superhero.src.views.ButtonView_
+                android:id="@+id/commentsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="@string/comments_button_label" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@color/yellow"
+        app:layout_constraintTop_toBottomOf="@id/tabButtonsContainer">
+
+    </androidx.viewpager2.widget.ViewPager2>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

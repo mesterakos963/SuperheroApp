@@ -1,18 +1,27 @@
 package app.superhero.src.fragments;
 
+import androidx.viewpager2.widget.ViewPager2;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 
 import java.util.List;
 
 import app.superhero.R;
+import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
 
 @EFragment(R.layout.fragment_superhero_details)
 public class SuperheroDetailsFragment extends BaseFragment {
+
+    ViewPagerAdapter adapter;
+
+    @ViewById
+    ViewPager2 viewPager;
 
     @Bean
     SuperheroDetailsViewModel viewModel;
@@ -23,6 +32,9 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @AfterViews
     public void init() {
         bindButtons();
+        adapter = new ViewPagerAdapter(getActivity());
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
     }
 
     private void bindButtons() {

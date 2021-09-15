@@ -144,4 +144,6 @@
     <dimen name="design_28sp">@dimen/_23ssp</dimen>
     <dimen name="design_29sp">@dimen/_24ssp</dimen>
     <dimen name="design_30sp">@dimen/_25ssp</dimen>
+    <dimen name="design_38sp">@dimen/_32ssp</dimen>
+
 </resources>
