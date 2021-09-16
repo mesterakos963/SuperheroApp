@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/profile_bg_color">
+    android:background="@color/profile_bg_color"
+    app:layoutDescription="@xml/fragment_superhero_details_scene">
 
     <ImageView
         android:id="@+id/profileImage"
@@ -13,6 +14,16 @@
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="@dimen/design_30dp"
+        android:layout_height="@dimen/design_30dp"
+        android:layout_marginStart="@dimen/design_16dp"
+        android:layout_marginTop="@dimen/design_16dp"
+        android:src="@drawable/ic_back_button"
+        app:layout_constraintStart_toStartOf="@+id/profileImage"
+        app:layout_constraintTop_toTopOf="@+id/profileImage" />
 
     <View
         android:id="@+id/fade"
@@ -33,15 +44,15 @@
         tools:text="Batman" />
 
     <HorizontalScrollView
+        android:id="@+id/tabButtonsContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tabButtonsContainer"
         android:layout_marginTop="@dimen/design_16dp"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/design_16dp"
         android:paddingEnd="@dimen/design_16dp"
         android:scrollbars="none"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage">
 
@@ -55,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/design_8dp"
-                app:label="@string/powerstats_button_label"/>
+                app:label="@string/powerstats_button_label" />
 
             <app.superhero.src.views.ButtonView_
                 android:id="@+id/characteristicsButton"

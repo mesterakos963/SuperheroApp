@@ -1,7 +1,9 @@
 package app.superhero.src.fragments;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -28,14 +30,27 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @ViewById
     ViewPager2 viewPager;
 
+    @ViewById
+    ImageView backButton;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
 
     @ViewsById({R.id.powerstatsButton, R.id.characteristicsButton, R.id.commentsButton})
     protected List<ButtonView> buttons;
 
+    ViewPager2.OnPageChangeCallback pageChangeCallback;
+
     @AfterViews
     public void init() {
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
         int currentPage = viewModel.getSelectedPageAsInt();
         bindButtons();
         adapter = new ViewPagerAdapter(getActivity());
@@ -43,28 +58,19 @@ public class SuperheroDetailsFragment extends BaseFragment {
         viewPager.setAdapter(adapter);
         observeSelectedPage();
         viewPager.setCurrentItem(currentPage);
-        buttons.get(currentPage).setButtonSelected(true);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        selectButtonByPosition(currentPage);
+        pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 selectButtonByPosition(position);
-                View view = adapter.getFragments().get(position).getView();
-
-                int wMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY);
-                int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                view.measure(wMeasureSpec, hMeasureSpec);
-
-                if (viewPager.getLayoutParams().height != view.getMeasuredHeight()) {
-                    ViewGroup.LayoutParams params = (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) viewPager.getLayoutParams();
-                    params.height = view.getMeasuredHeight();
-                    viewPager.setLayoutParams(params);
-                    viewPager.requestLayout();
+                if (adapter.getFragments().size() > position) {
+                    View view = adapter.getFragments().get(position).getView();
+                    measureViewPager(view);
                 }
-
             }
-        });
-
+        };
+        viewPager.registerOnPageChangeCallback(pageChangeCallback);
     }
 
     private void observeSelectedPage() {
@@ -76,6 +82,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     private void bindButtons() {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).bind((buttonId, isSelected) -> {
+                Log.d("MMM", "LOGMAG buttonId" + buttonId);
                 selectButtoByViewId(buttonId);
             });
         }
@@ -92,7 +99,26 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     private void selectButtonByPosition(int position) {
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).setSelected(i==position);
+            buttons.get(i).setSelected(i == position);
         }
+    }
+
+    public void measureViewPager(View view) {
+        int wMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY);
+        int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(wMeasureSpec, hMeasureSpec);
+
+        if (viewPager.getLayoutParams().height != view.getMeasuredHeight()) {
+            ViewGroup.LayoutParams params = (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) viewPager.getLayoutParams();
+            params.height = view.getMeasuredHeight();
+            viewPager.setLayoutParams(params);
+            viewPager.requestLayout();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewPager.registerOnPageChangeCallback(pageChangeCallback);
     }
 }

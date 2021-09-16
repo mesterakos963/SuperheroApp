@@ -41,4 +41,6 @@
     <color name="hero_name_color">#505050</color>
     <color name="profile_bg_color">#F5F5F5</color>
     <color name="details_background_color">#F5F5F5</color>
+    <color name="back_button_bg_color">#704E4D4D</color>
+    <color name="back_button_arrow_color">#FFFFFF</color>
 </resources>

@@ -22,4 +22,23 @@
     <color name="navigation_bar_background">#1A1A1A</color>
     <color name="cursor_color">#FFBB3B</color>
     <color name="empty_view_text_color">#FFFFFF</color>
+    <color name="button_text_unselected">#FFBB3B</color>
+    <color name="button_text_selected">#070707</color>
+    <color name="button_bg_selected">#FFBB3B</color>
+    <color name="button_bg_unselected">#070707</color>
+    <color name="button_border_selected">#FFBB3B</color>
+    <color name="button_border_unselected">#FFBB3B</color>
+    <color name="unselected_button_border">#FFBB3B</color>
+    <color name="unselected_button_bg">#070707</color>
+    <color name="selected_button_bg">#FFBB3B</color>
+    <color name="details_header_color">#FFBB3B</color>
+    <color name="details_title_color">#FFBB3B</color>
+    <color name="details_data_color">#FFFFFF</color>
+    <color name="profile_gradient_start">#00000000</color>
+    <color name="profile_gradient_end">#000000</color>
+    <color name="hero_name_color">#FFBB3B</color>
+    <color name="profile_bg_color">#070707</color>
+    <color name="details_background_color">#070707</color>
+    <color name="back_button_bg_color">#BA1A1919</color>
+    <color name="back_button_arrow_color">#FFBB3B</color>
 </resources>
