@@ -18,6 +18,9 @@ import app.superhero.R;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static app.superhero.src.utils.ViewPagerAdapter.CHARACTERISTICS_POSITION;
 import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;

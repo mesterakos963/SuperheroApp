@@ -8,6 +8,11 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.jdeferred.Deferred;
+import org.jdeferred.FailCallback;
+import org.jdeferred.Promise;
+import org.jdeferred.impl.DefaultDeferredManager;
+import org.jdeferred.impl.DeferredObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,92 +88,151 @@ public class SuperheroesRepository {
         return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 
-    public void getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
-        Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    callback.onResponse(call, response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                callback.onFailure(call, t);
-            }
-        });
+    public Promise<SuperheroesResponse, Throwable, Object> getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
+        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetPowerstatsById(id, callback, deferred);
+        return deferred.promise();
     }
 
-    public void getBiographyById(int id, Callback<SuperheroesResponse> callback) {
-        Call<SuperheroesResponse> call = getSuperheroService().listBiography(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    callback.onResponse(call, response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                callback.onFailure(call, t);
-            }
-        });
+    public Promise<SuperheroesResponse, Throwable, Object> getBiographyById(int id, Callback<SuperheroesResponse> callback) {
+        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetBiographyById(id, callback, deferred);
+        return deferred.promise();
     }
 
-    public void getAppearanceById(int id, Callback<SuperheroesResponse> callback) {
-        Call<SuperheroesResponse> call = getSuperheroService().listAppearance(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    callback.onResponse(call, response);
-                }
-            }
+    public Promise<SuperheroesResponse, Throwable, Object> getAppearanceById(int id, Callback<SuperheroesResponse> callback) {
+        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetAppearanceById(id, callback, deferred);
+        return deferred.promise();
 
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                callback.onFailure(call, t);
-            }
-        });
     }
 
-    public void getWorkById(int id, Callback<SuperheroesResponse> callback) {
-        Call<SuperheroesResponse> call = getSuperheroService().listWork(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    callback.onResponse(call, response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                callback.onFailure(call, t);
-            }
-        });
+    public Promise<SuperheroesResponse, Throwable, Object> getWorkById(int id, Callback<SuperheroesResponse> callback) {
+        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetWorkById(id, callback, deferred);
+        return deferred.promise();
     }
 
-    public void getConnections(int id, Callback<SuperheroesResponse> callback) {
+    public Promise<SuperheroesResponse, Throwable, Object> getConnectionsById(int id, Callback<SuperheroesResponse> callback) {
+        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetConnectionsById(id, callback, deferred);
+        return deferred.promise();
+    }
+
+    private void executeGetConnectionsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
         Call<SuperheroesResponse> call = getSuperheroService().listConnections(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null) {
-                    callback.onResponse(call, response);
+                    deferred.resolve(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
                 call.cancel();
-                callback.onFailure(call, t);
+                deferred.fail((FailCallback<Throwable>) t);
+            }
+        });
+    }
+
+
+    private void executeGetPowerstatsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
+        Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    deferred.resolve(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                deferred.fail((FailCallback<Throwable>) t);
+            }
+        });
+    }
+
+    private void executeGetBiographyById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
+        Call<SuperheroesResponse> call = getSuperheroService().listBiography(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    deferred.resolve(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                deferred.fail((FailCallback<Throwable>) t);
+            }
+        });
+    }
+
+    private void executeGetAppearanceById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
+        Call<SuperheroesResponse> call = getSuperheroService().listAppearance(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    deferred.resolve(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                deferred.fail((FailCallback<Throwable>) t);
+            }
+        });
+    }
+
+    private void executeGetWorkById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
+        Call<SuperheroesResponse> call = getSuperheroService().listWork(id);
+        call.enqueue(new Callback<SuperheroesResponse>() {
+            @Override
+            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+                if (response.body() != null) {
+                    deferred.resolve(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+                call.cancel();
+                deferred.fail((FailCallback<Throwable>) t);
+            }
+        });
+    }
+
+    public void getCharacteristics(int id, Callback callback) {
+        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
+        defaultDeferredManager.when(getBiographyById(id, callback), getPowerstatsById(id, callback)).done(result -> {
+            if (result != null && result.size() > 0) {
+                result.get(0);
+            }
+        });
+
+        defaultDeferredManager.when(getAppearanceById(id, callback), getAppearanceById(id, callback)).done(result -> {
+            if (result != null && result.size() > 0) {
+                result.get(0);
+            }
+        });
+
+        defaultDeferredManager.when(getWorkById(id, callback), getWorkById(id, callback)).done(result -> {
+            if (result != null && result.size() > 0) {
+                result.get(0);
+            }
+        });
+
+        defaultDeferredManager.when(getConnectionsById(id, callback), getConnectionsById(id, callback)).done(result -> {
+            if (result != null && result.size() > 0) {
+                result.get(0);
             }
         });
     }

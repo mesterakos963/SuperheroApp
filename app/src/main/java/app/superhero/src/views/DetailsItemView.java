@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
@@ -20,7 +19,7 @@ import app.superhero.R;
 public class DetailsItemView extends LinearLayout {
 
     @ViewById
-    ConstraintLayout detailsItemViewRoot;
+    LinearLayout detailsItemViewRoot;
 
     @ViewById
     TextView title;
