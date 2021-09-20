@@ -7,7 +7,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import app.superhero.src.api.SuperheroesRepository;
-import retrofit2.Callback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroDetailsViewModel {
@@ -15,25 +14,25 @@ public class SuperheroDetailsViewModel {
     @Bean
     SuperheroesRepository repository;
 
-    private final MutableLiveData<Integer> selectedPage = new MutableLiveData<>();
+    private final MutableLiveData<Integer> _selectedPage = new MutableLiveData<>();
+    public LiveData<Integer> selectedPage = _selectedPage;
 
-    public LiveData<Integer> getSelectedPage() {
-        return selectedPage;
-    }
+    private final MutableLiveData<Integer> _superheroId = new MutableLiveData<>();
+    public LiveData<Integer> superheroId = _superheroId;
 
-    public int getSelectedPageAsInt() {
-        if (selectedPage.getValue() != null) {
-            return selectedPage.getValue();
-        }
-        return 0;
-    }
-
-    public void getCharacteristics(int id, Callback callback) {
-        repository.getCharacteristics(id, callback);
-    }
+    private final MutableLiveData<String> _imageUrl = new MutableLiveData<>();
+    public LiveData<String> imageUrl = _imageUrl;
 
     public void setSelectedPage(int j) {
-        selectedPage.postValue(j);
+        _selectedPage.postValue(j);
+    }
+
+    public void setSuperheroId(int superheroId) {
+        _superheroId.postValue(superheroId);
+    }
+
+    public void setImageUrl(String imageUrl) {
+        _imageUrl.postValue(imageUrl);
     }
 }
 

@@ -17,9 +17,15 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public static final int POWERSTATS_POSITION = 0;
     public static final int CHARACTERISTICS_POSITION = 1;
     public static final int COMMENTS_POSITION = 2;
+    int superHeroId;
 
     public ViewPagerAdapter(FragmentActivity fa) {
         super(fa);
+    }
+
+    public ViewPagerAdapter(FragmentActivity fa, int superHeroId) {
+        super(fa);
+        this.superHeroId = superHeroId;
     }
 
     List<Fragment> fragments = new ArrayList<>();
@@ -34,7 +40,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 break;
 
             case CHARACTERISTICS_POSITION:
-                fragment = new CharacteristicsFragment_().builder().build();
+                fragment = new CharacteristicsFragment_().builder().superHeroId(superHeroId).build();
                 fragments.add(fragment);
                 break;
 

@@ -4,7 +4,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.lifecycle.Observer;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.bumptech.glide.Glide;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -36,6 +39,9 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @ViewById
     ImageView backButton;
 
+    @ViewById
+    ImageView profileImage;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
 
@@ -44,9 +50,14 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     private boolean measured;
+    int currentPage;
 
     @AfterViews
     public void init() {
+         if(getArguments() != null) {
+             viewModel.setSuperheroId(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId());
+             viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
+         }
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +66,11 @@ public class SuperheroDetailsFragment extends BaseFragment {
                 }
             }
         });
-        int currentPage = viewModel.getSelectedPageAsInt();
+        if(viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
+            currentPage = 0;
+        } else {
+            currentPage = viewModel.selectedPage.getValue();
+        }
         bindButtons();
         adapter = new ViewPagerAdapter(getActivity());
         viewPager.setOffscreenPageLimit(NUM_PAGES);
@@ -76,11 +91,24 @@ public class SuperheroDetailsFragment extends BaseFragment {
             }
         };
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
+        observeImageUrl();
+    }
+
+    private void loadImage(String profileImageUrl) {
+        Glide.with(profileImage.getContext())
+                .load(profileImageUrl)
+                .into(profileImage);
     }
 
     private void observeSelectedPage() {
-        viewModel.getSelectedPage().observe(this, selectedPage -> {
+        viewModel.selectedPage.observe(this, selectedPage -> {
             viewPager.setCurrentItem(selectedPage);
+        });
+    }
+
+    private void observeImageUrl() {
+        viewModel.imageUrl.observe(this, profileImageUrl -> {
+            loadImage(profileImageUrl);
         });
     }
 

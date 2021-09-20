@@ -18,6 +18,9 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
     </fragment>
 
 </navigation>
