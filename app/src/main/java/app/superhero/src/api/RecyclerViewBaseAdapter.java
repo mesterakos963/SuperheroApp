@@ -82,7 +82,6 @@ public abstract class RecyclerViewBaseAdapter<T, V extends View> extends Recycle
         this.callback = callback;
     }
 
-
     protected void onChange() {
         if (callback != null) {
             callback.onChange();

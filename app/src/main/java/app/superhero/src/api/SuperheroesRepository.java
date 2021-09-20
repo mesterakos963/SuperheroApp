@@ -79,7 +79,7 @@ public class SuperheroesRepository {
         customCallback.onSuccess(getSuperHeroesFromDbByName(name));
     }
 
-    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name){
+    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
         return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 

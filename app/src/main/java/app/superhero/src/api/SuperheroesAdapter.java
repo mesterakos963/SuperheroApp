@@ -14,7 +14,7 @@ import app.superhero.src.views.ViewWrapper;
 
 public class SuperheroesAdapter extends RecyclerViewBaseAdapter<SuperheroMasterData, SuperheroCardView> {
 
-    private ItemClickListener itemClickListener;
+    private final ItemClickListener itemClickListener;
 
     public SuperheroesAdapter(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;

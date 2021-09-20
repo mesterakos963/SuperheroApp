@@ -3,6 +3,7 @@ package app.superhero.src.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,7 @@ import org.androidannotations.annotations.ViewById;
 import app.superhero.R;
 
 @EViewGroup(R.layout.details_item_view)
-public class DetailsItemView extends ConstraintLayout {
+public class DetailsItemView extends LinearLayout {
 
     @ViewById
     ConstraintLayout detailsItemViewRoot;
