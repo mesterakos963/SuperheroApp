@@ -4,9 +4,6 @@
     android:viewportWidth="29"
     android:viewportHeight="29">
   <path
-      android:pathData="M14.5,14.5m-14.5,0a14.5,14.5 0,1 1,29 0a14.5,14.5 0,1 1,-29 0"
-      android:fillColor="@color/back_button_bg_color"/>
-  <path
       android:pathData="M17.306,9.431l-6.611,5.648 6.611,4.489"
       android:strokeAlpha="0.749"
       android:strokeLineJoin="round"

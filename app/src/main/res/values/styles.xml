@@ -99,4 +99,10 @@
         <item name="android:textColor">@color/hero_name_color</item>
     </style>
 
+    <style name="gothamBold24" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_24sp</item>
+        <item name="android:textColor">@color/hero_name_color</item>
+    </style>
+
+
 </resources>

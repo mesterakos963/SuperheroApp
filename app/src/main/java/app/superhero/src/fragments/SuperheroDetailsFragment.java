@@ -1,6 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +19,7 @@ import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
 
+import static app.superhero.src.utils.ViewPagerAdapter.CHARACTERISTICS_POSITION;
 import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;
 
 @EFragment(R.layout.fragment_superhero_details)
@@ -40,6 +40,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     protected List<ButtonView> buttons;
 
     ViewPager2.OnPageChangeCallback pageChangeCallback;
+    private boolean measured;
 
     @AfterViews
     public void init() {
@@ -64,9 +65,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 selectButtonByPosition(position);
-                if (adapter.getFragments().size() > position) {
-                    View view = adapter.getFragments().get(position).getView();
+                if (adapter.getFragments().size() > position && !measured) {
+                    View view = adapter.getFragments().get(CHARACTERISTICS_POSITION).getView();
                     measureViewPager(view);
+                    measured = true;
                 }
             }
         };
@@ -82,13 +84,12 @@ public class SuperheroDetailsFragment extends BaseFragment {
     private void bindButtons() {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).bind((buttonId, isSelected) -> {
-                Log.d("MMM", "LOGMAG buttonId" + buttonId);
-                selectButtoByViewId(buttonId);
+                selectButtonByViewId(buttonId);
             });
         }
     }
 
-    private void selectButtoByViewId(int buttonId) {
+    private void selectButtonByViewId(int buttonId) {
         for (int j = 0; j < buttons.size(); j++) {
             if (buttons.get(j).getId() == buttonId) {
                 viewModel.setSelectedPage(j);
@@ -108,12 +109,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
         int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         view.measure(wMeasureSpec, hMeasureSpec);
 
-        if (viewPager.getLayoutParams().height != view.getMeasuredHeight()) {
-            ViewGroup.LayoutParams params = (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) viewPager.getLayoutParams();
+            ViewGroup.LayoutParams params = viewPager.getLayoutParams();
             params.height = view.getMeasuredHeight();
             viewPager.setLayoutParams(params);
             viewPager.requestLayout();
-        }
     }
 
     @Override

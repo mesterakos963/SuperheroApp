@@ -5,18 +5,16 @@
     <Transition
         app:constraintSetEnd="@id/collapsed"
         app:constraintSetStart="@id/expanded">
-
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/viewPager"
+            app:touchAnchorId="@id/viewPagerContainer"
             app:touchAnchorSide="top" />
-
     </Transition>
 
     <ConstraintSet android:id="@+id/expanded">
         <Constraint
-            android:id="@id/backButton"
-            android:layout_height="200dp"
+            android:id="@id/profileImage"
+            android:layout_height="@dimen/design_420dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,22 +22,47 @@
                 app:attributeName="imageAlpha"
                 app:customIntegerValue="255" />
         </Constraint>
+
         <Constraint
-            android:id="@id/title"
-            android:layout_width="wrap_content"
+            android:id="@id/superheroNameText"
+            android:layout_marginStart="@dimen/design_16dp"
+            android:layout_marginBottom="@dimen/design_10dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="24dp"
             android:scaleX="1.0"
             android:scaleY="1.0"
-            app:layout_constraintBottom_toBottomOf="@id/backButton"
+            app:layout_constraintBottom_toBottomOf="@id/profileImage"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+        </Constraint>
+
+        <Constraint android:id="@id/backButtonBackground">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="255" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/backButton"
+            android:background="@drawable/ic_back_button">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="255" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/backButtonCollapsed"
+            android:background="@drawable/ic_back_button">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="0" />
         </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/collapsed">
+
         <Constraint
-            android:id="@id/backButton"
+            android:id="@id/profileImage"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,17 +71,39 @@
                 app:attributeName="imageAlpha"
                 app:customIntegerValue="0" />
         </Constraint>
+
         <Constraint
-            android:id="@id/title"
-            android:layout_width="wrap_content"
+            android:id="@id/superheroNameText"
+            android:layout_marginStart="@dimen/design_28dp"
+            android:scaleX="0.666"
+            android:scaleY="0.666"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="0dp"
-            android:scaleX="0.625"
-            android:scaleY="0.625"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startSpace"
             app:layout_constraintTop_toTopOf="@id/backButton">
+        </Constraint>
+
+        <Constraint android:id="@id/backButtonBackground">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/backButton"
+            android:background="@drawable/ic_back_button">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/backButtonCollapsed"
+            android:background="@drawable/ic_back_button">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="255" />
         </Constraint>
 
     </ConstraintSet>

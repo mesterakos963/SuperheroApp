@@ -14,9 +14,9 @@ import app.superhero.src.fragments.PowerstatsFragment_;
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
     public static final int NUM_PAGES = 3;
-    private static final int POWERSTATS_POSITION = 0;
-    private static final int CHARACTERISTICS_POSITION = 1;
-    private static final int COMMENTS_POSITION = 2;
+    public static final int POWERSTATS_POSITION = 0;
+    public static final int CHARACTERISTICS_POSITION = 1;
+    public static final int COMMENTS_POSITION = 2;
 
     public ViewPagerAdapter(FragmentActivity fa) {
         super(fa);

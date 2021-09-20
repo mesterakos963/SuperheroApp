@@ -4,7 +4,7 @@
         <gradient
             android:startColor="@color/profile_gradient_start"
             android:endColor="@color/profile_gradient_end"
-            android:angle="90"
+            android:angle="270"
             android:layout_width="match_parent"
             android:layout_height="@dimen/design_190dp"/>
 

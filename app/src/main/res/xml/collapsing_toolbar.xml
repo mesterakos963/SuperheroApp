@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Transition app:constraintSetEnd="@id/collapsed"
+    app:constraintSetStart="@id/expanded"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <OnSwipe
+        app:dragDirection="dragUp"
+        app:touchAnchorId="@id/viewPager"
+        app:touchAnchorSide="top" />
+
+</Transition>

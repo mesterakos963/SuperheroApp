@@ -41,4 +41,5 @@
     <color name="details_background_color">#070707</color>
     <color name="back_button_bg_color">#BA1A1919</color>
     <color name="back_button_arrow_color">#FFBB3B</color>
+    <color name="back_button_collapsed_color">#FFBB3B</color>
 </resources>
