@@ -17,11 +17,11 @@ public class Debouncer {
     }
 
     private final int MESSAGE_WHAT = 4533;
-    private int timeout;
-    private TimeUnit timeUnit;
-    private app.superhero.src.interfaces.Debouncer debouncerCallback;
+    private final int timeout;
+    private final TimeUnit timeUnit;
+    private final app.superhero.src.interfaces.Debouncer debouncerCallback;
 
-    private Handler handler = new Handler(Looper.getMainLooper()) {
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             if (msg.what != MESSAGE_WHAT) {

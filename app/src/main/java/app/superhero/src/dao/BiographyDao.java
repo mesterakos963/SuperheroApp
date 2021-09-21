@@ -4,18 +4,12 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-
-import java.util.List;
 
 @Dao
 public interface BiographyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertBiographies(List<Biography> biographies);
+    void insertBiography(Biography biography);
 
     @Delete
     void delete(Biography biography);
-
-    @Query("SELECT * FROM biography")
-    List<Biography> getAll();
 }

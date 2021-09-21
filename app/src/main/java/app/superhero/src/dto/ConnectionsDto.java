@@ -2,12 +2,11 @@ package app.superhero.src.dto;
 
 import com.squareup.moshi.Json;
 
-import java.io.Serializable;
-
+import app.superhero.src.model.response.BaseResponse;
+import app.superhero.src.model.response.ResponseResult;
 import app.superhero.src.utils.ZeroWhenNull;
 
-public class ConnectionsDto implements Serializable {
-    String response;
+public class ConnectionsDto extends BaseResponse {
 
     @ZeroWhenNull
     int id;
@@ -18,7 +17,7 @@ public class ConnectionsDto implements Serializable {
     String groupAffiliation;
     String relatives;
 
-    public String getResponse() {
+    public ResponseResult getResponse() {
         return response;
     }
 

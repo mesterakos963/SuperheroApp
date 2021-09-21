@@ -19,5 +19,5 @@
         android:paddingBottom="@dimen/design_6dp"
         android:paddingStart="@dimen/design_8dp"
         android:paddingEnd="@dimen/design_8dp"
-        tools:text="Button text"/>
+        tools:text="Button text" />
 </FrameLayout>

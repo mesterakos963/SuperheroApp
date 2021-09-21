@@ -9,7 +9,7 @@ import app.superhero.R;
 import app.superhero.src.viewmodels.CharacteristicsViewModel;
 
 @EFragment(R.layout.fragment_characteristics)
-public class CharacteristicsFragment extends BaseFragment{
+public class CharacteristicsFragment extends BaseFragment {
 
     @FragmentArg
     int superHeroId;

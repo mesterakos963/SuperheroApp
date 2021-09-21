@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface WorkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWorks(List<Work> works);
+    void insertWork(Work works);
 
     @Delete
     void delete(Work work);

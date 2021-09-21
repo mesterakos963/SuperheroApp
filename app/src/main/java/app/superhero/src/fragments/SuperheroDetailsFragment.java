@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.lifecycle.Observer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -21,9 +20,6 @@ import app.superhero.R;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static app.superhero.src.utils.ViewPagerAdapter.CHARACTERISTICS_POSITION;
 import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;
@@ -55,20 +51,20 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-         if(getArguments() != null) {
-             superheroId  = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId();
-             viewModel.setSuperheroId(superheroId);
-             viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
-         }
+        if (getArguments() != null) {
+            superheroId = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId();
+            viewModel.setSuperheroId(superheroId);
+            viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
+        }
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity() != null) {
+                if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
             }
         });
-        if(viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
+        if (viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
             currentPage = 0;
         } else {
             currentPage = viewModel.selectedPage.getValue();
@@ -142,10 +138,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
         int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         view.measure(wMeasureSpec, hMeasureSpec);
 
-            ViewGroup.LayoutParams params = viewPager.getLayoutParams();
-            params.height = view.getMeasuredHeight();
-            viewPager.setLayoutParams(params);
-            viewPager.requestLayout();
+        ViewGroup.LayoutParams params = viewPager.getLayoutParams();
+        params.height = view.getMeasuredHeight();
+        viewPager.setLayoutParams(params);
+        viewPager.requestLayout();
     }
 
     @Override

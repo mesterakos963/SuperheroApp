@@ -33,8 +33,7 @@
             android:scaleY="1.0"
             app:layout_constraintBottom_toBottomOf="@id/profileImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        </Constraint>
+            app:layout_constraintStart_toStartOf="parent"></Constraint>
 
         <Constraint android:id="@id/backButtonBackground">
             <CustomAttribute
@@ -81,8 +80,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
             app:layout_constraintStart_toEndOf="@id/startSpace"
-            app:layout_constraintTop_toTopOf="@id/backButton">
-        </Constraint>
+            app:layout_constraintTop_toTopOf="@id/backButton"></Constraint>
 
         <Constraint android:id="@id/backButtonBackground">
             <CustomAttribute

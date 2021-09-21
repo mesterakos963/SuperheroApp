@@ -1,6 +1,8 @@
 package app.superhero.src.model.response;
 
-public class BaseResponse {
+import java.io.Serializable;
+
+public class BaseResponse implements Serializable {
 
     protected ResponseResult response;
     protected String error;

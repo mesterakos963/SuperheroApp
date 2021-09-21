@@ -18,11 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.SuperheroApplication;
+import app.superhero.src.dao.Appearance;
+import app.superhero.src.dao.AppearanceDao;
+import app.superhero.src.dao.Biography;
+import app.superhero.src.dao.BiographyDao;
 import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dao.SuperheroMasterDataDao;
+import app.superhero.src.dao.Work;
+import app.superhero.src.dao.WorkDao;
+import app.superhero.src.dto.AppearanceDto;
+import app.superhero.src.dto.BiographyDto;
 import app.superhero.src.dto.ConnectionsDto;
+import app.superhero.src.dto.WorkDto;
 import app.superhero.src.interfaces.CustomCallback;
 import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.model.response.SuperheroesResponse;
@@ -37,6 +46,9 @@ public class SuperheroesRepository {
 
     SuperheroMasterDataDao superheroMasterDataDao;
     ConnectionsDao connectionsDao;
+    BiographyDao biographyDao;
+    AppearanceDao appearanceDao;
+    WorkDao workDao;
 
     @App
     SuperheroApplication application;
@@ -48,6 +60,9 @@ public class SuperheroesRepository {
     public void init() {
         superheroMasterDataDao = provideDatabase(application).superheroMasterDataDao();
         connectionsDao = provideDatabase(application).connectionsDao();
+        biographyDao = provideDatabase(application).biographyDao();
+        appearanceDao = provideDatabase(application).appearanceDao();
+        workDao = provideDatabase(application).workDao();
     }
 
     public SuperheroesService getSuperheroService() {
@@ -99,21 +114,21 @@ public class SuperheroesRepository {
         return deferred.promise();
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getBiographyById(int id, Callback<SuperheroesResponse> callback) {
-        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+    public Promise<BiographyDto, Throwable, Object> getBiographyById(int id, Callback<BiographyDto> callback) {
+        Deferred<BiographyDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetBiographyById(id, callback, deferred);
         return deferred.promise();
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getAppearanceById(int id, Callback<SuperheroesResponse> callback) {
-        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+    public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id, Callback<AppearanceDto> callback) {
+        Deferred<AppearanceDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetAppearanceById(id, callback, deferred);
         return deferred.promise();
 
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getWorkById(int id, Callback<SuperheroesResponse> callback) {
-        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+    public Promise<WorkDto, Throwable, Object> getWorkById(int id, Callback<WorkDto> callback) {
+        Deferred<WorkDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetWorkById(id, callback, deferred);
         return deferred.promise();
     }
@@ -155,6 +170,116 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
+    private void executeGetBiographyById(int id, Callback<BiographyDto> callback, Deferred<BiographyDto, Throwable, Object> deferred) {
+        Call<BiographyDto> call = getSuperheroService().listBiography(id);
+        call.enqueue(new Callback<BiographyDto>() {
+            @Override
+            public void onResponse(Call<BiographyDto> call, Response<BiographyDto> response) {
+                if (response.body() != null) {
+                    cacheBiography(response, deferred);
+                } else {
+                    deferred.reject(new Throwable());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BiographyDto> call, Throwable t) {
+                call.cancel();
+                deferred.reject(new Throwable());
+            }
+        });
+    }
+
+    @Background
+    protected void cacheBiography(Response<BiographyDto> response, Deferred<BiographyDto, Throwable, Object> deferred) {
+        Biography biography = Stream.of(response.body())
+                .map(biographyDto ->
+                        new Biography(biographyDto.getId(), biographyDto.getFullName(),
+                                biographyDto.getAlterEgos(), biographyDto.getAliases(),
+                                biographyDto.getPlaceOfBirth(), biographyDto.getFirstAppearance(),
+                                biographyDto.getPublisher(), biographyDto.getAlignment())).single();
+        biographyDao.insertBiography(biography);
+        deferred.resolve(response.body());
+    }
+
+    private void executeGetAppearanceById(int id, Callback<AppearanceDto> callback, Deferred<AppearanceDto, Throwable, Object> deferred) {
+        Call<AppearanceDto> call = getSuperheroService().listAppearance(id);
+        call.enqueue(new Callback<AppearanceDto>() {
+            @Override
+            public void onResponse(Call<AppearanceDto> call, Response<AppearanceDto> response) {
+                if (response.body() != null) {
+                    cacheAppearance(response, deferred);
+                } else {
+                    deferred.reject(new Throwable());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppearanceDto> call, Throwable t) {
+                call.cancel();
+                deferred.reject(new Throwable());
+            }
+        });
+    }
+
+    @Background
+    protected void cacheAppearance(Response<AppearanceDto> response, Deferred<AppearanceDto, Throwable, Object> deferred) {
+        Appearance appearance = Stream.of(response.body())
+                .map(appearanceDto ->
+                        new Appearance(appearanceDto.getId(), appearanceDto.getGender(),
+                                appearanceDto.getRace(), appearanceDto.getHeight(),
+                                appearanceDto.getWeight(), appearanceDto.getEyeColor(),
+                                appearanceDto.getHairColor())
+                ).single();
+        appearanceDao.insertAppearance(appearance);
+        deferred.resolve(response.body());
+    }
+
+    private void executeGetWorkById(int id, Callback<WorkDto> callback, Deferred<WorkDto, Throwable, Object> deferred) {
+        Call<WorkDto> call = getSuperheroService().listWork(id);
+        call.enqueue(new Callback<WorkDto>() {
+            @Override
+            public void onResponse(Call<WorkDto> call, Response<WorkDto> response) {
+                if (response.body() != null) {
+                    cacheWork(response, deferred);
+                } else {
+                    deferred.reject(new Throwable());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WorkDto> call, Throwable t) {
+                call.cancel();
+                deferred.reject(new Throwable());
+            }
+        });
+    }
+
+    @Background
+    protected void cacheWork(Response<WorkDto> response, Deferred<WorkDto, Throwable, Object> deferred) {
+        Work work = Stream.of(response.body())
+                .map(workDto ->
+                        new Work(workDto.getId(), workDto.getOccupation(), workDto.getBase())
+                ).single();
+        workDao.insertWork(work);
+        deferred.resolve(response.body());
+    }
+
+    @Background
+    public void getCharacteristics(int id, Callback callback) {
+        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
+        defaultDeferredManager.when(
+                getBiographyById(id, callback),
+                getAppearanceById(id, callback),
+                getWorkById(id, callback),
+                getConnectionsById(id, callback)
+        ).done(result -> {
+            if (result != null && result.size() > 0) {
+                result.get(0);
+            }
+        });
+    }
+
     private void executeGetPowerstatsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
         Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
@@ -172,92 +297,5 @@ public class SuperheroesRepository {
                 deferred.fail((FailCallback<Throwable>) t);
             }
         });
-    }
-
-    private void executeGetBiographyById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
-        Call<SuperheroesResponse> call = getSuperheroService().listBiography(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    deferred.resolve(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                deferred.fail((FailCallback<Throwable>) t);
-            }
-        });
-    }
-
-    private void executeGetAppearanceById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
-        Call<SuperheroesResponse> call = getSuperheroService().listAppearance(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    deferred.resolve(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                deferred.fail((FailCallback<Throwable>) t);
-            }
-        });
-    }
-
-    private void executeGetWorkById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
-        Call<SuperheroesResponse> call = getSuperheroService().listWork(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    deferred.resolve(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                call.cancel();
-                deferred.fail((FailCallback<Throwable>) t);
-            }
-        });
-    }
-
-    @Background
-    public void getCharacteristics(int id, Callback callback) {
-        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
-        defaultDeferredManager.when(
-                getBiographyById(id, callback),
-                getAppearanceById(id, callback),
-                getWorkById(id, callback),
-                getConnectionsById(id, callback)
-        ).done(result -> {
-            if (result != null && result.size() > 0) {
-                result.get(0);
-            }
-        });
-/*
-        defaultDeferredManager.when(getAppearanceById(id, callback), getAppearanceById(id, callback)).done(result -> {
-            if (result != null && result.size() > 0) {
-                result.get(0);
-            }
-        });
-
-        defaultDeferredManager.when(getWorkById(id, callback), getWorkById(id, callback)).done(result -> {
-            if (result != null && result.size() > 0) {
-                result.get(0);
-            }
-        });
-
-        defaultDeferredManager.when(getConnectionsById(id, callback), getConnectionsById(id, callback)).done(result -> {
-            if (result != null && result.size() > 0) {
-                result.get(0);
-            }
-        });*/
     }
 }

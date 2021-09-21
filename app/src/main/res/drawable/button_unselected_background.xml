@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/unselected_button_bg"/>
+    <solid android:color="@color/unselected_button_bg" />
     <corners android:radius="@dimen/design_24dp" />
     <stroke
         android:width="@dimen/design_1dp"

@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface AppearanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAppearances(List<Appearance> appearances);
+    void insertAppearance(Appearance appearances);
 
     @Delete
     void delete(Appearance appearance);
