@@ -1,5 +1,6 @@
 package app.superhero.src.interfaces;
 
+import app.superhero.src.dto.ConnectionsDto;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,5 +24,5 @@ public interface SuperheroesService {
     Call<SuperheroesResponse> listWork(@Path("id") int id);
 
     @GET("{id}/connections")
-    Call<SuperheroesResponse> listConnections(@Path("id") int id);
+    Call<ConnectionsDto> listConnections(@Path("id") int id);
 }

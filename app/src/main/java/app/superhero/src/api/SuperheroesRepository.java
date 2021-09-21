@@ -18,8 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.SuperheroApplication;
+import app.superhero.src.dao.Connections;
+import app.superhero.src.dao.ConnectionsDao;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dao.SuperheroMasterDataDao;
+import app.superhero.src.dto.ConnectionsDto;
 import app.superhero.src.interfaces.CustomCallback;
 import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.model.response.SuperheroesResponse;
@@ -33,6 +36,7 @@ import static app.superhero.src.database.DatabaseModule.provideDatabase;
 public class SuperheroesRepository {
 
     SuperheroMasterDataDao superheroMasterDataDao;
+    ConnectionsDao connectionsDao;
 
     @App
     SuperheroApplication application;
@@ -43,6 +47,7 @@ public class SuperheroesRepository {
     @AfterInject
     public void init() {
         superheroMasterDataDao = provideDatabase(application).superheroMasterDataDao();
+        connectionsDao = provideDatabase(application).connectionsDao();
     }
 
     public SuperheroesService getSuperheroService() {
@@ -113,30 +118,42 @@ public class SuperheroesRepository {
         return deferred.promise();
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getConnectionsById(int id, Callback<SuperheroesResponse> callback) {
-        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+    public Promise<ConnectionsDto, Throwable, Object> getConnectionsById(int id, Callback<ConnectionsDto> callback) {
+        Deferred<ConnectionsDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetConnectionsById(id, callback, deferred);
         return deferred.promise();
     }
 
-    private void executeGetConnectionsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
-        Call<SuperheroesResponse> call = getSuperheroService().listConnections(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
+    @Background
+    protected void executeGetConnectionsById(int id, Callback<ConnectionsDto> callback, Deferred<ConnectionsDto, Throwable, Object> deferred) {
+        Call<ConnectionsDto> call = getSuperheroService().listConnections(id);
+        call.enqueue(new Callback<ConnectionsDto>() {
             @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
+            public void onResponse(Call<ConnectionsDto> call, Response<ConnectionsDto> response) {
                 if (response.body() != null) {
-                    deferred.resolve(response.body());
+                    cacheConnections(call, response, deferred);
+                } else {
+                    deferred.reject(new Throwable());
                 }
             }
 
             @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+            public void onFailure(Call<ConnectionsDto> call, Throwable t) {
                 call.cancel();
                 deferred.fail((FailCallback<Throwable>) t);
             }
         });
     }
 
+    @Background
+    protected void cacheConnections(Call<ConnectionsDto> call, Response<ConnectionsDto> response, Deferred<ConnectionsDto, Throwable, Object> deferred) {
+        Connections connection = Stream.of(response.body())
+                .map(connectionDto ->
+                        new Connections(connectionDto.getId(), connectionDto.getGroupAffiliation(), connectionDto.getRelatives())
+                ).single();
+        connectionsDao.insertConnection(connection);
+        deferred.resolve(response.body());
+    }
 
     private void executeGetPowerstatsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
         Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
@@ -145,6 +162,7 @@ public class SuperheroesRepository {
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null) {
                     deferred.resolve(response.body());
+
                 }
             }
 
@@ -210,14 +228,20 @@ public class SuperheroesRepository {
         });
     }
 
+    @Background
     public void getCharacteristics(int id, Callback callback) {
         DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
-        defaultDeferredManager.when(getBiographyById(id, callback), getPowerstatsById(id, callback)).done(result -> {
+        defaultDeferredManager.when(
+                getBiographyById(id, callback),
+                getAppearanceById(id, callback),
+                getWorkById(id, callback),
+                getConnectionsById(id, callback)
+        ).done(result -> {
             if (result != null && result.size() > 0) {
                 result.get(0);
             }
         });
-
+/*
         defaultDeferredManager.when(getAppearanceById(id, callback), getAppearanceById(id, callback)).done(result -> {
             if (result != null && result.size() > 0) {
                 result.get(0);
@@ -234,6 +258,6 @@ public class SuperheroesRepository {
             if (result != null && result.size() > 0) {
                 result.get(0);
             }
-        });
+        });*/
     }
 }

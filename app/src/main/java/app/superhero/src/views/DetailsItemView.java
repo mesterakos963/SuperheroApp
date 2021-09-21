@@ -59,4 +59,8 @@ public class DetailsItemView extends LinearLayout {
         label = attribute.getString(R.styleable.DetailsItemView_itemTitle);
         attribute.recycle();
     }
+
+    public void setData(String label) {
+        data.setText(label);
+    }
 }

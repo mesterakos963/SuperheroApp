@@ -51,11 +51,13 @@ public class SuperheroDetailsFragment extends BaseFragment {
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     private boolean measured;
     int currentPage;
+    int superheroId;
 
     @AfterViews
     public void init() {
          if(getArguments() != null) {
-             viewModel.setSuperheroId(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId());
+             superheroId  = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId();
+             viewModel.setSuperheroId(superheroId);
              viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
          }
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +74,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
             currentPage = viewModel.selectedPage.getValue();
         }
         bindButtons();
-        adapter = new ViewPagerAdapter(getActivity());
+        adapter = new ViewPagerAdapter(getActivity(), superheroId);
         viewPager.setOffscreenPageLimit(NUM_PAGES);
         viewPager.setAdapter(adapter);
         observeSelectedPage();

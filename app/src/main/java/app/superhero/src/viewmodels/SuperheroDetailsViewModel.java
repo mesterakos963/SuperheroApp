@@ -2,6 +2,7 @@ package app.superhero.src.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -9,7 +10,7 @@ import org.androidannotations.annotations.EBean;
 import app.superhero.src.api.SuperheroesRepository;
 
 @EBean(scope = EBean.Scope.Fragment)
-public class SuperheroDetailsViewModel {
+public class SuperheroDetailsViewModel extends ViewModel {
 
     @Bean
     SuperheroesRepository repository;

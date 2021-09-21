@@ -17,4 +17,24 @@ public class ConnectionsDto implements Serializable {
     @Json(name = "group-affiliation")
     String groupAffiliation;
     String relatives;
+
+    public String getResponse() {
+        return response;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGroupAffiliation() {
+        return groupAffiliation;
+    }
+
+    public String getRelatives() {
+        return relatives;
+    }
 }
