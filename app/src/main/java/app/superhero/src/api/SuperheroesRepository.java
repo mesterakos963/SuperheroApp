@@ -24,6 +24,8 @@ import app.superhero.src.dao.Biography;
 import app.superhero.src.dao.BiographyDao;
 import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
+import app.superhero.src.dao.Superhero;
+import app.superhero.src.dao.SuperheroDao;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dao.SuperheroMasterDataDao;
 import app.superhero.src.dao.Work;
@@ -32,7 +34,8 @@ import app.superhero.src.dto.AppearanceDto;
 import app.superhero.src.dto.BiographyDto;
 import app.superhero.src.dto.ConnectionsDto;
 import app.superhero.src.dto.WorkDto;
-import app.superhero.src.interfaces.CustomCallback;
+import app.superhero.src.interfaces.ItemCallback;
+import app.superhero.src.interfaces.ListCallback;
 import app.superhero.src.interfaces.SuperheroesService;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
@@ -49,6 +52,7 @@ public class SuperheroesRepository {
     BiographyDao biographyDao;
     AppearanceDao appearanceDao;
     WorkDao workDao;
+    SuperheroDao superheroDao;
 
     @App
     SuperheroApplication application;
@@ -63,84 +67,85 @@ public class SuperheroesRepository {
         biographyDao = provideDatabase(application).biographyDao();
         appearanceDao = provideDatabase(application).appearanceDao();
         workDao = provideDatabase(application).workDao();
+        superheroDao = provideDatabase(application).superheroDao();
     }
 
     public SuperheroesService getSuperheroService() {
         return apiClient.getSuperheroesService();
     }
 
-    public void searchByName(String name, CustomCallback<SuperheroMasterData> customCallback) {
+    public void searchByName(String name, ListCallback<SuperheroMasterData> listCallback) {
         Call<SuperheroesResponse> call = getSuperheroService().listSuperheroes(name);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override
             public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
                 if (response.body() != null && response.body().isValid()) {
-                    cacheSuperHeroes(response, customCallback, name);
+                    cacheSuperHeroes(response, listCallback, name);
                 } else {
-                    customCallback.onError(new ArrayList<>(), new Throwable(response.body().getError()));
+                    listCallback.onError(new ArrayList<>(), new Throwable(response.body().getError()));
                 }
             }
 
             @Override
             public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
-                passCachedSuperHeroesFromDbWithError(name, t, customCallback);
+                passCachedSuperHeroesFromDbWithError(name, t, listCallback);
             }
         });
     }
 
     @Background
-    protected void passCachedSuperHeroesFromDbWithError(String name, Throwable t, CustomCallback<SuperheroMasterData> customCallback) {
+    protected void passCachedSuperHeroesFromDbWithError(String name, Throwable t, ListCallback<SuperheroMasterData> listCallback) {
         List<SuperheroMasterData> superheroMasterDataList = getSuperHeroesFromDbByName(name);
-        customCallback.onError(superheroMasterDataList, t);
+        listCallback.onError(superheroMasterDataList, t);
     }
 
     @Background
-    protected void cacheSuperHeroes(Response<SuperheroesResponse> response, CustomCallback<SuperheroMasterData> customCallback, String name) {
+    protected void cacheSuperHeroes(Response<SuperheroesResponse> response, ListCallback<SuperheroMasterData> listCallback, String name) {
         List<SuperheroMasterData> superheroMasterDataList = Stream.of(response.body().getResults())
                 .map(superhero ->
                         new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getImageDto().getUrl())
                 ).collect(Collectors.toList());
         superheroMasterDataDao.insertSuperheros(superheroMasterDataList);
-        customCallback.onSuccess(getSuperHeroesFromDbByName(name));
+        listCallback.onSuccess(getSuperHeroesFromDbByName(name));
     }
 
     protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
         return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getPowerstatsById(int id, Callback<SuperheroesResponse> callback) {
+    public Promise<SuperheroesResponse, Throwable, Object> getPowerstatsById(int id) {
         Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetPowerstatsById(id, callback, deferred);
+        executeGetPowerstatsById(id, deferred);
         return deferred.promise();
     }
 
-    public Promise<BiographyDto, Throwable, Object> getBiographyById(int id, Callback<BiographyDto> callback) {
+    public Promise<BiographyDto, Throwable, Object> getBiographyById(int id) {
         Deferred<BiographyDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetBiographyById(id, callback, deferred);
+        executeGetBiographyById(id, deferred);
         return deferred.promise();
     }
 
-    public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id, Callback<AppearanceDto> callback) {
+    public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id) {
         Deferred<AppearanceDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetAppearanceById(id, callback, deferred);
+        executeGetAppearanceById(id, deferred);
         return deferred.promise();
 
     }
 
-    public Promise<WorkDto, Throwable, Object> getWorkById(int id, Callback<WorkDto> callback) {
+    public Promise<WorkDto, Throwable, Object> getWorkById(int id) {
         Deferred<WorkDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetWorkById(id, callback, deferred);
+        executeGetWorkById(id, deferred);
         return deferred.promise();
     }
 
-    public Promise<ConnectionsDto, Throwable, Object> getConnectionsById(int id, Callback<ConnectionsDto> callback) {
+    public Promise<ConnectionsDto, Throwable, Object> getConnectionsById(int id) {
         Deferred<ConnectionsDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetConnectionsById(id, callback, deferred);
+        executeGetConnectionsById(id, deferred);
         return deferred.promise();
     }
 
     @Background
-    protected void executeGetConnectionsById(int id, Callback<ConnectionsDto> callback, Deferred<ConnectionsDto, Throwable, Object> deferred) {
+    protected void executeGetConnectionsById(int id, Deferred<ConnectionsDto, Throwable, Object> deferred) {
         Call<ConnectionsDto> call = getSuperheroService().listConnections(id);
         call.enqueue(new Callback<ConnectionsDto>() {
             @Override
@@ -170,7 +175,7 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
-    private void executeGetBiographyById(int id, Callback<BiographyDto> callback, Deferred<BiographyDto, Throwable, Object> deferred) {
+    private void executeGetBiographyById(int id, Deferred<BiographyDto, Throwable, Object> deferred) {
         Call<BiographyDto> call = getSuperheroService().listBiography(id);
         call.enqueue(new Callback<BiographyDto>() {
             @Override
@@ -202,7 +207,7 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
-    private void executeGetAppearanceById(int id, Callback<AppearanceDto> callback, Deferred<AppearanceDto, Throwable, Object> deferred) {
+    private void executeGetAppearanceById(int id, Deferred<AppearanceDto, Throwable, Object> deferred) {
         Call<AppearanceDto> call = getSuperheroService().listAppearance(id);
         call.enqueue(new Callback<AppearanceDto>() {
             @Override
@@ -235,7 +240,7 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
-    private void executeGetWorkById(int id, Callback<WorkDto> callback, Deferred<WorkDto, Throwable, Object> deferred) {
+    private void executeGetWorkById(int id, Deferred<WorkDto, Throwable, Object> deferred) {
         Call<WorkDto> call = getSuperheroService().listWork(id);
         call.enqueue(new Callback<WorkDto>() {
             @Override
@@ -266,21 +271,22 @@ public class SuperheroesRepository {
     }
 
     @Background
-    public void getCharacteristics(int id, Callback callback) {
+    public void getCharacteristics(int id, ItemCallback<Superhero> itemCallback) {
         DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
         defaultDeferredManager.when(
-                getBiographyById(id, callback),
-                getAppearanceById(id, callback),
-                getWorkById(id, callback),
-                getConnectionsById(id, callback)
+                getBiographyById(id),
+                getAppearanceById(id),
+                getWorkById(id),
+                getConnectionsById(id)
         ).done(result -> {
-            if (result != null && result.size() > 0) {
-                result.get(0);
+            if (result != null && result.size() >= 4) {
+                Superhero superhero = superheroDao.getSuperhero(id);
+                itemCallback.onSuccess(superhero);
             }
         });
     }
 
-    private void executeGetPowerstatsById(int id, Callback<SuperheroesResponse> callback, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
+    private void executeGetPowerstatsById(int id, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
         Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
         call.enqueue(new Callback<SuperheroesResponse>() {
             @Override

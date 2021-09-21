@@ -22,6 +22,9 @@
         <argument
             android:name="imageUrl"
             app:argType="string" />
+        <argument
+            android:name="superheroNameText"
+            app:argType="string" />
     </fragment>
 
 </navigation>

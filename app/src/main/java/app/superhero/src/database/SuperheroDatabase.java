@@ -12,6 +12,7 @@ import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
 import app.superhero.src.dao.Powerstats;
 import app.superhero.src.dao.PowerstatsDao;
+import app.superhero.src.dao.SuperheroDao;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.dao.SuperheroMasterDataDao;
 import app.superhero.src.dao.Work;
@@ -34,4 +35,6 @@ public abstract class SuperheroDatabase extends RoomDatabase {
     public abstract PowerstatsDao powerstatsDao();
 
     public abstract WorkDao workDao();
+
+    public abstract SuperheroDao superheroDao();
 }

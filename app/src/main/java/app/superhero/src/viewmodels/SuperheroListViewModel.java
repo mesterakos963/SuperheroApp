@@ -12,7 +12,7 @@ import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
 import app.superhero.src.dao.SuperheroMasterData;
-import app.superhero.src.interfaces.CustomCallback;
+import app.superhero.src.interfaces.ListCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroListViewModel extends ViewModel {
@@ -39,7 +39,7 @@ public class SuperheroListViewModel extends ViewModel {
 
     public void fetchSuperheroes(String name) {
         isLoading.postValue(true);
-        superheroesRepository.searchByName(name, new CustomCallback<SuperheroMasterData>() {
+        superheroesRepository.searchByName(name, new ListCallback<SuperheroMasterData>() {
             @Override
             public void onSuccess(List<SuperheroMasterData> results) {
                 superheroes.postValue(results);

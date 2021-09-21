@@ -24,6 +24,9 @@ public class SuperheroDetailsViewModel extends ViewModel {
     private final MutableLiveData<String> _imageUrl = new MutableLiveData<>();
     public LiveData<String> imageUrl = _imageUrl;
 
+    private final MutableLiveData<String> _name = new MutableLiveData<>();
+    public LiveData<String> name = _name;
+
     public void setSelectedPage(int j) {
         _selectedPage.postValue(j);
     }
@@ -35,5 +38,10 @@ public class SuperheroDetailsViewModel extends ViewModel {
     public void setImageUrl(String imageUrl) {
         _imageUrl.postValue(imageUrl);
     }
+
+    public void setName(String name) {
+        _name.postValue(name);
+    }
+
 }
 

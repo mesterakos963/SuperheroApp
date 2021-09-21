@@ -6,9 +6,8 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import app.superhero.src.api.SuperheroesRepository;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import app.superhero.src.dao.Superhero;
+import app.superhero.src.interfaces.ItemCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class CharacteristicsViewModel extends ViewModel {
@@ -17,14 +16,14 @@ public class CharacteristicsViewModel extends ViewModel {
     SuperheroesRepository repository;
 
     public void getCharacteristics(int superHeroId) {
-        repository.getCharacteristics(superHeroId, new Callback() {
+        repository.getCharacteristics(superHeroId, new ItemCallback<Superhero>() {
             @Override
-            public void onResponse(Call call, Response response) {
-
+            public void onSuccess(Superhero superhero) {
+                //belekúrni a livedataba, feliratkozni rá, setData-val frissíteni a customView-kat, csumi
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onError(Superhero fallbackResult, Throwable t) {
 
             }
         });

@@ -3,6 +3,7 @@ package app.superhero.src.fragments;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -38,6 +39,9 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @ViewById
     ImageView profileImage;
 
+    @ViewById
+    TextView superheroNameText;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
 
@@ -55,6 +59,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
             superheroId = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId();
             viewModel.setSuperheroId(superheroId);
             viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
+            viewModel.setName(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getSuperheroNameText());
         }
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +95,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
         };
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
         observeImageUrl();
+        observeSuperheroName();
     }
 
     private void loadImage(String profileImageUrl) {
@@ -107,6 +113,12 @@ public class SuperheroDetailsFragment extends BaseFragment {
     private void observeImageUrl() {
         viewModel.imageUrl.observe(this, profileImageUrl -> {
             loadImage(profileImageUrl);
+        });
+    }
+
+    public void observeSuperheroName() {
+        viewModel.name.observe(this, superheroName -> {
+            superheroNameText.setText(superheroName);
         });
     }
 
