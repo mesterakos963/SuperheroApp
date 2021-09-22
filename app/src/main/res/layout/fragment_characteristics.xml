@@ -93,7 +93,7 @@
         app:itemTitle="@string/height_label" />
 
     <app.superhero.src.views.DetailsItemView_
-        android:id="@+id/weigh"
+        android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/design_12dp"

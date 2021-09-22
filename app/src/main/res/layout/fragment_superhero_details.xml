@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="start"
-        tools:text="Superhero"/>
+        tools:text="Superhero" />
 
     <Space
         android:id="@+id/startSpace"

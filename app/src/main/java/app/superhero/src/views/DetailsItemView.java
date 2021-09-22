@@ -13,6 +13,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.List;
+
 import app.superhero.R;
 
 @EViewGroup(R.layout.details_item_view)
@@ -61,6 +63,30 @@ public class DetailsItemView extends LinearLayout {
     }
 
     public void setData(String label) {
-        data.setText(label);
+        if (label == null || label.equals("-")) {
+            data.setText("-");
+        } else {
+            data.setText(label);
+        }
     }
+
+    public void setData(List<String> strings) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (strings != null || !strings.isEmpty()) {
+            if (strings.get(0).equals("-")) {
+                data.setText("-");
+            } else {
+                for (int i = 0; i < strings.size(); i++) {
+                    if (strings.size() - 1 == i) {
+                        stringBuilder.append(strings.get(i)).append(".");
+                    } else {
+                        stringBuilder.append(strings.get(i)).append(", ");
+
+                    }
+                }
+            }
+        }
+        data.setText(stringBuilder.toString());
+    }
+
 }

@@ -1,5 +1,7 @@
 package app.superhero.src.viewmodels;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.androidannotations.annotations.Bean;
@@ -15,11 +17,14 @@ public class CharacteristicsViewModel extends ViewModel {
     @Bean
     SuperheroesRepository repository;
 
+    private final MutableLiveData<Superhero> _superhero = new MutableLiveData<>();
+    public LiveData<Superhero> superhero = _superhero;
+
     public void getCharacteristics(int superHeroId) {
         repository.getCharacteristics(superHeroId, new ItemCallback<Superhero>() {
             @Override
             public void onSuccess(Superhero superhero) {
-                //belekúrni a livedataba, feliratkozni rá, setData-val frissíteni a customView-kat, csumi
+                _superhero.postValue(superhero);
             }
 
             @Override
