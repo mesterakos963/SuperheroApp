@@ -30,7 +30,7 @@
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Some information about"
-        android:layout_marginStart="@dimen/design_8dp"/>
+        android:layout_marginStart="@dimen/design_8dp" />
 
 
 </LinearLayout>
