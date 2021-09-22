@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/design_12dp"
-        app:itemTitle="@string/weigh_label" />
+        app:itemTitle="@string/weight_label" />
 
     <app.superhero.src.views.DetailsItemView_
         android:id="@+id/eyeColor"

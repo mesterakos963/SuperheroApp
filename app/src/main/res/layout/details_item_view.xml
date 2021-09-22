@@ -5,8 +5,7 @@
     android:id="@+id/detailsItemViewRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/design_10dp">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/title"
@@ -30,7 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some information about" />
+        tools:text="Some information about"
+        android:layout_marginStart="@dimen/design_8dp"/>
 
 
 </LinearLayout>

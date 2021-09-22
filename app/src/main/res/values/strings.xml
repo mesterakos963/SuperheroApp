@@ -27,7 +27,7 @@
     <string name="gender_label">Gender:</string>
     <string name="race_label">Race:</string>
     <string name="height_label">Height:</string>
-    <string name="weigh_label">Weigh:</string>
+    <string name="weight_label">Weight:</string>
     <string name="eye_color_label">Eye color:</string>
     <string name="hair_color_label">Hair color:</string>
     <string name="work_label">Work</string>
