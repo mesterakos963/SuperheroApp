@@ -22,6 +22,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,22 +69,20 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     RecyclerView.LayoutManager layoutManager;
 
     app.superhero.src.utils.Debouncer debouncer;
+    private boolean firstStart = true;
 
     @AfterViews
     void init() {
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
-        adapter = new SuperheroesAdapter(this);
+        adapter = new SuperheroesAdapter(new ArrayList<>(), this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
-        emptyView.setOnClickListenerToEmptyView(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() != null) {
-                    hideKeyboard(getActivity());
-                }
-                searchBar.clearEditTextFocus();
+        emptyView.setOnClickListenerToEmptyView(view -> {
+            if (getActivity() != null) {
+                hideKeyboard(getActivity());
             }
+            searchBar.clearEditTextFocus();
         });
         emptyViewText.setText(R.string.empty_view_text);
         toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -121,6 +120,13 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        firstStart = false;
+        superheroListViewModel.setOnPauseSearchText(superheroListViewModel.getSearchTextString());
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
@@ -136,14 +142,17 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     @UiThread
     public void observeSuperheroes() {
-        superheroListViewModel.getSuperheroes().observe(this, this::refreshAdapter);
+        superheroListViewModel.superheroes.observe(this, this::refreshAdapter);
     }
 
     @UiThread
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
             setEmptyViewText();
-            superheroListViewModel.fetchSuperheroes(searchText);
+            if (firstStart || superheroListViewModel.onPauseSearchText.getValue() != null && !superheroListViewModel.onPauseSearchText.getValue().equals(searchText)) {
+                superheroListViewModel.fetchSuperheroes(searchText);
+                superheroListViewModel.setOnPauseSearchText(null);
+            }
         });
     }
 
@@ -159,8 +168,10 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     @UiThread
-    protected void refreshAdapter(List<SuperheroMasterData> superheroMasterDatas) {
-        adapter.refreshData(superheroMasterDatas);
+    protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
+        if (superheroList != null) {
+            adapter.setData(superheroList);
+        }
     }
 
     public static int getScreenWidth() {

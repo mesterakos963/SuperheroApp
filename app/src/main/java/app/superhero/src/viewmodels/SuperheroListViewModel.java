@@ -20,14 +20,13 @@ public class SuperheroListViewModel extends ViewModel {
     @Bean
     SuperheroesRepository superheroesRepository;
 
-    private final MutableLiveData<List<SuperheroMasterData>> superheroes = new MutableLiveData<>();
+    private final MutableLiveData<List<SuperheroMasterData>> _superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
     private final MutableLiveData<String> searchText = new MutableLiveData<String>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<String> _onPauseSearchText = new MutableLiveData<>();
 
-    public LiveData<List<SuperheroMasterData>> getSuperheroes() {
-        return superheroes;
-    }
+    public LiveData<List<SuperheroMasterData>> superheroes = _superheroes;
 
     public LiveData<String> getSearchText() {
         return searchText;
@@ -37,18 +36,21 @@ public class SuperheroListViewModel extends ViewModel {
         return isLoading;
     }
 
+    public LiveData<String> onPauseSearchText = _onPauseSearchText;
+
+
     public void fetchSuperheroes(String name) {
         isLoading.postValue(true);
         superheroesRepository.searchByName(name, new ListCallback<SuperheroMasterData>() {
             @Override
             public void onSuccess(List<SuperheroMasterData> results) {
-                superheroes.postValue(results);
+                _superheroes.postValue(results);
                 isLoading.postValue(false);
             }
 
             @Override
             public void onError(List<SuperheroMasterData> fallbackResult, Throwable t) {
-                superheroes.postValue(fallbackResult);
+                _superheroes.postValue(fallbackResult);
                 error.postValue(t);
                 isLoading.postValue(false);
             }
@@ -68,4 +70,7 @@ public class SuperheroListViewModel extends ViewModel {
         return searchText.getValue();
     }
 
+    public void setOnPauseSearchText(String text) {
+        _onPauseSearchText.postValue(text);
+    }
 }

@@ -27,13 +27,14 @@
             android:id="@id/superheroNameText"
             android:layout_marginStart="@dimen/design_16dp"
             android:layout_marginBottom="@dimen/design_10dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:scaleX="1.0"
             android:scaleY="1.0"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"></Constraint>
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBottom_toBottomOf="@id/profileImage"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint android:id="@id/backButtonBackground">
             <CustomAttribute
@@ -76,11 +77,13 @@
             android:layout_marginStart="@dimen/design_28dp"
             android:scaleX="0.666"
             android:scaleY="0.666"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
             app:layout_constraintStart_toEndOf="@id/startSpace"
-            app:layout_constraintTop_toTopOf="@id/backButton"></Constraint>
+            app:layout_constraintTop_toTopOf="@id/backButton" />
 
         <Constraint android:id="@id/backButtonBackground">
             <CustomAttribute
