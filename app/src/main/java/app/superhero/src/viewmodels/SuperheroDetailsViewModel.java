@@ -12,20 +12,16 @@ import app.superhero.src.api.SuperheroesRepository;
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroDetailsViewModel extends ViewModel {
 
+    private final MutableLiveData<Integer> _selectedPage = new MutableLiveData<>();
+    private final MutableLiveData<Integer> _superheroId = new MutableLiveData<>();
+    private final MutableLiveData<String> _imageUrl = new MutableLiveData<>();
+    private final MutableLiveData<String> _name = new MutableLiveData<>();
+    public LiveData<Integer> selectedPage = _selectedPage;
+    public LiveData<Integer> superheroId = _superheroId;
+    public LiveData<String> imageUrl = _imageUrl;
+    public LiveData<String> name = _name;
     @Bean
     SuperheroesRepository repository;
-
-    private final MutableLiveData<Integer> _selectedPage = new MutableLiveData<>();
-    public LiveData<Integer> selectedPage = _selectedPage;
-
-    private final MutableLiveData<Integer> _superheroId = new MutableLiveData<>();
-    public LiveData<Integer> superheroId = _superheroId;
-
-    private final MutableLiveData<String> _imageUrl = new MutableLiveData<>();
-    public LiveData<String> imageUrl = _imageUrl;
-
-    private final MutableLiveData<String> _name = new MutableLiveData<>();
-    public LiveData<String> name = _name;
 
     public void setSelectedPage(int j) {
         _selectedPage.postValue(j);

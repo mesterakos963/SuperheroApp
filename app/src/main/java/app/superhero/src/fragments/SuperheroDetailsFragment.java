@@ -28,30 +28,23 @@ import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;
 @EFragment(R.layout.fragment_superhero_details)
 public class SuperheroDetailsFragment extends BaseFragment {
 
-    ViewPagerAdapter adapter;
-
-    @ViewById
-    ViewPager2 viewPager;
-
-    @ViewById
-    ImageView backButton;
-
-    @ViewById
-    ImageView profileImage;
-
-    @ViewById
-    TextView superheroNameText;
-
-    @Bean
-    SuperheroDetailsViewModel viewModel;
-
     @ViewsById({R.id.powerstatsButton, R.id.characteristicsButton, R.id.commentsButton})
     protected List<ButtonView> buttons;
-
+    ViewPagerAdapter adapter;
+    @ViewById
+    ViewPager2 viewPager;
+    @ViewById
+    ImageView backButton;
+    @ViewById
+    ImageView profileImage;
+    @ViewById
+    TextView superheroNameText;
+    @Bean
+    SuperheroDetailsViewModel viewModel;
     ViewPager2.OnPageChangeCallback pageChangeCallback;
-    private boolean measured;
     int currentPage;
     int superheroId;
+    private boolean measured;
 
     @AfterViews
     public void init() {

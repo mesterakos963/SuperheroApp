@@ -18,6 +18,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public static final int CHARACTERISTICS_POSITION = 1;
     public static final int COMMENTS_POSITION = 2;
     int superHeroId;
+    List<Fragment> fragments = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentActivity fa) {
         super(fa);
@@ -27,8 +28,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         super(fa);
         this.superHeroId = superHeroId;
     }
-
-    List<Fragment> fragments = new ArrayList<>();
 
     @Override
     public Fragment createFragment(int position) {

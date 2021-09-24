@@ -14,11 +14,10 @@ import app.superhero.src.interfaces.ItemCallback;
 @EBean(scope = EBean.Scope.Fragment)
 public class CharacteristicsViewModel extends ViewModel {
 
-    @Bean
-    SuperheroesRepository repository;
-
     private final MutableLiveData<Superhero> _superhero = new MutableLiveData<>();
     public LiveData<Superhero> superhero = _superhero;
+    @Bean
+    SuperheroesRepository repository;
 
     public void getCharacteristics(int superHeroId) {
         repository.getCharacteristics(superHeroId, new ItemCallback<Superhero>() {

@@ -71,6 +71,19 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     app.superhero.src.utils.Debouncer debouncer;
     private boolean firstStart = true;
 
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     @AfterViews
     void init() {
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
@@ -174,10 +187,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         }
     }
 
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
     public int getNumberOfColumns() {
         return (int) (getScreenWidth() / pxFromDp(getContext(), 170));
     }
@@ -188,14 +197,5 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         } else {
             emptyViewText.setText(R.string.empty_view_error_text);
         }
-    }
-
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

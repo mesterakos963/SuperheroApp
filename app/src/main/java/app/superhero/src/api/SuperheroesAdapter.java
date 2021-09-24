@@ -21,9 +21,9 @@ import app.superhero.src.views.ViewWrapper;
 public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<SuperheroCardView>> {
 
     private final ItemClickListener itemClickListener;
-    private ArrayList<SuperheroMasterData> data;
+    private final ArrayList<SuperheroMasterData> data;
 
-    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,ItemClickListener itemClickListener) {
+    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data, ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
         this.data = data;
     }

@@ -10,17 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Debouncer {
 
-    public Debouncer(int timeout, TimeUnit timeUnit, app.superhero.src.interfaces.Debouncer debouncerCallback) {
-        this.timeout = timeout;
-        this.timeUnit = timeUnit;
-        this.debouncerCallback = debouncerCallback;
-    }
-
     private final int MESSAGE_WHAT = 4533;
     private final int timeout;
     private final TimeUnit timeUnit;
     private final app.superhero.src.interfaces.Debouncer debouncerCallback;
-
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -30,6 +23,12 @@ public class Debouncer {
             debouncerCallback.callback(msg.obj.toString());
         }
     };
+
+    public Debouncer(int timeout, TimeUnit timeUnit, app.superhero.src.interfaces.Debouncer debouncerCallback) {
+        this.timeout = timeout;
+        this.timeUnit = timeUnit;
+        this.debouncerCallback = debouncerCallback;
+    }
 
     public void process(String text) {
         handler.removeMessages(MESSAGE_WHAT);

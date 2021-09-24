@@ -17,16 +17,15 @@ import app.superhero.src.interfaces.ListCallback;
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroListViewModel extends ViewModel {
 
-    @Bean
-    SuperheroesRepository superheroesRepository;
-
     private final MutableLiveData<List<SuperheroMasterData>> _superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
     private final MutableLiveData<String> searchText = new MutableLiveData<String>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<String> _onPauseSearchText = new MutableLiveData<>();
-
     public LiveData<List<SuperheroMasterData>> superheroes = _superheroes;
+    public LiveData<String> onPauseSearchText = _onPauseSearchText;
+    @Bean
+    SuperheroesRepository superheroesRepository;
 
     public LiveData<String> getSearchText() {
         return searchText;
@@ -35,9 +34,6 @@ public class SuperheroListViewModel extends ViewModel {
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
-
-    public LiveData<String> onPauseSearchText = _onPauseSearchText;
-
 
     public void fetchSuperheroes(String name) {
         isLoading.postValue(true);
