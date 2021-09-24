@@ -292,7 +292,9 @@ public class SuperheroesRepository {
 
     @Background
     public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
-        itemCallback.onSuccess(commentDao.getComment(id));
+        if(commentDao.getComment(id) != null) {
+            itemCallback.onSuccess(commentDao.getComment(id));
+        }
     }
 
     @Background

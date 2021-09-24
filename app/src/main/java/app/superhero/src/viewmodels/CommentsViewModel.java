@@ -36,7 +36,7 @@ public class CommentsViewModel extends ViewModel {
 
             @Override
             public void onError(Comments fallbackResult, Throwable t) {
-
+                _comments.postValue("");
             }
         });
     }
