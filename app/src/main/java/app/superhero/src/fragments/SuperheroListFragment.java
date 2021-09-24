@@ -162,9 +162,12 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
             setEmptyViewText();
-            if (firstStart || superheroListViewModel.onPauseSearchText.getValue() != null && !superheroListViewModel.onPauseSearchText.getValue().equals(searchText)) {
+            if (!searchText.isEmpty()
+                    && firstStart
+                    || superheroListViewModel.onPauseSearchText.getValue() != null
+                    && !superheroListViewModel.onPauseSearchText.getValue().equals(searchText)) {
                 superheroListViewModel.fetchSuperheroes(searchText);
-                superheroListViewModel.setOnPauseSearchText(null);
+                superheroListViewModel.setOnPauseSearchText("");
             }
         });
     }
@@ -172,7 +175,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @UiThread
     public void observeIsLoading() {
         superheroListViewModel.getIsLoading().observe(this, isLoading -> {
-            if (isLoading) {
+            if (firstStart && isLoading) {
                 loadingView.setVisibility(View.VISIBLE);
             } else {
                 loadingView.setVisibility(View.GONE);
@@ -184,6 +187,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
             adapter.setData(superheroList);
+        }
+        if (superheroList != null && firstStart) {
+            loadingView.setVisibility(View.GONE);
         }
     }
 
