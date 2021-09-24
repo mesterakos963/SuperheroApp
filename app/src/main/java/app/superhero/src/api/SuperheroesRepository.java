@@ -319,7 +319,6 @@ public class SuperheroesRepository {
     public void cacheComments(int id, String text) {
         Comments comment = new Comments(id, text);
         commentDao.insertComments(comment);
-        int a = 1;
     }
 
     @Background
