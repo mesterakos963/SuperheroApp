@@ -26,6 +26,8 @@ import app.superhero.src.dao.Comments;
 import app.superhero.src.dao.CommentsDao;
 import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
+import app.superhero.src.dao.Powerstats;
+import app.superhero.src.dao.PowerstatsDao;
 import app.superhero.src.dao.Superhero;
 import app.superhero.src.dao.SuperheroDao;
 import app.superhero.src.dao.SuperheroMasterData;
@@ -35,6 +37,7 @@ import app.superhero.src.dao.WorkDao;
 import app.superhero.src.dto.AppearanceDto;
 import app.superhero.src.dto.BiographyDto;
 import app.superhero.src.dto.ConnectionsDto;
+import app.superhero.src.dto.PowerstatsDto;
 import app.superhero.src.dto.WorkDto;
 import app.superhero.src.interfaces.ItemCallback;
 import app.superhero.src.interfaces.ListCallback;
@@ -56,6 +59,7 @@ public class SuperheroesRepository {
     WorkDao workDao;
     SuperheroDao superheroDao;
     CommentsDao commentDao;
+    PowerstatsDao powerstatsDao;
 
     @App
     SuperheroApplication application;
@@ -72,6 +76,7 @@ public class SuperheroesRepository {
         workDao = provideDatabase(application).workDao();
         superheroDao = provideDatabase(application).superheroDao();
         commentDao = provideDatabase(application).commentDao();
+        powerstatsDao = provideDatabase(application).powerstatsDao();
     }
 
     public SuperheroesService getSuperheroService() {
@@ -117,8 +122,8 @@ public class SuperheroesRepository {
         return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 
-    public Promise<SuperheroesResponse, Throwable, Object> getPowerstatsById(int id) {
-        Deferred<SuperheroesResponse, Throwable, Object> deferred = new DeferredObject<>();
+    public Promise<PowerstatsDto, Throwable, Object> getPowerstatsById(int id) {
+        Deferred<PowerstatsDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetPowerstatsById(id, deferred);
         return deferred.promise();
     }
@@ -291,6 +296,19 @@ public class SuperheroesRepository {
     }
 
     @Background
+    public void getPowerstats(int id, ItemCallback<Powerstats> itemCallback) {
+        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
+        defaultDeferredManager.when(
+                getPowerstatsById(id)
+        ).done(result -> {
+            if(result != null) {
+                Powerstats powerstats = powerstatsDao.getPowerstats(id);
+                itemCallback.onSuccess(powerstats);
+            };
+        });
+    }
+
+    @Background
     public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
         if(commentDao.getComment(id) != null) {
             itemCallback.onSuccess(commentDao.getComment(id));
@@ -304,21 +322,35 @@ public class SuperheroesRepository {
         int a = 1;
     }
 
-    private void executeGetPowerstatsById(int id, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
-        Call<SuperheroesResponse> call = getSuperheroService().listPowerstats(id);
-        call.enqueue(new Callback<SuperheroesResponse>() {
-            @Override
-            public void onResponse(Call<SuperheroesResponse> call, Response<SuperheroesResponse> response) {
-                if (response.body() != null) {
-                    deferred.resolve(response.body());
+    @Background
+    protected void cachePowerstats(Response<PowerstatsDto> response, Deferred<PowerstatsDto, Throwable, Object> deferred) {
+        Powerstats powerstats = Stream.of(response.body())
+                .map(powerstatsDto ->
+                        new Powerstats(powerstatsDto.getId(), powerstatsDto.getIntelligence(),
+                                powerstatsDto.getStrength(), powerstatsDto.getSpeed(),
+                                powerstatsDto.getDurability(), powerstatsDto.getPower(),
+                                powerstatsDto.getCombat())
+                ).single();
+        powerstatsDao.insertPowerstats(powerstats);
+        deferred.resolve(response.body());
+    }
 
+    private void executeGetPowerstatsById(int id, Deferred<PowerstatsDto, Throwable, Object> deferred) {
+        Call<PowerstatsDto> call = getSuperheroService().listPowerstats(id);
+        call.enqueue(new Callback<PowerstatsDto>() {
+            @Override
+            public void onResponse(Call<PowerstatsDto> call, Response<PowerstatsDto> response) {
+                if (response.body() != null) {
+                    cachePowerstats(response, deferred);
+                } else {
+                    deferred.reject(new Throwable());
                 }
             }
 
             @Override
-            public void onFailure(Call<SuperheroesResponse> call, Throwable t) {
+            public void onFailure(Call<PowerstatsDto> call, Throwable t) {
                 call.cancel();
-                deferred.fail((FailCallback<Throwable>) t);
+                deferred.reject(new Throwable());
             }
         });
     }

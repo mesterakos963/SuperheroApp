@@ -36,7 +36,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         Fragment fragment;
         switch (position) {
             case POWERSTATS_POSITION:
-                fragment = new PowerstatsFragment_().builder().build();
+                fragment = new PowerstatsFragment_().builder().superHeroId(superHeroId).build();
                 fragments.add(fragment);
                 break;
 

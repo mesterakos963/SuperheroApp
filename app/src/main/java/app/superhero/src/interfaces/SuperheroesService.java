@@ -3,6 +3,7 @@ package app.superhero.src.interfaces;
 import app.superhero.src.dto.AppearanceDto;
 import app.superhero.src.dto.BiographyDto;
 import app.superhero.src.dto.ConnectionsDto;
+import app.superhero.src.dto.PowerstatsDto;
 import app.superhero.src.dto.WorkDto;
 import app.superhero.src.model.response.SuperheroesResponse;
 import retrofit2.Call;
@@ -15,7 +16,7 @@ public interface SuperheroesService {
     Call<SuperheroesResponse> listSuperheroes(@Path("name") String name);
 
     @GET("{id}/powerstats")
-    Call<SuperheroesResponse> listPowerstats(@Path("id") int id);
+    Call<PowerstatsDto> listPowerstats(@Path("id") int id);
 
     @GET("{id}/biography")
     Call<BiographyDto> listBiography(@Path("id") int id);
