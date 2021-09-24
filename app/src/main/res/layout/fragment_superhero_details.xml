@@ -34,13 +34,6 @@
         android:gravity="start"
         tools:text="Superhero" />
 
-    <Space
-        android:id="@+id/startSpace"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/design_4dp"
-        app:layout_constraintEnd_toStartOf="parent" />
-
     <ImageView
         android:id="@+id/backButtonBackground"
         android:layout_width="@dimen/design_30dp"

@@ -74,7 +74,6 @@
 
         <Constraint
             android:id="@id/superheroNameText"
-            android:layout_marginStart="@dimen/design_28dp"
             android:scaleX="0.666"
             android:scaleY="0.666"
             android:layout_height="wrap_content"
@@ -82,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
-            app:layout_constraintStart_toEndOf="@id/startSpace"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/backButton" />
 
         <Constraint android:id="@id/backButtonBackground">
