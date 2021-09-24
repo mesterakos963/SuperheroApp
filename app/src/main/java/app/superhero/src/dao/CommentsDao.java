@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 @Dao
 public interface CommentsDao {
@@ -12,4 +13,7 @@ public interface CommentsDao {
 
     @Delete
     void delete(Comments comment);
+
+    @Query("SELECT * FROM Comments WHERE commentsId = :id")
+    Comments getComment(int id);
 }

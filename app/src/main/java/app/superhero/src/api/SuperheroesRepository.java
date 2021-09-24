@@ -291,6 +291,11 @@ public class SuperheroesRepository {
     }
 
     @Background
+    public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
+        itemCallback.onSuccess(commentDao.getComment(id));
+    }
+
+    @Background
     public void cacheComments(int id, String text) {
         Comments comment = new Comments(id, text);
         commentDao.insertComments(comment);

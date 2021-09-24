@@ -3,6 +3,7 @@ package app.superhero.src.fragments;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -28,8 +29,13 @@ public class CommentsFragment extends BaseFragment {
     @ViewById
     EditText comment;
 
+    @ViewById
+    TextView commentText;
+
     @AfterViews
     public void init() {
+        viewModel.getComment(superheroId);
+        observeComments();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,8 +44,9 @@ public class CommentsFragment extends BaseFragment {
         });
     }
 
-    private void ObserveComments() {
-        viewModel.comments.observe(this, comment -> {
+    private void observeComments() {
+        viewModel.comments.observe(this, commentText -> {
+            comment.setText(commentText);
         });
     }
 }
