@@ -5,13 +5,13 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
     android:paddingStart="@dimen/design_10dp"
     android:paddingEnd="@dimen/design_10dp"
     android:paddingBottom="@dimen/design_20dp"
     app:shadow_color="#59000000"
     app:shadow_radius="8"
-    android:clickable="true"
-    android:focusable="true"
     app:shadow_y_shift="@dimen/design_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

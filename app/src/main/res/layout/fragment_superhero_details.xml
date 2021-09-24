@@ -29,9 +29,9 @@
         style="@style/gothamBold38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="start"
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="start"
         tools:text="Superhero" />
 
     <ImageView

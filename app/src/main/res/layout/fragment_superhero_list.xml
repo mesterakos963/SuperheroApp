@@ -65,8 +65,8 @@
             android:id="@+id/emptyView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:focusable="true" />
+            android:focusable="true"
+            android:visibility="gone" />
 
         <app.superhero.src.views.LoadingView_
             android:id="@+id/loadingView"
