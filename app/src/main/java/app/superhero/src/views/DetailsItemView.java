@@ -63,7 +63,7 @@ public class DetailsItemView extends LinearLayout {
     }
 
     public void setData(String label) {
-        if (label == null || label.equals("-")) {
+        if (label == null || label.equals("-") || label.equals("null")) {
             data.setText("-");
         } else {
             data.setText(label);
