@@ -8,6 +8,8 @@ import app.superhero.src.dao.Appearance;
 import app.superhero.src.dao.AppearanceDao;
 import app.superhero.src.dao.Biography;
 import app.superhero.src.dao.BiographyDao;
+import app.superhero.src.dao.Comments;
+import app.superhero.src.dao.CommentsDao;
 import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
 import app.superhero.src.dao.Powerstats;
@@ -21,7 +23,7 @@ import app.superhero.src.utils.StringArrayConverter;
 
 @Database(entities = {SuperheroMasterData.class, Appearance.class,
         Biography.class, Connections.class, Powerstats.class,
-        Work.class}, version = 4, exportSchema = false)
+        Work.class, Comments.class}, version = 5, exportSchema = false)
 @TypeConverters({StringArrayConverter.class})
 public abstract class SuperheroDatabase extends RoomDatabase {
     public abstract SuperheroMasterDataDao superheroMasterDataDao();
@@ -37,4 +39,6 @@ public abstract class SuperheroDatabase extends RoomDatabase {
     public abstract WorkDao workDao();
 
     public abstract SuperheroDao superheroDao();
+
+    public abstract CommentsDao commentDao();
 }

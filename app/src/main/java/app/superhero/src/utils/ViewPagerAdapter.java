@@ -17,7 +17,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public static final int POWERSTATS_POSITION = 0;
     public static final int CHARACTERISTICS_POSITION = 1;
     public static final int COMMENTS_POSITION = 2;
+
     int superHeroId;
+
     List<Fragment> fragments = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentActivity fa) {
@@ -44,7 +46,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 break;
 
             case COMMENTS_POSITION:
-                fragment = new CommentsFragment_().builder().build();
+                fragment = new CommentsFragment_().builder().superheroId(superHeroId).build();
                 fragments.add(fragment);
                 break;
             default:

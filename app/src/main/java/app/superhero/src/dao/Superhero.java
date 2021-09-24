@@ -36,4 +36,10 @@ public class Superhero {
             entityColumn = "workId"
     )
     public Work work;
+
+    @Relation(
+            parentColumn = "superheroId",
+            entityColumn = "comment"
+    )
+    public Comments comment;
 }

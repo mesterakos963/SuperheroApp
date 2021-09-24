@@ -14,6 +14,7 @@ public class Debouncer {
     private final int timeout;
     private final TimeUnit timeUnit;
     private final app.superhero.src.interfaces.Debouncer debouncerCallback;
+
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {

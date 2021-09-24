@@ -15,7 +15,9 @@ import app.superhero.src.interfaces.ItemCallback;
 public class CharacteristicsViewModel extends ViewModel {
 
     private final MutableLiveData<Superhero> _superhero = new MutableLiveData<>();
+
     public LiveData<Superhero> superhero = _superhero;
+
     @Bean
     SuperheroesRepository repository;
 

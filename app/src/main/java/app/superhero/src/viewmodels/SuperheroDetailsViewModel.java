@@ -20,6 +20,7 @@ public class SuperheroDetailsViewModel extends ViewModel {
     public LiveData<Integer> superheroId = _superheroId;
     public LiveData<String> imageUrl = _imageUrl;
     public LiveData<String> name = _name;
+
     @Bean
     SuperheroesRepository repository;
 

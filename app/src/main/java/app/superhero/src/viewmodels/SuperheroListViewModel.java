@@ -22,8 +22,10 @@ public class SuperheroListViewModel extends ViewModel {
     private final MutableLiveData<String> searchText = new MutableLiveData<String>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<String> _onPauseSearchText = new MutableLiveData<>();
+
     public LiveData<List<SuperheroMasterData>> superheroes = _superheroes;
     public LiveData<String> onPauseSearchText = _onPauseSearchText;
+
     @Bean
     SuperheroesRepository superheroesRepository;
 

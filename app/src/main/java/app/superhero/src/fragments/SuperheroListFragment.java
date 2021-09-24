@@ -198,7 +198,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     }
 
     public void setEmptyViewText() {
-        if (superheroListViewModel.getSearchTextString() == null || superheroListViewModel.getSearchTextString().isEmpty()) {
+        if (superheroListViewModel.getSearchTextString() == null
+                || superheroListViewModel.getSearchTextString().isEmpty()) {
             emptyViewText.setText(R.string.empty_view_text);
         } else {
             emptyViewText.setText(R.string.empty_view_error_text);

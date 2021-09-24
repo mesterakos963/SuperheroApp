@@ -4,10 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <EditText
+        android:id="@+id/comment"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
-        android:background="@color/shadow_color"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/design_16dp"
+        android:layout_marginTop="@dimen/design_16dp"
+        android:text="Apply"
+        app:layout_constraintStart_toStartOf="@id/comment"
+        app:layout_constraintTop_toBottomOf="@id/comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

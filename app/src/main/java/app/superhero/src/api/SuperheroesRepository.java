@@ -22,6 +22,8 @@ import app.superhero.src.dao.Appearance;
 import app.superhero.src.dao.AppearanceDao;
 import app.superhero.src.dao.Biography;
 import app.superhero.src.dao.BiographyDao;
+import app.superhero.src.dao.Comments;
+import app.superhero.src.dao.CommentsDao;
 import app.superhero.src.dao.Connections;
 import app.superhero.src.dao.ConnectionsDao;
 import app.superhero.src.dao.Superhero;
@@ -53,6 +55,7 @@ public class SuperheroesRepository {
     AppearanceDao appearanceDao;
     WorkDao workDao;
     SuperheroDao superheroDao;
+    CommentsDao commentDao;
 
     @App
     SuperheroApplication application;
@@ -68,6 +71,7 @@ public class SuperheroesRepository {
         appearanceDao = provideDatabase(application).appearanceDao();
         workDao = provideDatabase(application).workDao();
         superheroDao = provideDatabase(application).superheroDao();
+        commentDao = provideDatabase(application).commentDao();
     }
 
     public SuperheroesService getSuperheroService() {
@@ -284,6 +288,13 @@ public class SuperheroesRepository {
                 itemCallback.onSuccess(superhero);
             }
         });
+    }
+
+    @Background
+    public void cacheComments(int id, String text) {
+        Comments comment = new Comments(id, text);
+        commentDao.insertComments(comment);
+        int a = 1;
     }
 
     private void executeGetPowerstatsById(int id, Deferred<SuperheroesResponse, Throwable, Object> deferred) {
