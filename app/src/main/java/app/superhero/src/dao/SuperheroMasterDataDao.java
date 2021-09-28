@@ -20,4 +20,9 @@ public interface SuperheroMasterDataDao {
     @Delete
     void delete(SuperheroMasterData superheroMasterData);
 
+    /*@Query("SELECT * FROM SuperheroMasterData WHERE isFavourite = 1")
+    List<SuperheroMasterData> getFavourites(boolean isFavourite);
+
+    @Update
+    void update(SuperheroMasterData superhero);*/
 }

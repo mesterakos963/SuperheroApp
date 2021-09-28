@@ -1,10 +1,13 @@
 package app.superhero.src.fragments;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +21,7 @@ import org.androidannotations.annotations.ViewsById;
 import java.util.List;
 
 import app.superhero.R;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
@@ -39,27 +43,29 @@ public class SuperheroDetailsFragment extends BaseFragment {
     ImageView profileImage;
     @ViewById
     TextView superheroNameText;
+    @ViewById
+    ImageView star;
     @Bean
     SuperheroDetailsViewModel viewModel;
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     int currentPage;
-    int superheroId;
     private boolean measured;
+    private SuperheroMasterData superhero;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            superhero = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getSuperheroMasterData();
+        }
+    }
 
     @AfterViews
     public void init() {
-        if (getArguments() != null) {
-            superheroId = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getId();
-            viewModel.setSuperheroId(superheroId);
-            viewModel.setImageUrl(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getImageUrl());
-            viewModel.setName(SuperheroDetailsFragment_Args.fromBundle(getArguments()).getSuperheroNameText());
-        }
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() != null) {
-                    getActivity().onBackPressed();
-                }
+        star.setOnClickListener(view -> superhero.setFavourite(true));
+        backButton.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
             }
         });
         if (viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
@@ -68,7 +74,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
             currentPage = viewModel.selectedPage.getValue();
         }
         bindButtons();
-        adapter = new ViewPagerAdapter(getActivity(), superheroId);
+        adapter = new ViewPagerAdapter(getActivity(), superhero);
         viewPager.setOffscreenPageLimit(NUM_PAGES);
         viewPager.setAdapter(adapter);
         observeSelectedPage();
@@ -87,8 +93,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
             }
         };
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
-        observeImageUrl();
-        observeSuperheroName();
+        observeSuperheroMasterData();
+        if (viewModel.superheroMasterData.getValue() == null) {
+            viewModel.setSuperheroMasterData(superhero);
+        }
     }
 
     private void loadImage(String profileImageUrl) {
@@ -103,15 +111,13 @@ public class SuperheroDetailsFragment extends BaseFragment {
         });
     }
 
-    private void observeImageUrl() {
-        viewModel.imageUrl.observe(this, profileImageUrl -> {
-            loadImage(profileImageUrl);
-        });
-    }
-
-    public void observeSuperheroName() {
-        viewModel.name.observe(this, superheroName -> {
-            superheroNameText.setText(superheroName);
+    private void observeSuperheroMasterData() {
+        viewModel.superheroMasterData.observe(this, superheroMasterData -> {
+            superheroNameText.setText(superheroMasterData.getName());
+            Log.d("VALAMI", "VALAMI NÉV: " + superheroMasterData.getName());
+            loadImage(superheroMasterData.getUrl());
+            Log.d("VALAMI", "VALAMI KÉP: " + superheroMasterData.getUrl());
+            star.setSelected(superheroMasterData.getIsFavourite());
         });
     }
 

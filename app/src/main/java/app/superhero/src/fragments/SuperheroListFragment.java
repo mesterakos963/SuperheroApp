@@ -113,6 +113,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> superheroListViewModel.postSearch(message)
         );
+        int a = 0;
     }
 
     private void bindSearchView() {
@@ -147,8 +148,8 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @Override
     public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
-            NavDirections action =
-                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero.getId(), superhero.getUrl(), superhero.getName());
+           NavDirections action =
+                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
             Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
     }

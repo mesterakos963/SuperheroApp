@@ -23,7 +23,7 @@ import app.superhero.src.utils.StringArrayConverter;
 
 @Database(entities = {SuperheroMasterData.class, Appearance.class,
         Biography.class, Connections.class, Powerstats.class,
-        Work.class, Comments.class}, version = 5, exportSchema = false)
+        Work.class, Comments.class}, version = 6, exportSchema = false)
 @TypeConverters({StringArrayConverter.class})
 public abstract class SuperheroDatabase extends RoomDatabase {
     public abstract SuperheroMasterDataDao superheroMasterDataDao();

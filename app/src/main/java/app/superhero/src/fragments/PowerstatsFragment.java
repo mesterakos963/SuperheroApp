@@ -9,13 +9,14 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.PowerstatsViewModel;
 
 @EFragment(R.layout.fragment_powerstats)
 public class PowerstatsFragment extends BaseFragment {
 
     @FragmentArg
-    int superHeroId;
+    SuperheroMasterData superheroMasterData;
 
     @Bean
     PowerstatsViewModel viewModel;
@@ -42,7 +43,7 @@ public class PowerstatsFragment extends BaseFragment {
     @AfterViews
     public void init(){
         observePowerstats();
-        viewModel.getPowerstats(superHeroId);
+        viewModel.getPowerstats(superheroMasterData.getId());
     }
 
     private void observePowerstats() {

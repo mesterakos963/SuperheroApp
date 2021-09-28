@@ -16,6 +16,16 @@
         android:src="@drawable/ic_place"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/star"
+        android:layout_width="@dimen/design_30dp"
+        android:layout_height="@dimen/design_30dp"
+        android:src="@drawable/selector_favourite"
+        android:layout_marginEnd="@dimen/design_16dp"
+        android:layout_marginTop="@dimen/design_12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/fade"
         android:layout_width="match_parent"

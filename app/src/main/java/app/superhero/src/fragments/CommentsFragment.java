@@ -12,6 +12,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CommentsViewModel;
 
 @EFragment(R.layout.fragment_comments)
@@ -21,7 +22,7 @@ public class CommentsFragment extends BaseFragment {
     CommentsViewModel viewModel;
 
     @FragmentArg
-    int superheroId;
+    SuperheroMasterData superheroMasterData;
 
     @ViewById
     Button button;
@@ -34,12 +35,12 @@ public class CommentsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-        viewModel.getComment(superheroId);
+        viewModel.getComment(superheroMasterData.getId());
         observeComments();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setComment(superheroId, comment.getText().toString());
+                viewModel.setComment(superheroMasterData.getId(), comment.getText().toString());
             }
         });
     }

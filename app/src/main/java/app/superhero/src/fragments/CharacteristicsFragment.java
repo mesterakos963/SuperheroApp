@@ -7,6 +7,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CharacteristicsViewModel;
 import app.superhero.src.views.DetailsItemView;
 
@@ -14,7 +15,7 @@ import app.superhero.src.views.DetailsItemView;
 public class CharacteristicsFragment extends BaseFragment {
 
     @FragmentArg
-    int superHeroId;
+    SuperheroMasterData superheroMasterData;
 
     @ViewById
     DetailsItemView fullName;
@@ -74,7 +75,7 @@ public class CharacteristicsFragment extends BaseFragment {
     @AfterViews
     protected void init() {
         observeCharacteristics();
-        viewModel.getCharacteristics(superHeroId);
+        viewModel.getCharacteristics(superheroMasterData.getId());
     }
 
     public void observeCharacteristics() {

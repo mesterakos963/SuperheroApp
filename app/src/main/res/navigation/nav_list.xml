@@ -17,14 +17,8 @@
         android:name="app.superhero.src.fragments.SuperheroDetailsFragment_"
         android:label="SuperheroDetailsFragment_">
         <argument
-            android:name="id"
-            app:argType="integer" />
-        <argument
-            android:name="imageUrl"
-            app:argType="string" />
-        <argument
-            android:name="superheroNameText"
-            app:argType="string" />
+            android:name="superheroMasterData"
+            app:argType="app.superhero.src.dao.SuperheroMasterData" />
     </fragment>
 
 </navigation>

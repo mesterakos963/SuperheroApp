@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.fragments.CharacteristicsFragment_;
 import app.superhero.src.fragments.CommentsFragment_;
 import app.superhero.src.fragments.PowerstatsFragment_;
@@ -18,7 +19,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public static final int CHARACTERISTICS_POSITION = 1;
     public static final int COMMENTS_POSITION = 2;
 
-    int superHeroId;
+    SuperheroMasterData superheroMasterData;
 
     List<Fragment> fragments = new ArrayList<>();
 
@@ -26,9 +27,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         super(fa);
     }
 
-    public ViewPagerAdapter(FragmentActivity fa, int superHeroId) {
+    public ViewPagerAdapter(FragmentActivity fa, SuperheroMasterData superheroMasterData) {
         super(fa);
-        this.superHeroId = superHeroId;
+        this.superheroMasterData = superheroMasterData;
     }
 
     @Override
@@ -36,17 +37,17 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         Fragment fragment;
         switch (position) {
             case POWERSTATS_POSITION:
-                fragment = new PowerstatsFragment_().builder().superHeroId(superHeroId).build();
+                fragment = new PowerstatsFragment_().builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
 
             case CHARACTERISTICS_POSITION:
-                fragment = new CharacteristicsFragment_().builder().superHeroId(superHeroId).build();
+                fragment = new CharacteristicsFragment_().builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
 
             case COMMENTS_POSITION:
-                fragment = new CommentsFragment_().builder().superheroId(superHeroId).build();
+                fragment = new CommentsFragment_().builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
             default:
