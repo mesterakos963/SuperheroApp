@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/commentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/comment_hint"
+        android:textAppearance="@style/gothamBook16"
+        android:background="@drawable/comment_view_background"
+        android:padding="@dimen/design_14dp" />
+
+    <TextView
+        android:id="@+id/characterCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="500 characters left"
+        android:layout_gravity="end"
+        android:textAppearance="@style/gothamBook10" />
+
+</LinearLayout>

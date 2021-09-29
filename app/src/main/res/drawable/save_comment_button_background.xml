@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:endColor="@color/save_button_gb_gradient_start"
+        android:startColor="@color/save_button_gb_gradient_end" />
+    <corners
+        android:radius="@dimen/design_10dp"/>
+</shape>

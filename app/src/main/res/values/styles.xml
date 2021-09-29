@@ -104,5 +104,20 @@
         <item name="android:textColor">@color/hero_name_color</item>
     </style>
 
+    <style name="gothamBook16" parent="gothamBook">
+        <item name="android:textSize">@dimen/design_16sp</item>
+        <item name="android:textColor">@color/comment_hint_text_color</item>
+    </style>
+
+    <style name="gothamBook10" parent="gothamBook">
+        <item name="android:textSize">@dimen/design_10sp</item>
+        <item name="android:textColor">@color/comment_character_counter_color</item>
+    </style>
+
+    <style name="gothamBold14" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_14sp</item>
+        <item name="android:textColor">@color/inactive_save_comment_button_label_color</item>
+    </style>
+
 
 </resources>

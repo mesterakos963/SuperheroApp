@@ -1,9 +1,6 @@
 package app.superhero.src.fragments;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -14,6 +11,8 @@ import org.androidannotations.annotations.ViewById;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CommentsViewModel;
+import app.superhero.src.views.CommentView;
+import app.superhero.src.views.SaveCommentButtonView;
 
 @EFragment(R.layout.fragment_comments)
 public class CommentsFragment extends BaseFragment {
@@ -25,13 +24,11 @@ public class CommentsFragment extends BaseFragment {
     SuperheroMasterData superheroMasterData;
 
     @ViewById
-    Button button;
+    SaveCommentButtonView button;
 
     @ViewById
-    EditText comment;
+    CommentView commentView;
 
-    @ViewById
-    TextView commentText;
 
     @AfterViews
     public void init() {
@@ -40,14 +37,12 @@ public class CommentsFragment extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setComment(superheroMasterData.getId(), comment.getText().toString());
             }
         });
     }
 
     private void observeComments() {
         viewModel.comments.observe(this, commentText -> {
-            comment.setText(commentText);
         });
     }
 }

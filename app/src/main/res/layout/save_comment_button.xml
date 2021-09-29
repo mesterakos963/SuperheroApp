@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/saveCommentButtonRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/save_comment_button_background">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/transparent"
+            android:paddingTop="@dimen/design_14dp"
+            android:paddingBottom="@dimen/design_14dp"
+            android:textAppearance="@style/gothamBold14"
+            android:text="@string/save_comment_button_label" />
+
+</FrameLayout>

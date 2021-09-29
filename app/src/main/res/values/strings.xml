@@ -35,5 +35,7 @@
     <string name="base_label">Base:</string>
     <string name="connections_label">Connections</string>
     <string name="group_affiliation_label">Group affiliation:</string>
-    <string name="relatives_label">Relatives:</string>/>
+    <string name="relatives_label">Relatives:</string>
+    <string name="comment_hint">Type your comment...</string>
+    <string name="save_comment_button_label">SAVE COMMENT</string>/>
 </resources>
