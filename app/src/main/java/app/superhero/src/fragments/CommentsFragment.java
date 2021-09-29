@@ -37,12 +37,14 @@ public class CommentsFragment extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
             }
         });
     }
 
     private void observeComments() {
         viewModel.comments.observe(this, commentText -> {
+            commentView.setCommentText(commentText);
         });
     }
 }

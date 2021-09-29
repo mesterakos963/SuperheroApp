@@ -119,5 +119,12 @@
         <item name="android:textColor">@color/inactive_save_comment_button_label_color</item>
     </style>
 
+    <style name="save_comment_button_label_font" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/active_save_comment_button_label_color</item>
+    </style>
 
+
+    <color name="active_save_comment_button_label_color">#FFFFFF</color>
 </resources>

@@ -71,4 +71,12 @@ public class CommentView extends LinearLayout {
             }
         });
     }
+
+    public String getComment() {
+        return commentText.getText().toString();
+    }
+
+    public void setCommentText(String text) {
+        commentText.setText(text);
+    }
 }
