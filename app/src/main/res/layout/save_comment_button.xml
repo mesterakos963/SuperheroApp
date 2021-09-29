@@ -3,7 +3,7 @@
     android:id="@+id/saveCommentButtonRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/save_comment_button_background">
+    android:background="@drawable/selector_save_comment_button_bg">
 
         <TextView
             android:layout_width="match_parent"

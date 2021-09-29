@@ -15,6 +15,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
+import app.superhero.src.interfaces.TextChangedCallback;
 
 @EViewGroup(R.layout.comment_view)
 public class CommentView extends LinearLayout {
@@ -25,7 +26,10 @@ public class CommentView extends LinearLayout {
     @ViewById
     EditText commentText;
 
+    TextChangedCallback callback;
+
     private final int CHARACTER_LIMIT = 500;
+    private String previousComment;
 
     public CommentView(Context context) {
         super(context);
@@ -48,8 +52,16 @@ public class CommentView extends LinearLayout {
         countCharacters();
     }
 
+    public void bind(String previousComment, TextChangedCallback callback) {
+        this.previousComment = previousComment;
+        this.callback = callback;
+    }
+
     private void countCharacters() {
-        characterCounter.setText(String.valueOf(CHARACTER_LIMIT- commentText.length()));
+        characterCounter.setText(getContext().getResources()
+                .getQuantityString(R.plurals.character_limit_label,
+                        CHARACTER_LIMIT - commentText.length(),
+                        CHARACTER_LIMIT - commentText.length()));
         commentText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -79,4 +91,6 @@ public class CommentView extends LinearLayout {
     public void setCommentText(String text) {
         commentText.setText(text);
     }
+
+
 }

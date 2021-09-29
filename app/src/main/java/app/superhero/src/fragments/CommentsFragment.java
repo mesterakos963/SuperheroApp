@@ -1,7 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.view.View;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -29,22 +27,28 @@ public class CommentsFragment extends BaseFragment {
     @ViewById
     CommentView commentView;
 
+    boolean isFirstInit = true;
 
     @AfterViews
     public void init() {
         viewModel.getComment(superheroMasterData.getId());
         observeComments();
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
-            }
-        });
+        button.setOnClickListener(view -> viewModel.setComment(superheroMasterData.getId(), commentView.getComment()));
     }
 
     private void observeComments() {
         viewModel.comments.observe(this, commentText -> {
             commentView.setCommentText(commentText);
+            if(isFirstInit) {
+                bindCommentComponent(commentText);
+                isFirstInit = false;
+            }
+        });
+    }
+
+    private void bindCommentComponent(String commentText) {
+        commentView.bind(commentText, isChanged -> {
+            button.setEnabled(isChanged);
         });
     }
 }

@@ -42,4 +42,14 @@
     <color name="back_button_bg_color">#BA1A1919</color>
     <color name="back_button_arrow_color">#FFBB3B</color>
     <color name="back_button_collapsed_color">#FFBB3B</color>
+    <color name="comment_hint_text_color">#7E7E7E</color>
+    <color name="comment_character_counter_color">#FFBB3B</color>
+    <color name="inactive_save_comment_button_shadow_color">#0D000000</color>
+    <color name="inactive_save_comment_bg_color">#A2A2A2</color>
+    <color name="comment_bg_border_color">#FFBB3B</color>
+    <color name="save_button_gb_gradient_start">#FFA90A</color>
+    <color name="save_button_gb_gradient_end">#FFBB3B</color>
+    <color name="inactive_save_comment_button_label_color">#5A5A5A</color>
+    <color name="active_save_comment_button_label_color">#000000</color>
+    <color name="save_button_bg_color_inactive">#A2A2A2</color>
 </resources>
