@@ -12,6 +12,7 @@
         android:hint="@string/comment_hint"
         android:textAppearance="@style/gothamBook16"
         android:background="@drawable/comment_view_background"
+        android:maxLength="500"
         android:padding="@dimen/design_14dp" />
 
     <TextView

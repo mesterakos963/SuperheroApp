@@ -37,5 +37,9 @@
     <string name="group_affiliation_label">Group affiliation:</string>
     <string name="relatives_label">Relatives:</string>
     <string name="comment_hint">Type your comment...</string>
-    <string name="save_comment_button_label">SAVE COMMENT</string>/>
+    <string name="save_comment_button_label">save comment</string>
+    <plurals name="character_limit_label">
+        <item quantity="one">%1$d character left</item>
+        <item quantity="other">%1$d characters left</item>
+    </plurals>
 </resources>
