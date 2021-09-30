@@ -1,9 +1,11 @@
 package app.superhero.src.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,9 +15,11 @@ import androidx.annotation.Nullable;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 
 import app.superhero.R;
 import app.superhero.src.interfaces.TextChangedCallback;
+import app.superhero.src.utils.OnFocusEvent;
 
 @EViewGroup(R.layout.comment_view)
 public class CommentView extends LinearLayout {
@@ -51,6 +55,8 @@ public class CommentView extends LinearLayout {
     @AfterViews
     void init() {
         countCharacters();
+        //onCommentTextFocus();
+        onCommentTextTouchListener();
     }
 
     public void bind(String previousComment, TextChangedCallback callback) {
@@ -95,5 +101,13 @@ public class CommentView extends LinearLayout {
         commentText.setText(text);
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
+    private void onCommentTextTouchListener() {
+        commentText.setOnTouchListener((view, event) -> {
+            if (MotionEvent.ACTION_UP == event.getAction()) {
+                EventBus.getDefault().post(new OnFocusEvent(isFocused));
+            }
+            return false;
+        });
+    }
 }

@@ -17,11 +17,15 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.utils.OnFocusEvent;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
@@ -73,6 +77,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+        EventBus.getDefault().register(this);
         star.setOnClickListener(view -> superhero.setFavourite(true));
         backButton.setOnClickListener(view -> {
             if (getActivity() != null) {
@@ -108,6 +113,11 @@ public class SuperheroDetailsFragment extends BaseFragment {
         if (viewModel.superheroMasterData.getValue() == null) {
             viewModel.setSuperheroMasterData(superhero);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(OnFocusEvent event) {
+        motionLayout.transitionToEnd();
     }
 
     private void loadImage(String profileImageUrl) {
@@ -167,6 +177,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
     }
 }
