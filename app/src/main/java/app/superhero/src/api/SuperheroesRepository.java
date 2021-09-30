@@ -301,18 +301,17 @@ public class SuperheroesRepository {
         defaultDeferredManager.when(
                 getPowerstatsById(id)
         ).done(result -> {
-            if(result != null) {
+            if (result != null) {
                 Powerstats powerstats = powerstatsDao.getPowerstats(id);
                 itemCallback.onSuccess(powerstats);
-            };
+            }
+            ;
         });
     }
 
     @Background
     public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
-        if(commentDao.getComment(id) != null) {
-            itemCallback.onSuccess(commentDao.getComment(id));
-        }
+        itemCallback.onSuccess(commentDao.getComment(id));
     }
 
     @Background

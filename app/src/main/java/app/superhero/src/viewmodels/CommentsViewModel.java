@@ -31,7 +31,11 @@ public class CommentsViewModel extends ViewModel {
         repository.getCommentFromDbById(id, new ItemCallback<Comments>() {
             @Override
             public void onSuccess(Comments result) {
-                _comments.postValue(result.getComment());
+                if(result != null){
+                    _comments.postValue(result.getComment());
+                } else {
+                    _comments.postValue("");
+                }
             }
 
             @Override

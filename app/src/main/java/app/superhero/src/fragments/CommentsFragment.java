@@ -31,8 +31,9 @@ public class CommentsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-        viewModel.getComment(superheroMasterData.getId());
         observeComments();
+        viewModel.getComment(superheroMasterData.getId());
+        button.setEnabled(false);
         button.setOnClickListener(view -> viewModel.setComment(superheroMasterData.getId(), commentView.getComment()));
     }
 

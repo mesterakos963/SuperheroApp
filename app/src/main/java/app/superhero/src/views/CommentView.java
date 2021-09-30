@@ -79,7 +79,9 @@ public class CommentView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (callback != null) {
+                    callback.onTextChanged(!editable.toString().equals(previousComment));
+                }
             }
         });
     }
