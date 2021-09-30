@@ -305,7 +305,6 @@ public class SuperheroesRepository {
                 Powerstats powerstats = powerstatsDao.getPowerstats(id);
                 itemCallback.onSuccess(powerstats);
             }
-            ;
         });
     }
 

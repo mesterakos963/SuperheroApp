@@ -18,11 +18,6 @@ public class SuperheroDetailsViewModel extends ViewModel {
     public LiveData<Integer> selectedPage = _selectedPage;
     public LiveData<SuperheroMasterData> superheroMasterData = _superheroMasterData;
 
-
-    /*  todo átírni, hogy egy egész SHMD-t passzolni át
-        onClick -> átváltani a kinézetet és a VM-ből elindítani az updetet
-     */
-
     @Bean
     SuperheroesRepository repository;
 

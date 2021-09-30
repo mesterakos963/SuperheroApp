@@ -5,15 +5,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selector_save_comment_button_bg">
 
-        <TextView
-            android:id="@+id/saveCommentButtonLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@color/transparent"
-            android:paddingTop="@dimen/design_14dp"
-            android:paddingBottom="@dimen/design_14dp"
-            android:text="@string/save_comment_button_label"
-            style="@style/save_comment_button_label_font"/>
+    <TextView
+        android:id="@+id/saveCommentButtonLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/transparent"
+        android:paddingTop="@dimen/design_14dp"
+        android:paddingBottom="@dimen/design_14dp"
+        android:text="@string/save_comment_button_label"
+        style="@style/save_comment_button_label_font" />
 
 </FrameLayout>

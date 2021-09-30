@@ -30,6 +30,7 @@ public class CommentView extends LinearLayout {
 
     private final int CHARACTER_LIMIT = 500;
     private String previousComment;
+    private final boolean isFocused = false;
 
     public CommentView(Context context) {
         super(context);

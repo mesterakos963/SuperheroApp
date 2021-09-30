@@ -21,7 +21,6 @@
         android:layout_marginTop="@dimen/design_54dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/commentView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

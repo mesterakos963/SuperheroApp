@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         android:gravity="center"
-        tools:text="Intelligence"/>
+        tools:text="Intelligence" />
 
     <TextView
         android:id="@+id/strength"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        tools:text="Strength"/>
+        tools:text="Strength" />
 
     <TextView
         android:id="@+id/speed"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        tools:text="Speed"/>
+        tools:text="Speed" />
 
     <TextView
         android:id="@+id/durability"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        tools:text="Durability"/>
+        tools:text="Durability" />
 
     <TextView
         android:id="@+id/power"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        tools:text="Power"/>
+        tools:text="Power" />
 
     <TextView
         android:id="@+id/combat"
@@ -64,5 +64,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        tools:text="Combat"/>
+        tools:text="Combat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,13 @@
 package app.superhero.src.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -33,20 +33,31 @@ import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;
 public class SuperheroDetailsFragment extends BaseFragment {
 
     @ViewsById({R.id.powerstatsButton, R.id.characteristicsButton, R.id.commentsButton})
+
     protected List<ButtonView> buttons;
     ViewPagerAdapter adapter;
+
     @ViewById
     ViewPager2 viewPager;
+
     @ViewById
     ImageView backButton;
+
     @ViewById
     ImageView profileImage;
+
     @ViewById
     TextView superheroNameText;
+
     @ViewById
     ImageView star;
+
+    @ViewById
+    MotionLayout motionLayout;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
+
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     int currentPage;
     private boolean measured;
@@ -114,9 +125,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     private void observeSuperheroMasterData() {
         viewModel.superheroMasterData.observe(this, superheroMasterData -> {
             superheroNameText.setText(superheroMasterData.getName());
-            Log.d("VALAMI", "VALAMI NÉV: " + superheroMasterData.getName());
             loadImage(superheroMasterData.getUrl());
-            Log.d("VALAMI", "VALAMI KÉP: " + superheroMasterData.getUrl());
             star.setSelected(superheroMasterData.getIsFavourite());
         });
     }

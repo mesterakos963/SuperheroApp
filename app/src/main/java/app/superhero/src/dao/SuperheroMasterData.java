@@ -54,7 +54,9 @@ public class SuperheroMasterData implements Parcelable {
         return superheroId;
     }
 
-    public boolean getIsFavourite() { return isFavourite; }
+    public boolean getIsFavourite() {
+        return isFavourite;
+    }
 
     public void setFavourite(boolean favourite) {
         isFavourite = favourite;

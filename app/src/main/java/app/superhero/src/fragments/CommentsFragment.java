@@ -40,7 +40,7 @@ public class CommentsFragment extends BaseFragment {
     private void observeComments() {
         viewModel.comments.observe(this, commentText -> {
             commentView.setCommentText(commentText);
-            if(isFirstInit) {
+            if (isFirstInit) {
                 bindCommentComponent(commentText);
                 isFirstInit = false;
             }

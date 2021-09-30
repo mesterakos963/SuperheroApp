@@ -37,7 +37,7 @@ public class SaveCommentButtonView extends FrameLayout {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if(saveCommentButtonRoot != null) {
+        if (saveCommentButtonRoot != null) {
             saveCommentButtonRoot.setEnabled(enabled);
             saveCommentButtonLabel.setEnabled(enabled);
         }

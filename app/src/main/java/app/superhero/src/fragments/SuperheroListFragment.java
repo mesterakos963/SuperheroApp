@@ -148,7 +148,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @Override
     public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
-           NavDirections action =
+            NavDirections action =
                     SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
             Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }

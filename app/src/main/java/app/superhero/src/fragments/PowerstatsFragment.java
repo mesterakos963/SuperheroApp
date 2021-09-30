@@ -41,7 +41,7 @@ public class PowerstatsFragment extends BaseFragment {
 
 
     @AfterViews
-    public void init(){
+    public void init() {
         observePowerstats();
         viewModel.getPowerstats(superheroMasterData.getId());
     }

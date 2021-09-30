@@ -5,6 +5,5 @@
         android:angle="270"
         android:endColor="@color/save_button_gb_gradient_start"
         android:startColor="@color/save_button_gb_gradient_end" />
-    <corners
-        android:radius="@dimen/design_10dp"/>
+    <corners android:radius="@dimen/design_10dp" />
 </shape>
