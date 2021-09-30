@@ -1,6 +1,7 @@
 package app.superhero.src.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -117,7 +118,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnFocusEvent event) {
-        motionLayout.transitionToEnd();
+        Log.d("VALAMI", "VALAMI " + motionLayout.getProgress());
+        if(motionLayout.getProgress() < 1.0) {
+            motionLayout.transitionToEnd();
+        }
     }
 
     private void loadImage(String profileImageUrl) {

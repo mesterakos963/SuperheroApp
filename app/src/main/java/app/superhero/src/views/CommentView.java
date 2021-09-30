@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class CommentView extends LinearLayout {
     TextView characterCounter;
 
     @ViewById
-    EditText commentText;
+    EditText commentInput;
 
     TextChangedCallback callback;
 
@@ -55,7 +56,6 @@ public class CommentView extends LinearLayout {
     @AfterViews
     void init() {
         countCharacters();
-        //onCommentTextFocus();
         onCommentTextTouchListener();
     }
 
@@ -67,9 +67,9 @@ public class CommentView extends LinearLayout {
     private void countCharacters() {
         characterCounter.setText(getContext().getResources()
                 .getQuantityString(R.plurals.character_limit_label,
-                        CHARACTER_LIMIT - commentText.length(),
-                        CHARACTER_LIMIT - commentText.length()));
-        commentText.addTextChangedListener(new TextWatcher() {
+                        CHARACTER_LIMIT - commentInput.length(),
+                        CHARACTER_LIMIT - commentInput.length()));
+        commentInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -80,8 +80,8 @@ public class CommentView extends LinearLayout {
                 characterCounter
                         .setText(getContext().getResources()
                                 .getQuantityString(R.plurals.character_limit_label,
-                                        CHARACTER_LIMIT - commentText.length(),
-                                        CHARACTER_LIMIT - commentText.length()));
+                                        CHARACTER_LIMIT - commentInput.length(),
+                                        CHARACTER_LIMIT - commentInput.length()));
             }
 
             @Override
@@ -94,20 +94,24 @@ public class CommentView extends LinearLayout {
     }
 
     public String getComment() {
-        return commentText.getText().toString();
+        return commentInput.getText().toString();
     }
 
-    public void setCommentText(String text) {
-        commentText.setText(text);
+    public void setCommentInput(String text) {
+        commentInput.setText(text);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void onCommentTextTouchListener() {
-        commentText.setOnTouchListener((view, event) -> {
+        commentInput.setOnTouchListener((view, event) -> {
             if (MotionEvent.ACTION_UP == event.getAction()) {
                 EventBus.getDefault().post(new OnFocusEvent(isFocused));
             }
             return false;
         });
+    }
+
+    public View getEditText() {
+        return commentInput;
     }
 }

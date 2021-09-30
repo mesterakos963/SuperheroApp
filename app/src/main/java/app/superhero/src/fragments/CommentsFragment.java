@@ -1,11 +1,14 @@
 package app.superhero.src.fragments;
 
+import android.view.View;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
+import app.superhero.MainActivity;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CommentsViewModel;
@@ -34,12 +37,18 @@ public class CommentsFragment extends BaseFragment {
         observeComments();
         viewModel.getComment(superheroMasterData.getId());
         button.setEnabled(false);
-        button.setOnClickListener(view -> viewModel.setComment(superheroMasterData.getId(), commentView.getComment()));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
+                viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
+            }
+        });
     }
 
     private void observeComments() {
         viewModel.comments.observe(this, commentText -> {
-            commentView.setCommentText(commentText);
+            commentView.setCommentInput(commentText);
             if (isFirstInit) {
                 bindCommentComponent(commentText);
                 isFirstInit = false;

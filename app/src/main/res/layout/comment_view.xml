@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/commentText"
+        android:id="@+id/commentInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/comment_hint"
