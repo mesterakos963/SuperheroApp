@@ -70,6 +70,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     app.superhero.src.utils.Debouncer debouncer;
     private boolean firstStart = true;
+    private int positionIndex;
 
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -91,21 +92,9 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
-        emptyView.setOnClickListenerToEmptyView(view -> {
-            if (getActivity() != null) {
-                hideKeyboard(getActivity());
-            }
-            searchBar.clearEditTextFocus();
-        });
+        emptyViewOnClickListener();
         emptyViewText.setText(R.string.empty_view_text);
-        toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
-                loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
-                toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
+        adjustPaddingToKeyboard();
         observeSuperheroes();
         bindSearchView();
         observeSearchText();
@@ -114,6 +103,26 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
                 message -> superheroListViewModel.postSearch(message)
         );
         int a = 0;
+    }
+
+    private void emptyViewOnClickListener() {
+        emptyView.setOnClickListenerToEmptyView(view -> {
+            if (getActivity() != null) {
+                hideKeyboard(getActivity());
+            }
+            searchBar.clearEditTextFocus();
+        });
+    }
+
+    private void adjustPaddingToKeyboard() {
+        toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
     }
 
     private void bindSearchView() {
@@ -143,6 +152,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
     }
 
     @Override
