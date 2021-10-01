@@ -80,35 +80,16 @@ public class SuperheroDetailsFragment extends BaseFragment {
     public void init() {
         EventBus.getDefault().register(this);
         star.setOnClickListener(view -> superhero.setFavourite(true));
-        backButton.setOnClickListener(view -> {
-            if (getActivity() != null) {
-                getActivity().onBackPressed();
-            }
-        });
-        if (viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
-            currentPage = 0;
-        } else {
-            currentPage = viewModel.selectedPage.getValue();
-        }
+        backButtonClick();
+        setStartingPage();
         bindButtons();
         adapter = new ViewPagerAdapter(getActivity(), superhero);
         viewPager.setOffscreenPageLimit(NUM_PAGES);
         viewPager.setAdapter(adapter);
         observeSelectedPage();
+        measureCurrentPage();
         viewPager.setCurrentItem(currentPage);
         selectButtonByPosition(currentPage);
-        pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                selectButtonByPosition(position);
-                if (adapter.getFragments().size() > position && !measured) {
-                    View view = adapter.getFragments().get(CHARACTERISTICS_POSITION).getView();
-                    measureViewPager(view);
-                    measured = true;
-                }
-            }
-        };
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
         observeSuperheroMasterData();
         if (viewModel.superheroMasterData.getValue() == null) {
@@ -118,10 +99,39 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnFocusEvent event) {
-        Log.d("VALAMI", "VALAMI " + motionLayout.getProgress());
         if(motionLayout.getProgress() < 1.0) {
             motionLayout.transitionToEnd();
         }
+    }
+
+    private void backButtonClick() {
+        backButton.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
+    private void setStartingPage() {
+        if (viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
+            currentPage = 0;
+        } else {
+            currentPage = viewModel.selectedPage.getValue();
+        }
+    }
+
+    private void measureCurrentPage() {
+        pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                selectButtonByPosition(position);
+                if (adapter.getFragments().size() > position) {
+                    View view = adapter.getFragments().get(position).getView();
+                    measureViewPager(view);
+                }
+            }
+        };
     }
 
     private void loadImage(String profileImageUrl) {
@@ -157,7 +167,6 @@ public class SuperheroDetailsFragment extends BaseFragment {
             if (buttons.get(j).getId() == buttonId) {
                 viewModel.setSelectedPage(j);
             }
-            buttons.get(j).setButtonSelected(buttons.get(j).getId() == buttonId);
         }
     }
 
@@ -169,7 +178,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     public void measureViewPager(View view) {
         int wMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY);
-        int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getHeight(), View.MeasureSpec.UNSPECIFIED);
         view.measure(wMeasureSpec, hMeasureSpec);
 
         ViewGroup.LayoutParams params = viewPager.getLayoutParams();
