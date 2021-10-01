@@ -16,6 +16,14 @@
         android:src="@drawable/ic_place"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/fade"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/design_190dp"
+        android:background="@drawable/fade_shape"
+        app:layout_constraintBottom_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/star"
         android:layout_width="@dimen/design_30dp"
@@ -25,14 +33,6 @@
         android:layout_marginTop="@dimen/design_12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/fade"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/design_190dp"
-        android:background="@drawable/fade_shape"
-        app:layout_constraintBottom_toBottomOf="@id/profileImage"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/superheroNameText"
