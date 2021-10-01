@@ -1,7 +1,6 @@
 package app.superhero.src.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,9 +29,6 @@ import app.superhero.src.utils.OnFocusEvent;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
 import app.superhero.src.views.ButtonView;
-
-import static app.superhero.src.utils.ViewPagerAdapter.CHARACTERISTICS_POSITION;
-import static app.superhero.src.utils.ViewPagerAdapter.NUM_PAGES;
 
 @EFragment(R.layout.fragment_superhero_details)
 public class SuperheroDetailsFragment extends BaseFragment {
@@ -84,7 +80,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
         setStartingPage();
         bindButtons();
         adapter = new ViewPagerAdapter(getActivity(), superhero);
-        viewPager.setOffscreenPageLimit(NUM_PAGES);
+        viewPager.setOffscreenPageLimit(adapter.getItemCount());
         viewPager.setAdapter(adapter);
         observeSelectedPage();
         measureCurrentPage();
