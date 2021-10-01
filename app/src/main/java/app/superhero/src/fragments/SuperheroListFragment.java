@@ -102,7 +102,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> superheroListViewModel.postSearch(message)
         );
-        int a = 0;
     }
 
     private void emptyViewOnClickListener() {

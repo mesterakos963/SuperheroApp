@@ -1,6 +1,7 @@
 package app.superhero.src.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,6 +57,9 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @ViewById
     MotionLayout motionLayout;
 
+    @ViewById
+    ImageView starBackground;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
 
@@ -75,7 +79,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @AfterViews
     public void init() {
         EventBus.getDefault().register(this);
-        star.setOnClickListener(view -> superhero.setFavourite(true));
+        starClick();
         backButtonClick();
         setStartingPage();
         bindButtons();
@@ -108,6 +112,13 @@ public class SuperheroDetailsFragment extends BaseFragment {
         });
     }
 
+    private void starClick() {
+        starBackground.setOnClickListener(view -> {
+            viewModel.setIsFavourite();
+            star.setSelected(!star.isSelected());
+        });
+    }
+
     private void setStartingPage() {
         if (viewModel.selectedPage.getValue() == null || viewModel.selectedPage.getValue() == 0) {
             currentPage = 0;
@@ -122,10 +133,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 selectButtonByPosition(position);
-                if (adapter.getFragments().size() > position) {
-                    View view = adapter.getFragments().get(position).getView();
-                    measureViewPager(view);
-                }
+                adapter.notifyDataSetChanged();
             }
         };
     }
@@ -147,6 +155,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
             superheroNameText.setText(superheroMasterData.getName());
             loadImage(superheroMasterData.getUrl());
             star.setSelected(superheroMasterData.getIsFavourite());
+            Log.d("ELMENT", "ELMENTETTE " + superheroMasterData.getIsFavourite());
         });
     }
 
@@ -187,6 +196,6 @@ public class SuperheroDetailsFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
-        viewPager.registerOnPageChangeCallback(pageChangeCallback);
+        viewPager.unregisterOnPageChangeCallback(pageChangeCallback);
     }
 }

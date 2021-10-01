@@ -24,6 +24,13 @@
         </Constraint>
 
         <Constraint
+            android:id="@id/starBackground">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="255" />
+        </Constraint>
+
+        <Constraint
             android:id="@id/superheroNameText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -67,6 +74,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                app:attributeName="imageAlpha"
+                app:customIntegerValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/starBackground">
             <CustomAttribute
                 app:attributeName="imageAlpha"
                 app:customIntegerValue="0" />

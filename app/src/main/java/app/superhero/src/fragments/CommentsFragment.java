@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.os.Handler;
 import android.view.View;
 
 import org.androidannotations.annotations.AfterViews;
@@ -32,6 +33,8 @@ public class CommentsFragment extends BaseFragment {
 
     boolean isFirstInit = true;
 
+    final Handler handler = new Handler();
+
     @AfterViews
     public void init() {
         observeComments();
@@ -40,8 +43,14 @@ public class CommentsFragment extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
                 viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
+                final Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        handler.postDelayed(this,500);
+                        ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
+                    }
+                };
             }
         });
     }

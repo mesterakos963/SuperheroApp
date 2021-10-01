@@ -24,15 +24,26 @@
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/starBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/design_16dp"
+        android:layout_marginTop="@dimen/design_12dp"        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_star_background"/>
+
+
     <ImageView
         android:id="@+id/star"
-        android:layout_width="@dimen/design_30dp"
-        android:layout_height="@dimen/design_30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:src="@drawable/selector_favourite"
-        android:layout_marginEnd="@dimen/design_16dp"
-        android:layout_marginTop="@dimen/design_12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/starBackground"
+        app:layout_constraintTop_toTopOf="@id/starBackground"
+        app:layout_constraintStart_toStartOf="@id/starBackground"
+        app:layout_constraintBottom_toBottomOf="@id/starBackground"/>
 
     <TextView
         android:id="@+id/superheroNameText"

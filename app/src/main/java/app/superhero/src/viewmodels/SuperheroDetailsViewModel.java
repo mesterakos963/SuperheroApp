@@ -28,5 +28,12 @@ public class SuperheroDetailsViewModel extends ViewModel {
     public void setSuperheroMasterData(SuperheroMasterData superheroMasterData) {
         _superheroMasterData.postValue(superheroMasterData);
     }
+
+    public void setIsFavourite() {
+        SuperheroMasterData superhero = _superheroMasterData.getValue();
+        superhero.setFavourite(!superhero.getIsFavourite());
+        repository.cacheFavourite(superhero);
+        _superheroMasterData.postValue(superhero);
+    }
 }
 

@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -20,9 +21,14 @@ public interface SuperheroMasterDataDao {
     @Delete
     void delete(SuperheroMasterData superheroMasterData);
 
-    /*@Query("SELECT * FROM SuperheroMasterData WHERE isFavourite = 1")
-    List<SuperheroMasterData> getFavourites(boolean isFavourite);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(SuperheroMasterData superhero);
 
-    @Update
-    void update(SuperheroMasterData superhero);*/
+    /*@Query("SELECT * FROM SuperheroMasterData WHERE id = :id")
+    SuperheroMasterData getSuperheroesById(int id);
+
+    @Query("SELECT * FROM SuperheroMasterData WHERE isFavourite = 1")
+    List<SuperheroMasterData> getFavourites(boolean isFavourite);
+    */
+
 }
