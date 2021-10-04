@@ -10,4 +10,10 @@
         android:layout_height="@dimen/_300sdp"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/barChart"
+        app:layout_constraintTop_toBottomOf="@id/radarChart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
