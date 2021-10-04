@@ -1,7 +1,5 @@
 package app.superhero.src.api;
 
-import android.util.Log;
-
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
@@ -357,7 +355,5 @@ public class SuperheroesRepository {
     @Background
     public void cacheFavourite(SuperheroMasterData data) {
         superheroMasterDataDao.update(data);
-        Log.d("ELMENT", "ELMENTETTE " + data.getIsFavourite());
-        int a = 1;
     }
 }

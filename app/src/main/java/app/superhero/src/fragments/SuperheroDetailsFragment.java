@@ -1,7 +1,7 @@
 package app.superhero.src.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -63,9 +63,10 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @Bean
     SuperheroDetailsViewModel viewModel;
 
+    final Handler handler = new Handler();
+
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     int currentPage;
-    private boolean measured;
     private SuperheroMasterData superhero;
 
     @Override
@@ -99,8 +100,13 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnFocusEvent event) {
-        if(motionLayout.getProgress() < 1.0) {
-            motionLayout.transitionToEnd();
+        if (motionLayout.getProgress() < 1.0) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    motionLayout.transitionToEnd();
+                }
+            }, 450);
         }
     }
 
@@ -155,7 +161,6 @@ public class SuperheroDetailsFragment extends BaseFragment {
             superheroNameText.setText(superheroMasterData.getName());
             loadImage(superheroMasterData.getUrl());
             star.setSelected(superheroMasterData.getIsFavourite());
-            Log.d("ELMENT", "ELMENTETTE " + superheroMasterData.getIsFavourite());
         });
     }
 

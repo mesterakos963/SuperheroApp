@@ -33,8 +33,6 @@ public class CommentsFragment extends BaseFragment {
 
     boolean isFirstInit = true;
 
-    final Handler handler = new Handler();
-
     @AfterViews
     public void init() {
         observeComments();
@@ -43,16 +41,14 @@ public class CommentsFragment extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
-                final Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        handler.postDelayed(this,500);
-                        ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
-                    }
-                };
+                clickButton();
             }
         });
+    }
+
+    private void clickButton() {
+        viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
+        ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
     }
 
     private void observeComments() {
