@@ -1,6 +1,6 @@
 package app.superhero.src.fragments;
 
-import android.widget.TextView;
+import com.github.mikephil.charting.charts.RadarChart;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -22,23 +22,7 @@ public class PowerstatsFragment extends BaseFragment {
     PowerstatsViewModel viewModel;
 
     @ViewById
-    TextView intelligence;
-
-    @ViewById
-    TextView strength;
-
-    @ViewById
-    TextView speed;
-
-    @ViewById
-    TextView durability;
-
-    @ViewById
-    TextView power;
-
-    @ViewById
-    TextView combat;
-
+    RadarChart radarChart;
 
     @AfterViews
     public void init() {
@@ -48,12 +32,6 @@ public class PowerstatsFragment extends BaseFragment {
 
     private void observePowerstats() {
         viewModel.powerstats.observe(this, powerstats -> {
-            intelligence.setText(Integer.toString(powerstats.getIntelligence()));
-            strength.setText(Integer.toString(powerstats.getStrength()));
-            speed.setText(Integer.toString(powerstats.getSpeed()));
-            durability.setText(Integer.toString(powerstats.getDurability()));
-            power.setText(Integer.toString(powerstats.getPower()));
-            combat.setText(Integer.toString(powerstats.getCombat()));
         });
     }
 }

@@ -37,6 +37,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     def room_version = "2.3.0"
     implementation 'net.orandja.shadowlayout:shadowlayout:1.0.1'
@@ -61,6 +65,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'org.jdeferred:jdeferred-core:1.2.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
