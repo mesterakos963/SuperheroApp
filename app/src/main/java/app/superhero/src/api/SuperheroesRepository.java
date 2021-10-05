@@ -9,7 +9,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.jdeferred.Deferred;
-import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
 import org.jdeferred.impl.DefaultDeferredManager;
 import org.jdeferred.impl.DeferredObject;
@@ -169,7 +168,7 @@ public class SuperheroesRepository {
             @Override
             public void onFailure(Call<ConnectionsDto> call, Throwable t) {
                 call.cancel();
-                deferred.fail((FailCallback<Throwable>) t);
+                deferred.reject(t);
             }
         });
     }
@@ -329,6 +328,7 @@ public class SuperheroesRepository {
                                 powerstatsDto.getCombat())
                 ).single();
         powerstatsDao.insertPowerstats(powerstats);
+        //kikérni db-ből és azt resolveolni deferred-del
         deferred.resolve(response.body());
     }
 

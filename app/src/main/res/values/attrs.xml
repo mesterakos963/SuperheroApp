@@ -7,4 +7,8 @@
     <declare-styleable name="DetailsItemView">
         <attr name="itemTitle" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="RoundedBarChart">
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
 </resources>

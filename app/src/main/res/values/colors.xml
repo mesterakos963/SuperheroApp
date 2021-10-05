@@ -54,6 +54,6 @@
     <color name="inactive_save_comment_button_label_color">#A2A2A2</color>
     <color name="active_save_comment_button_label_color">#FFFFFF</color>
     <color name="save_button_bg_color_inactive">#FFFFFF</color>
-    <color name="chart_text_color">#000000</color>
+    <color name="chart_text_color">#505050</color>
     <color name="bar_chart_color">#FFBB3B</color>
 </resources>
