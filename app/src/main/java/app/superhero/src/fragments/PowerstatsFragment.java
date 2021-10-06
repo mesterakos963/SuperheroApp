@@ -2,7 +2,6 @@ package app.superhero.src.fragments;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -11,14 +10,12 @@ import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.ramijemli.percentagechartview.PercentageChartView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -45,6 +42,24 @@ public class PowerstatsFragment extends BaseFragment {
 
     @ViewById
     RadarChart radarChart;
+
+    @ViewById
+    PercentageChartView intelligenceChart;
+
+    @ViewById
+    PercentageChartView strengthChart;
+
+    @ViewById
+    PercentageChartView speedChart;
+
+    @ViewById
+    PercentageChartView durabilityChart;
+
+    @ViewById
+    PercentageChartView powerChart;
+
+    @ViewById
+    PercentageChartView combatChart;
 
     @AfterViews
     public void init() {
@@ -108,20 +123,6 @@ public class PowerstatsFragment extends BaseFragment {
         radarChart.setWebLineWidth(1f);
         radarChart.setWebLineWidthInner(1f);
 
-        radarChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                //marker.setMarkerText(h.toString());
-                Log.d("VALAMI", "MARKER " + h.toString());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-
-        });
-
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
         xAxis.setTypeface(typeface);
         xAxis.setTextSize(14f);
@@ -129,6 +130,15 @@ public class PowerstatsFragment extends BaseFragment {
 
         radarChart.setData(data);
         radarChart.invalidate();
+    }
+
+    private void setPercentageCharts(Powerstats powerstats) {
+        intelligenceChart.setOnProgressChangeListener(new PercentageChartView.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(float progress) {
+                progress = powerstats.getIntelligence();
+            }
+        });
     }
 }
 
