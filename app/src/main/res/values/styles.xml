@@ -130,4 +130,9 @@
         <item name="android:textColor">@color/marker_text_color</item>
     </style>
 
+    <style name="chart_label_font" parent="gothamMedium">
+        <item name="android:textSize">@dimen/design_12sp</item>
+        <item name="android:textColor">@color/chart_text_color</item>
+    </style>
+
 </resources>

@@ -58,5 +58,14 @@
     <color name="bar_chart_color">#FFBB3B</color>
     <color name="marker_text_color">#FFFFFF</color>
     <color name="marker_background_color">#C64E4D4D</color>
+    <color name="pcv_bg_color">#FFBB3B</color>
+    <color name="red">#cc4b37</color>
+    <color name="orange">#FF6600</color>
+    <color name="green">#3adb76</color>
+    <color name="blue">#1779ba</color>
+    <color name="salmon">#f3c2b2</color>
+    <color name="brown">#713e06</color>
+    <color name="pcv_bg_bar_color">#FFBB3B</color>
+
 
 </resources>
