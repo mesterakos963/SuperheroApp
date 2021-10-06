@@ -10,4 +10,52 @@
         android:layout_height="@dimen/_300sdp"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/intelligenceChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radarChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/strengthChart"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/strengthChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radarChart"
+        app:layout_constraintStart_toEndOf="@id/intelligenceChart"
+        app:layout_constraintEnd_toStartOf="@+id/speedChart"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/speedChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radarChart"
+        app:layout_constraintStart_toEndOf="@id/strengthChart"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/durabilityChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/intelligenceChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/powerChart"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/powerChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/intelligenceChart"
+        app:layout_constraintStart_toEndOf="@id/durabilityChart"
+        app:layout_constraintEnd_toStartOf="@+id/combatChart"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/combatChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/intelligenceChart"
+        app:layout_constraintStart_toEndOf="@id/powerChart"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
