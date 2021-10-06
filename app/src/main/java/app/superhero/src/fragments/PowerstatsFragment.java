@@ -2,6 +2,7 @@ package app.superhero.src.fragments;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -10,11 +11,14 @@ import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -28,6 +32,7 @@ import app.superhero.R;
 import app.superhero.src.dao.Powerstats;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.PowerstatsViewModel;
+import app.superhero.src.views.MarkerView;
 
 @EFragment(R.layout.fragment_powerstats)
 public class PowerstatsFragment extends BaseFragment {
@@ -57,6 +62,8 @@ public class PowerstatsFragment extends BaseFragment {
         Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.gotham_medium);
         ArrayList<RadarEntry> entries = new ArrayList<>();
         Description description = radarChart.getDescription();
+        MarkerView marker = new MarkerView(getContext(), R.layout.marker_view);
+        radarChart.setMarker(marker);
         YAxis yAxis = radarChart.getYAxis();
         XAxis xAxis = radarChart.getXAxis();
         String[] labels = {getContext().getString(R.string.Intelligence),
@@ -66,13 +73,12 @@ public class PowerstatsFragment extends BaseFragment {
                 getContext().getString(R.string.Power),
                 getContext().getString(R.string.Combat)};
 
-        radarChart.setRotationEnabled(false);
-        radarChart.getLegend().setEnabled(false);
-
         yAxis.setAxisMinimum(0);
         yAxis.setAxisMaximum(90);
         xAxis.setAxisMinimum(0);
         xAxis.setAxisMaximum(90);
+        yAxis.setTextColor(ContextCompat.getColor(getContext(), R.color.transparent));
+
         entries.add(new RadarEntry(powerstats.getIntelligence()));
         entries.add(new RadarEntry(powerstats.getStrength()));
         entries.add(new RadarEntry(powerstats.getSpeed()));
@@ -84,8 +90,8 @@ public class PowerstatsFragment extends BaseFragment {
         set.setColor(Color.rgb(255, 187, 59));
         set.setFillColor(Color.rgb(255, 187, 59));
         set.setDrawFilled(true);
-        set.setFillAlpha(180);
-        set.setLineWidth(2f);
+        set.setFillAlpha(130);
+        set.setLineWidth(3f);
         set.setDrawHighlightCircleEnabled(true);
         set.setDrawHighlightIndicators(false);
         description.setEnabled(false);
@@ -95,10 +101,26 @@ public class PowerstatsFragment extends BaseFragment {
         RadarData data = new RadarData(sets);
         data.setDrawValues(false);
 
+        radarChart.setRotationEnabled(false);
+        radarChart.getLegend().setEnabled(false);
         radarChart.setWebColor(ContextCompat.getColor(getContext(), R.color.chart_text_color));
         radarChart.setWebColorInner(ContextCompat.getColor(getContext(), R.color.chart_text_color));
         radarChart.setWebLineWidth(1f);
         radarChart.setWebLineWidthInner(1f);
+
+        radarChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                //marker.setMarkerText(h.toString());
+                Log.d("VALAMI", "MARKER " + h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+
+        });
 
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
         xAxis.setTypeface(typeface);

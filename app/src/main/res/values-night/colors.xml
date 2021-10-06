@@ -53,4 +53,6 @@
     <color name="active_save_comment_button_label_color">#000000</color>
     <color name="save_button_bg_color_inactive">#A2A2A2</color>
     <color name="chart_text_color">#FFFFFF</color>
+    <color name="marker_text_color">#FFFFFF</color>
+
 </resources>

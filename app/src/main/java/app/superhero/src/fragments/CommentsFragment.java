@@ -1,6 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.os.Handler;
 import android.view.View;
 
 import org.androidannotations.annotations.AfterViews;

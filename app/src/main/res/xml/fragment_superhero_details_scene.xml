@@ -23,8 +23,7 @@
                 app:customIntegerValue="255" />
         </Constraint>
 
-        <Constraint
-            android:id="@id/starBackground">
+        <Constraint android:id="@id/starBackground">
             <CustomAttribute
                 app:attributeName="imageAlpha"
                 app:customIntegerValue="255" />
@@ -79,8 +78,7 @@
                 app:customIntegerValue="0" />
         </Constraint>
 
-        <Constraint
-            android:id="@id/starBackground">
+        <Constraint android:id="@id/starBackground">
             <CustomAttribute
                 app:attributeName="imageAlpha"
                 app:customIntegerValue="0" />

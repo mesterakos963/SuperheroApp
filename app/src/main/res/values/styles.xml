@@ -125,4 +125,9 @@
         <item name="android:textColor">@color/selector_save_comment_button_color</item>
     </style>
 
+    <style name="marker_text_font" parent="gothamBold">
+        <item name="android:textSize">@dimen/design_12sp</item>
+        <item name="android:textColor">@color/marker_text_color</item>
+    </style>
+
 </resources>
