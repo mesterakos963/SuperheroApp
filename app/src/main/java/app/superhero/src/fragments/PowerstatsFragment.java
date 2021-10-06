@@ -70,6 +70,7 @@ public class PowerstatsFragment extends BaseFragment {
     private void observePowerstats() {
         viewModel.powerstats.observe(this, powerstats -> {
             setRadarChart(powerstats);
+            setPercentageCharts(powerstats);
         });
     }
 
@@ -133,12 +134,12 @@ public class PowerstatsFragment extends BaseFragment {
     }
 
     private void setPercentageCharts(Powerstats powerstats) {
-        intelligenceChart.setOnProgressChangeListener(new PercentageChartView.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(float progress) {
-                progress = powerstats.getIntelligence();
-            }
-        });
+        intelligenceChart.setProgress(powerstats.getIntelligence(), true);
+        strengthChart.setProgress(powerstats.getStrength(), true);
+        speedChart.setProgress(powerstats.getSpeed(), true);
+        durabilityChart.setProgress(powerstats.getDurability(), true);
+        powerChart.setProgress(powerstats.getPower(), true);
+        combatChart.setProgress(powerstats.getCombat(), true);
     }
 }
 
