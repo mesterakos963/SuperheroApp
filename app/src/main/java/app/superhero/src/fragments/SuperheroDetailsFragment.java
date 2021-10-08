@@ -106,7 +106,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
                 public void run() {
                     motionLayout.transitionToEnd();
                 }
-            }, 450);
+            }, 500);
         }
     }
 

@@ -3,13 +3,16 @@
     <item
         android:id="@+id/nav_list"
         android:icon="@drawable/ic_search_icon"
-        android:title="@string/list" />
+        android:title="@string/list"
+        android:textAllCaps="true" />
     <item
         android:id="@+id/nav_favourites"
         android:icon="@drawable/baseline_star_24"
-        android:title="@string/favourites" />
+        android:title="@string/favourites"
+        android:textAllCaps="true" />
     <item
         android:id="@+id/nav_battle"
         android:icon="@drawable/baseline_local_fire_department_24"
-        android:title="@string/battle" />
+        android:title="@string/battle"
+        android:textAllCaps="true" />
 </menu>

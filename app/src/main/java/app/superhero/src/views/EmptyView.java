@@ -3,6 +3,7 @@ package app.superhero.src.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -17,6 +18,9 @@ public class EmptyView extends LinearLayout {
 
     @ViewById
     LinearLayout emptyViewRoot;
+
+    @ViewById
+    TextView emptyViewText;
 
     public EmptyView(Context context) {
         super(context);
@@ -40,5 +44,9 @@ public class EmptyView extends LinearLayout {
 
     public void setPaddingBottom(int padding) {
         emptyViewRoot.setPadding(0, 0, 0, padding);
+    }
+
+    public void setText(String text) {
+        emptyViewText.setText(text);
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Superhero</string>
     <string name="list">Search</string>
-    <string name="favourites">Home</string>
+    <string name="favourites">Favourites</string>
     <string name="battle">Battle</string>
     <string name="list_fragment_label">Superhero list</string>
     <string name="profile_label">Superhero profile</string>
@@ -9,8 +9,8 @@
     <string name="battle_label">Battle</string>
     <string name="errorMsg">Error: %1%s</string>
     <string name="heroes">Heroes</string>
-    <string name="searchbar_hint_label">Type here to search...</string>
-    <string name="empty_view_text">The World is in danger and no superhero to save it...</string>
+    <string name="searchbar_hint_label">Type here to search…</string>
+    <string name="empty_view_text">The World is in danger and no superhero to save it…</string>
     <string name="empty_view_error_text">There is no hero with this name. Try to search another hero.</string>
     <string name="powerstats_button_label">Powerstats</string>
     <string name="comments_button_label">Comments</string>
@@ -36,7 +36,7 @@
     <string name="connections_label">Connections</string>
     <string name="group_affiliation_label">Group affiliation:</string>
     <string name="relatives_label">Relatives:</string>
-    <string name="comment_hint">Type your comment...</string>
+    <string name="comment_hint">Type your comment…</string>
     <string name="save_comment_button_label">save comment</string>
     <string name="Intelligence">Intelligence</string>
     <string name="Strength">Strength</string>
@@ -44,6 +44,8 @@
     <string name="Durability">Durability</string>
     <string name="Power">Power</string>
     <string name="Combat">Combat</string>
+    <string name="favourite_heroes_label">My favourite heroes</string>
+    <string name="favourites_empty_view">You don\'t have favorite superheroes yet</string>
     <plurals name="character_limit_label">
         <item quantity="one">%1$d character left</item>
         <item quantity="other">%1$d characters left</item>

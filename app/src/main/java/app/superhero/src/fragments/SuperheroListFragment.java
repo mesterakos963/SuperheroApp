@@ -1,7 +1,6 @@
 package app.superhero.src.fragments;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,25 +8,17 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import app.superhero.R;
-import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
@@ -36,19 +27,14 @@ import app.superhero.src.views.EmptyView;
 import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SearchbarView;
 
-import static app.superhero.src.utils.Utils.pxFromDp;
-
 @EFragment(R.layout.fragment_superhero_list)
-public class SuperheroListFragment extends BaseFragment implements ItemClickListener {
+public class SuperheroListFragment extends SuperHeroListParentFragment implements ItemClickListener {
 
     @Bean
     SuperheroListViewModel superheroListViewModel;
 
     @ViewById
     RecyclerViewEmptySupport recyclerView;
-
-    @ViewById
-    TextView nameText;
 
     @ViewById
     SearchbarView searchBar;
@@ -65,15 +51,27 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
     @ViewById
     LoadingView loadingView;
 
-    SuperheroesAdapter adapter;
-    RecyclerView.LayoutManager layoutManager;
-
     app.superhero.src.utils.Debouncer debouncer;
     private boolean firstStart = true;
-    private int positionIndex;
 
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    @Override
+    protected void setEmptyViewText(EmptyView emptyView, String text) {
+        if (superheroListViewModel.getSearchTextString() == null
+                || superheroListViewModel.getSearchTextString().isEmpty()) {
+            emptyViewText.setText(R.string.empty_view_text);
+        } else {
+            emptyViewText.setText(R.string.empty_view_error_text);
+        }
+    }
+
+    @Override
+    protected RecyclerViewEmptySupport getRecyclerView() {
+        return recyclerView;
+    }
+
+    @Override
+    protected EmptyView getEmptyView() {
+        return emptyView;
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -85,17 +83,10 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    @AfterViews
-    void init() {
-        layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
-        adapter = new SuperheroesAdapter(new ArrayList<>(), this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setEmptyView(emptyView);
-        emptyViewOnClickListener();
+    @Override
+    protected void doOnInit() {
         emptyViewText.setText(R.string.empty_view_text);
         adjustPaddingToKeyboard();
-        observeSuperheroes();
         bindSearchView();
         observeSearchText();
         observeIsLoading();
@@ -154,24 +145,10 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
 
     }
 
-    @Override
-    public void onItemClick(SuperheroMasterData superhero) {
-        if (getActivity() != null) {
-            NavDirections action =
-                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
-            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
-        }
-    }
-
-    @UiThread
-    public void observeSuperheroes() {
-        superheroListViewModel.superheroes.observe(this, this::refreshAdapter);
-    }
-
     @UiThread
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
-            setEmptyViewText();
+            setEmptyViewText(getEmptyView(), getResources().getString(R.string.empty_view_text));
             if (!searchText.isEmpty()
                     && firstStart
                     || superheroListViewModel.onPauseSearchText.getValue() != null
@@ -193,6 +170,7 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         });
     }
 
+    @Override
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
@@ -200,19 +178,6 @@ public class SuperheroListFragment extends BaseFragment implements ItemClickList
         }
         if (superheroList != null && firstStart) {
             loadingView.setVisibility(View.GONE);
-        }
-    }
-
-    public int getNumberOfColumns() {
-        return (int) (getScreenWidth() / pxFromDp(getContext(), 170));
-    }
-
-    public void setEmptyViewText() {
-        if (superheroListViewModel.getSearchTextString() == null
-                || superheroListViewModel.getSearchTextString().isEmpty()) {
-            emptyViewText.setText(R.string.empty_view_text);
-        } else {
-            emptyViewText.setText(R.string.empty_view_error_text);
         }
     }
 }

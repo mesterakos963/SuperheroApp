@@ -17,6 +17,7 @@ import org.androidannotations.annotations.ViewById;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
+import app.superhero.src.interfaces.StarClickCallback;
 
 @EViewGroup(R.layout.item_superhero)
 public class SuperheroCardView extends CardView {
@@ -30,11 +31,17 @@ public class SuperheroCardView extends CardView {
     @ViewById
     ShadowLayout root;
 
+    @ViewById
+    ImageView star;
+
+    @ViewById
+    ImageView starBackground;
+
     public SuperheroCardView(@NonNull Context context) {
         super(context);
     }
 
-    public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener) {
+    public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback) {
         nameText.setText(superhero.getName());
         Glide.with(heroImage.getContext())
                 .load(superhero.getUrl())
@@ -42,6 +49,9 @@ public class SuperheroCardView extends CardView {
                 .into(heroImage);
         root.setOnClickListener(v -> {
             itemClickListener.onItemClick(superhero);
+        });
+        starBackground.setOnClickListener(v -> {
+            starClickCallback.onStarClick(!superhero.getIsFavourite());
         });
     }
 }
