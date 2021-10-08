@@ -86,6 +86,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/backButtonClickTrap"
+        android:layout_width="@dimen/design_42dp"
+        android:layout_height="@dimen/design_42dp"
+        app:layout_constraintTop_toTopOf="@id/backButtonBackground"
+        app:layout_constraintStart_toStartOf="@id/backButtonBackground"
+        app:layout_constraintEnd_toEndOf="@id/backButtonBackground"
+        app:layout_constraintBottom_toBottomOf="@id/backButtonBackground"/>
+
     <HorizontalScrollView
         android:id="@+id/tabButtonsContainer"
         android:layout_width="wrap_content"

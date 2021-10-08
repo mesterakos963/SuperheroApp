@@ -60,6 +60,9 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @ViewById
     ImageView starBackground;
 
+    @ViewById
+    View backButtonClickTrap;
+
     @Bean
     SuperheroDetailsViewModel viewModel;
 
@@ -111,7 +114,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     }
 
     private void backButtonClick() {
-        backButton.setOnClickListener(view -> {
+        backButtonClickTrap.setOnClickListener(view -> {
             if (getActivity() != null) {
                 getActivity().onBackPressed();
             }
