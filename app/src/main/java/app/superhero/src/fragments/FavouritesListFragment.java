@@ -58,7 +58,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
             NavDirections action =
-                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
+                    FavouritesListFragment_Directions.actionFavouritesListFragmentToSuperheroDetailsFragment(superhero);
             Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
     }
@@ -71,7 +71,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         }
     }
 
-    private void observeFavourites(){
+    private void observeFavourites() {
         viewModel.favourites.observe(this, this::refreshAdapter);
     }
 }

@@ -43,15 +43,21 @@ public class SuperheroCardView extends CardView {
 
     public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback) {
         nameText.setText(superhero.getName());
-        Glide.with(heroImage.getContext())
-                .load(superhero.getUrl())
-                .placeholder(R.drawable.ic_place)
-                .into(heroImage);
+        loadImage(superhero);
         root.setOnClickListener(v -> {
             itemClickListener.onItemClick(superhero);
         });
         starBackground.setOnClickListener(v -> {
             starClickCallback.onStarClick(superhero);
+            star.setSelected(superhero.getIsFavourite());
         });
+        star.setSelected(superhero.getIsFavourite());
+    }
+
+    private void loadImage(SuperheroMasterData superhero) {
+        Glide.with(heroImage.getContext())
+                .load(superhero.getUrl())
+                .placeholder(R.drawable.ic_place)
+                .into(heroImage);
     }
 }

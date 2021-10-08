@@ -7,5 +7,18 @@
     <fragment
         android:id="@+id/favouritesFragment_"
         android:name="app.superhero.src.fragments.FavouritesListFragment_"
-        android:label="FavouritesFragment_" />
+        android:label="FavouritesFragment_">
+        <action
+            android:id="@+id/action_favouritesListFragment__to_superheroDetailsFragment_"
+            app:destination="@id/superheroDetailsFragment_" />
+    </fragment>
+    <fragment
+        android:id="@+id/superheroDetailsFragment_"
+        android:name="app.superhero.src.fragments.SuperheroDetailsFragment_"
+        android:label="SuperheroDetailsFragment_">
+        <argument
+            android:name="superheroMasterData"
+            app:argType="app.superhero.src.dao.SuperheroMasterData" />
+    </fragment>
+
 </navigation>

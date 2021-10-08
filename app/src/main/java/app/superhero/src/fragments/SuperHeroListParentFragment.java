@@ -88,15 +88,5 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     }
 }
 
-/*
- * KÖZÖS
- * adapter 1
- * layoutManager 1
- * StarClickCallback 1
- * getScreenWidth 1
- * observeSuperheroes 1
- * refreshAdapter 1
- * getNumberOfColumns 1
- * setEmptyViewText  1*/
 
 

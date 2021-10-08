@@ -86,6 +86,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     protected void doOnInit() {
         emptyViewText.setText(R.string.empty_view_text);
+        emptyViewOnClickListener();
         adjustPaddingToKeyboard();
         bindSearchView();
         observeSearchText();
