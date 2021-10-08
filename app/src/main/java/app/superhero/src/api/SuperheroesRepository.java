@@ -328,7 +328,6 @@ public class SuperheroesRepository {
                                 powerstatsDto.getCombat())
                 ).single();
         powerstatsDao.insertPowerstats(powerstats);
-        //kikérni db-ből és azt resolveolni deferred-del
         deferred.resolve(response.body());
     }
 
@@ -355,5 +354,10 @@ public class SuperheroesRepository {
     @Background
     public void cacheFavourite(SuperheroMasterData data) {
         superheroMasterDataDao.update(data);
+    }
+
+    @Background
+    public void getFavourites(ListCallback<SuperheroMasterData> listCallback) {
+        listCallback.onSuccess(superheroMasterDataDao.getFavourites());
     }
 }

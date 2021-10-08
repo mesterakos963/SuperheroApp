@@ -38,13 +38,19 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     @AfterViews
     protected void init() {
+        doOnInit();
+        starClickCallback = new StarClickCallback() {
+            @Override
+            public void onStarClick(SuperheroMasterData superhero) {
+                viewModel.setIsFavourite(superhero);
+            }
+        };
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback);
         getRecyclerView().setLayoutManager(layoutManager);
         getRecyclerView().setAdapter(adapter);
         getRecyclerView().setEmptyView(getEmptyView());
         observeSuperheroes();
-        doOnInit();
     }
 
     protected abstract void doOnInit();

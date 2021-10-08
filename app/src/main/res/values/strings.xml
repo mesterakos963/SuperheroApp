@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Superhero</string>
-    <string name="list">Search</string>
-    <string name="favourites">Favourites</string>
-    <string name="battle">Battle</string>
+    <string name="list">SEARCH</string>
+    <string name="favourites">FAVOURITES</string>
+    <string name="battle">BATTLE</string>
     <string name="list_fragment_label">Superhero list</string>
     <string name="profile_label">Superhero profile</string>
     <string name="favourites_label">Favourite heroes</string>

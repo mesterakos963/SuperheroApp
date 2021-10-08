@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/favouritesFragment_"
-        android:name="app.superhero.src.fragments.FavouritesFragment_"
+        android:name="app.superhero.src.fragments.FavouritesListFragment_"
         android:label="FavouritesFragment_" />
 </navigation>

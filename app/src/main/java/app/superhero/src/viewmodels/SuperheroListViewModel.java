@@ -22,9 +22,12 @@ public class SuperheroListViewModel extends ViewModel {
     private final MutableLiveData<String> searchText = new MutableLiveData<String>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<String> _onPauseSearchText = new MutableLiveData<>();
+    private final MutableLiveData<List<SuperheroMasterData>> _favourites = new MutableLiveData<>();
 
     public LiveData<List<SuperheroMasterData>> superheroes = _superheroes;
     public LiveData<String> onPauseSearchText = _onPauseSearchText;
+    public LiveData<List<SuperheroMasterData>> favourites = _favourites;
+
 
     @Bean
     SuperheroesRepository superheroesRepository;
@@ -53,6 +56,26 @@ public class SuperheroListViewModel extends ViewModel {
                 isLoading.postValue(false);
             }
         });
+    }
+
+    public void fetchFavourites() {
+        superheroesRepository.getFavourites(new ListCallback<SuperheroMasterData>() {
+            @Override
+            public void onSuccess(List<SuperheroMasterData> results) {
+                _favourites.postValue(results);
+            }
+
+            @Override
+            public void onError(List<SuperheroMasterData> fallbackResult, Throwable t) {
+                _favourites.postValue(fallbackResult);
+                error.postValue(t);
+            }
+        });
+    }
+
+    public void setIsFavourite(SuperheroMasterData superhero) {
+        superhero.setFavourite(!superhero.getIsFavourite());
+        superheroesRepository.cacheFavourite(superhero);
     }
 
     @AfterInject

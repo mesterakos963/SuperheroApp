@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface SuperheroMasterDataDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertSuperheros(List<SuperheroMasterData> superheroMasterData);
 
     @Query("SELECT * FROM SuperheroMasterData WHERE name LIKE :name")
@@ -24,11 +24,7 @@ public interface SuperheroMasterDataDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(SuperheroMasterData superhero);
 
-    /*@Query("SELECT * FROM SuperheroMasterData WHERE id = :id")
-    SuperheroMasterData getSuperheroesById(int id);
-
     @Query("SELECT * FROM SuperheroMasterData WHERE isFavourite = 1")
-    List<SuperheroMasterData> getFavourites(boolean isFavourite);
-    */
+    List<SuperheroMasterData> getFavourites();
 
 }

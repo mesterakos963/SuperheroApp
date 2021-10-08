@@ -51,7 +51,7 @@ public class SuperheroCardView extends CardView {
             itemClickListener.onItemClick(superhero);
         });
         starBackground.setOnClickListener(v -> {
-            starClickCallback.onStarClick(!superhero.getIsFavourite());
+            starClickCallback.onStarClick(superhero);
         });
     }
 }
