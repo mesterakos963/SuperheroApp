@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.androidannotations.annotations.Bean;
@@ -84,6 +87,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         bindSearchView();
         observeSearchText();
         observeIsLoading();
+        firstStart = false;
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> superheroListViewModel.postSearch(message)
         );
@@ -129,7 +133,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     public void onPause() {
         super.onPause();
-        firstStart = false;
         superheroListViewModel.setOnPauseSearchText(superheroListViewModel.getSearchTextString());
     }
 
@@ -143,7 +146,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         superheroListViewModel.getSearchText().observe(this, searchText -> {
             setEmptyViewText();
             if (!searchText.isEmpty()
-                    && firstStart
+                    && adapter.getItemCount() == 0
                     || superheroListViewModel.onPauseSearchText.getValue() != null
                     && !superheroListViewModel.onPauseSearchText.getValue().equals(searchText)) {
                 superheroListViewModel.fetchSuperheroes(searchText);
@@ -156,6 +159,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     public void observeIsLoading() {
         superheroListViewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading && adapter.getItemCount() == 0) {
+                emptyView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.VISIBLE);
             } else {
                 loadingView.setVisibility(View.GONE);
@@ -167,15 +171,24 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
-            emptyView.setVisibility(View.GONE);
             adapter.setData(superheroList);
+            emptyView.setVisibility(View.GONE);
         }
-        if (superheroList != null && firstStart) {
+        if (superheroList != null && adapter.getItemCount() == 0) {
             loadingView.setVisibility(View.GONE);
         }
         if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.empty_view_error_text));
             emptyView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onItemClick(SuperheroMasterData superhero) {
+        if (getActivity() != null) {
+            NavDirections action =
+                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
+            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
     }
 }

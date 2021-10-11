@@ -3,8 +3,6 @@ package app.superhero.src.fragments;
 import android.content.res.Resources;
 
 import androidx.annotation.UiThread;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +14,6 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
@@ -68,13 +65,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     }
 
     @Override
-    public void onItemClick(SuperheroMasterData superhero) {
-        if (getActivity() != null) {
-            NavDirections action =
-                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
-            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
-        }
-    }
+    public abstract void onItemClick(SuperheroMasterData superhero);
 
     protected int getNumberOfColumns() {
         return (int) (getScreenWidth() / pxFromDp(getContext(), 170));
