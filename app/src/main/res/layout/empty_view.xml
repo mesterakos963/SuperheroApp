@@ -8,6 +8,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/emptyViewImage"
+        android:layout_width="@dimen/design_150dp"
+        android:layout_height="@dimen/design_150dp"
+        android:layout_marginBottom="@dimen/design_20dp"/>
+
     <TextView
         android:id="@+id/emptyViewText"
         style="@style/EmptyViewTextStyle"

@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,13 +50,14 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     app.superhero.src.utils.Debouncer debouncer;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void setEmptyViewText() {
         if (superheroListViewModel.getSearchTextString() == null
                 || superheroListViewModel.getSearchTextString().isEmpty()) {
-            emptyView.setText(getResources().getString(R.string.empty_view_text));
+            emptyViewOnFirstStart();
         } else {
-            emptyView.setText(getResources().getString(R.string.empty_view_error_text));
+            emptyViewNoHero();
         }
     }
 
@@ -80,7 +82,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @Override
     protected void doOnInit() {
-        emptyView.setText(getResources().getString(R.string.empty_view_text));
+        emptyViewOnFirstStart();
         emptyViewOnClickListener();
         adjustPaddingToKeyboard();
         bindSearchView();
@@ -176,7 +178,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
             loadingView.setVisibility(View.GONE);
         }
         if (superheroList.isEmpty()) {
-            emptyView.setText(getResources().getString(R.string.empty_view_error_text));
+            emptyViewNoHero();
             emptyView.setVisibility(View.VISIBLE);
         }
     }
@@ -188,5 +190,15 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
                     SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
             Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
+    }
+
+    private void emptyViewNoHero() {
+        emptyView.setText(getResources().getString(R.string.empty_view_error_text));
+        emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_superhero_kguv));
+    }
+
+    private void emptyViewOnFirstStart() {
+        emptyView.setText(getResources().getString(R.string.empty_view_text));
+        emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
     }
 }

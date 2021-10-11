@@ -1,7 +1,9 @@
 package app.superhero.src.views;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +23,9 @@ public class EmptyView extends LinearLayout {
 
     @ViewById
     TextView emptyViewText;
+
+    @ViewById
+    ImageView emptyViewImage;
 
     public EmptyView(Context context) {
         super(context);
@@ -48,5 +53,9 @@ public class EmptyView extends LinearLayout {
 
     public void setText(String text) {
         emptyViewText.setText(text);
+    }
+
+    public void setEmptyViewImage(Drawable drawable) {
+        emptyViewImage.setImageDrawable(drawable);
     }
 }
