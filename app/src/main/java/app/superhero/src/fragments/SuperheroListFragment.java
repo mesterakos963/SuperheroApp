@@ -156,7 +156,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @UiThread
     public void observeIsLoading() {
         superheroListViewModel.getIsLoading().observe(this, isLoading -> {
-            if (firstStart && isLoading) {
+            if (isLoading && adapter.getItemCount() == 0) {
                 loadingView.setVisibility(View.VISIBLE);
             } else {
                 loadingView.setVisibility(View.GONE);
