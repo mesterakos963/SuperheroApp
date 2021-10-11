@@ -2,9 +2,11 @@ package app.superhero;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.fragment.NavHostFragment;
@@ -41,6 +43,12 @@ public class MainActivity extends FragmentActivity {
     public void init() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+        bottomNavigationView.setOnItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+        });
         mainActivityRoot.getViewTreeObserver().addOnGlobalLayoutListener(
                 () -> {
                     Rect r = new Rect();

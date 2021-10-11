@@ -48,7 +48,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     LoadingView loadingView;
 
     app.superhero.src.utils.Debouncer debouncer;
-    private boolean firstStart = true;
 
     @Override
     protected void setEmptyViewText() {
@@ -87,7 +86,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         bindSearchView();
         observeSearchText();
         observeIsLoading();
-        firstStart = false;
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> superheroListViewModel.postSearch(message)
         );
