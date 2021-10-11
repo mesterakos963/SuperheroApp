@@ -59,7 +59,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Override
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
-        if(superheroList.isEmpty()) {
+        if (superheroList.isEmpty()) {
             setEmptyViewText();
         }
         if (superheroList != null) {

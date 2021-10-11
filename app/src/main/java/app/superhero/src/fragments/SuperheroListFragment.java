@@ -136,7 +136,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @UiThread
@@ -174,7 +173,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         if (superheroList != null && firstStart) {
             loadingView.setVisibility(View.GONE);
         }
-        if(superheroList.isEmpty()) {
+        if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.empty_view_error_text));
             emptyView.setVisibility(View.VISIBLE);
         }

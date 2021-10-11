@@ -93,7 +93,7 @@
         app:layout_constraintTop_toTopOf="@id/backButtonBackground"
         app:layout_constraintStart_toStartOf="@id/backButtonBackground"
         app:layout_constraintEnd_toEndOf="@id/backButtonBackground"
-        app:layout_constraintBottom_toBottomOf="@id/backButtonBackground"/>
+        app:layout_constraintBottom_toBottomOf="@id/backButtonBackground" />
 
     <HorizontalScrollView
         android:id="@+id/tabButtonsContainer"
