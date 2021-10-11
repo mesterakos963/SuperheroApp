@@ -1,13 +1,12 @@
 package app.superhero.src.dao;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class SuperheroMasterData implements Parcelable {
+public class SuperheroMasterData implements Serializable {
     @PrimaryKey
     int superheroId;
 
@@ -17,30 +16,12 @@ public class SuperheroMasterData implements Parcelable {
 
     boolean isFavourite;
 
-    public SuperheroMasterData(int superheroId, String name, String url) {
+    public SuperheroMasterData(int superheroId, String name, String url, boolean isFavourite) {
         this.superheroId = superheroId;
         this.name = name;
         this.url = url;
+        this.isFavourite = isFavourite;
     }
-
-    protected SuperheroMasterData(Parcel in) {
-        superheroId = in.readInt();
-        name = in.readString();
-        url = in.readString();
-        isFavourite = in.readByte() != 0;
-    }
-
-    public static final Creator<SuperheroMasterData> CREATOR = new Creator<SuperheroMasterData>() {
-        @Override
-        public SuperheroMasterData createFromParcel(Parcel in) {
-            return new SuperheroMasterData(in);
-        }
-
-        @Override
-        public SuperheroMasterData[] newArray(int size) {
-            return new SuperheroMasterData[size];
-        }
-    };
 
     public String getName() {
         return name;
@@ -62,16 +43,5 @@ public class SuperheroMasterData implements Parcelable {
         isFavourite = favourite;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(superheroId);
-        parcel.writeString(name);
-        parcel.writeString(url);
-        parcel.writeByte((byte) (isFavourite ? 1 : 0));
-    }
 }

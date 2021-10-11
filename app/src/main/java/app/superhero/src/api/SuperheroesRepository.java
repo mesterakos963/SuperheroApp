@@ -15,6 +15,7 @@ import org.jdeferred.impl.DeferredObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import app.superhero.SuperheroApplication;
 import app.superhero.src.dao.Appearance;
@@ -109,12 +110,21 @@ public class SuperheroesRepository {
 
     @Background
     protected void cacheSuperHeroes(Response<SuperheroesResponse> response, ListCallback<SuperheroMasterData> listCallback, String name) {
+        List<SuperheroMasterData> cachedList = getSuperHeroesFromDbByName(name);
+        Map<Integer, Boolean> map = Stream.of(cachedList).collect(Collectors.toMap(SuperheroMasterData::getId, SuperheroMasterData::getIsFavourite));
         List<SuperheroMasterData> superheroMasterDataList = Stream.of(response.body().getResults())
                 .map(superhero ->
-                        new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getImageDto().getUrl())
+                        new SuperheroMasterData(superhero.getId(), superhero.getName(), superhero.getImageDto().getUrl(), getIsFavouriteById(map, superhero.getId()))
                 ).collect(Collectors.toList());
         superheroMasterDataDao.insertSuperheros(superheroMasterDataList);
         listCallback.onSuccess(getSuperHeroesFromDbByName(name));
+    }
+
+    private boolean getIsFavouriteById(Map<Integer, Boolean> map, int id) {
+        if (map.get(id) != null) {
+            return map.get(id);
+        }
+        return false;
     }
 
     protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
