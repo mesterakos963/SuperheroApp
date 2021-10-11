@@ -1,7 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.widget.TextView;
-
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -27,12 +25,6 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @ViewById
     RecyclerViewEmptySupport recyclerView;
 
-    @ViewById
-    EmptyView emptyView;
-
-    @ViewById
-    TextView emptyViewText;
-
     @Override
     protected RecyclerViewEmptySupport getRecyclerView() {
         return recyclerView;
@@ -44,12 +36,13 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     }
 
     @Override
-    protected void setEmptyViewText(EmptyView emptyView, String text) {
+    protected void setEmptyViewText() {
         emptyView.setText(getResources().getString(R.string.favourites_empty_view));
     }
 
     @Override
     protected void doOnInit() {
+        EmptyView emptyView = new EmptyView(getContext());
         viewModel.fetchFavourites();
         observeFavourites();
     }
@@ -66,6 +59,9 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Override
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
+        if(superheroList.isEmpty()) {
+            setEmptyViewText();
+        }
         if (superheroList != null) {
             adapter.setData(superheroList);
         }

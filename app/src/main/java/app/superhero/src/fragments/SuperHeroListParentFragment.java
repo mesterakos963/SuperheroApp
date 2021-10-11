@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,9 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     @Bean
     SuperheroListViewModel viewModel;
 
+    @ViewById
+    EmptyView emptyView;
+
     protected SuperheroesAdapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected StarClickCallback starClickCallback;
@@ -39,12 +43,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     @AfterViews
     protected void init() {
         doOnInit();
-        starClickCallback = new StarClickCallback() {
-            @Override
-            public void onStarClick(SuperheroMasterData superhero) {
-                viewModel.setIsFavourite(superhero);
-            }
-        };
+        starClickCallback = superhero -> viewModel.setIsFavourite(superhero);
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback);
         getRecyclerView().setLayoutManager(layoutManager);
@@ -55,11 +54,14 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     protected abstract void doOnInit();
 
-    protected abstract void setEmptyViewText(EmptyView emptyView, String text);
+    protected abstract void setEmptyViewText();
 
     protected abstract RecyclerViewEmptySupport getRecyclerView();
 
     protected abstract EmptyView getEmptyView();
+
+    @UiThread
+    protected abstract void refreshAdapter(List<SuperheroMasterData> superheroList);
 
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -72,10 +74,6 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
                     SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
             Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
         }
-    }
-
-    @UiThread
-    protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
     }
 
     protected int getNumberOfColumns() {

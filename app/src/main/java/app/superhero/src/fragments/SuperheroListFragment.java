@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -40,12 +39,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     SearchbarView searchBar;
 
     @ViewById
-    EmptyView emptyView;
-
-    @ViewById
-    TextView emptyViewText;
-
-    @ViewById
     CollapsingToolbarLayout toolbarLayout;
 
     @ViewById
@@ -55,12 +48,12 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     private boolean firstStart = true;
 
     @Override
-    protected void setEmptyViewText(EmptyView emptyView, String text) {
+    protected void setEmptyViewText() {
         if (superheroListViewModel.getSearchTextString() == null
                 || superheroListViewModel.getSearchTextString().isEmpty()) {
-            emptyViewText.setText(R.string.empty_view_text);
+            emptyView.setText(getResources().getString(R.string.empty_view_text));
         } else {
-            emptyViewText.setText(R.string.empty_view_error_text);
+            emptyView.setText(getResources().getString(R.string.empty_view_error_text));
         }
     }
 
@@ -85,7 +78,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @Override
     protected void doOnInit() {
-        emptyViewText.setText(R.string.empty_view_text);
+        emptyView.setText(getResources().getString(R.string.empty_view_text));
         emptyViewOnClickListener();
         adjustPaddingToKeyboard();
         bindSearchView();
@@ -149,7 +142,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @UiThread
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
-            setEmptyViewText(getEmptyView(), getResources().getString(R.string.empty_view_text));
+            setEmptyViewText();
             if (!searchText.isEmpty()
                     && firstStart
                     || superheroListViewModel.onPauseSearchText.getValue() != null
@@ -175,10 +168,15 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
+            emptyView.setVisibility(View.GONE);
             adapter.setData(superheroList);
         }
         if (superheroList != null && firstStart) {
             loadingView.setVisibility(View.GONE);
+        }
+        if(superheroList.isEmpty()) {
+            emptyView.setText(getResources().getString(R.string.empty_view_error_text));
+            emptyView.setVisibility(View.VISIBLE);
         }
     }
 }
