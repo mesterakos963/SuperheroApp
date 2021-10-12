@@ -69,6 +69,15 @@
             app:layout_constraintStart_toStartOf="@id/starBackground"
             app:layout_constraintBottom_toBottomOf="@id/starBackground" />
 
+        <View
+            android:id="@+id/starClickTrap"
+            android:layout_width="@dimen/design_34dp"
+            android:layout_height="@dimen/design_34dp"
+            app:layout_constraintStart_toStartOf="@id/starBackground"
+            app:layout_constraintTop_toTopOf="@id/starBackground"
+            app:layout_constraintBottom_toBottomOf="@id/starBackground"
+            app:layout_constraintEnd_toEndOf="@id/starBackground"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </net.orandja.shadowlayout.ShadowLayout>

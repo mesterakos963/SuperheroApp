@@ -1,6 +1,7 @@
 package app.superhero.src.views;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,18 +38,21 @@ public class SuperheroCardView extends CardView {
     @ViewById
     ImageView starBackground;
 
+    @ViewById
+    View starClickTrap;
+
     public SuperheroCardView(@NonNull Context context) {
         super(context);
     }
 
-    public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback) {
+    public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback, int position) {
         nameText.setText(superhero.getName());
         loadImage(superhero);
         root.setOnClickListener(v -> {
             itemClickListener.onItemClick(superhero);
         });
-        starBackground.setOnClickListener(v -> {
-            starClickCallback.onStarClick(superhero);
+        starClickTrap.setOnClickListener(v -> {
+            starClickCallback.onStarClick(superhero, position);
             star.setSelected(superhero.getIsFavourite());
         });
         star.setSelected(superhero.getIsFavourite());

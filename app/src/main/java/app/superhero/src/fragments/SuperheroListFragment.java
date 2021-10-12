@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
+import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -80,6 +81,16 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> superheroListViewModel.postSearch(message)
         );
+    }
+
+    @Override
+    protected void starClick() {
+        starClickCallback = new StarClickCallback() {
+            @Override
+            public void onStarClick(SuperheroMasterData superhero, int position) {
+                viewModel.setIsFavourite(superhero);
+            }
+        };
     }
 
     private void emptyViewOnClickListener() {

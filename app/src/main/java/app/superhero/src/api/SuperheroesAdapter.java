@@ -43,7 +43,7 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     @Override
     public void onBindViewHolder(@NonNull ViewWrapper<SuperheroCardView> holder, int position) {
         holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.transparent));
-        holder.getView().bind(data.get(position), itemClickListener, starClickCallback);
+        holder.getView().bind(data.get(position), itemClickListener, starClickCallback, position);
     }
 
     @Override
@@ -56,6 +56,15 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
         data.clear();
         data.addAll(newData);
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void deleteItem(int index) {
+        data.remove(index);
+        notifyItemRemoved(index);
+        notifyItemChanged(index);
+        notifyItemRangeChanged(0, getItemCount());
+        //notifyItemRangeRemoved(index, getItemCount());
+        //setData(data);
     }
 }
 

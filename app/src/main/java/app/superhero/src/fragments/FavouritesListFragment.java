@@ -12,6 +12,7 @@ import java.util.List;
 
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -39,6 +40,17 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     protected void doOnInit() {
         viewModel.fetchFavourites();
         observeFavourites();
+    }
+
+    @Override
+    protected void starClick() {
+        starClickCallback = new StarClickCallback() {
+            @Override
+            public void onStarClick(SuperheroMasterData superhero, int position) {
+                viewModel.setIsFavourite(superhero);
+                adapter.deleteItem(position);
+            }
+        };
     }
 
     @Override
