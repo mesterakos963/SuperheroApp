@@ -110,6 +110,10 @@ public class SuperheroesRepository {
         listCallback.onError(superheroMasterDataList, t);
     }
 
+    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
+        return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
+    }
+
     @Background
     protected void cacheSuperHeroes(Response<SuperheroesResponse> response, ListCallback<SuperheroMasterData> listCallback, String name) {
         List<SuperheroMasterData> cachedList = getSuperHeroesFromDbByName(name);
@@ -122,6 +126,16 @@ public class SuperheroesRepository {
         listCallback.onSuccess(getSuperHeroesFromDbByName(name));
     }
 
+    @Background
+    public void cacheFavourite(SuperheroMasterData data) {
+        superheroMasterDataDao.update(data);
+    }
+
+    @Background
+    public void getFavourites(ListCallback<SuperheroMasterData> listCallback) {
+        listCallback.onSuccess(superheroMasterDataDao.getFavourites());
+    }
+
     private boolean getIsFavouriteById(Map<Integer, Boolean> map, int id) {
         if (map.get(id) != null) {
             return map.get(id);
@@ -129,39 +143,15 @@ public class SuperheroesRepository {
         return false;
     }
 
-    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
-        return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
+    @Background
+    public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
+        itemCallback.onSuccess(commentDao.getComment(id));
     }
 
-    public Promise<PowerstatsDto, Throwable, Object> getPowerstatsById(int id) {
-        Deferred<PowerstatsDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetPowerstatsById(id, deferred);
-        return deferred.promise();
-    }
-
-    public Promise<BiographyDto, Throwable, Object> getBiographyById(int id) {
-        Deferred<BiographyDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetBiographyById(id, deferred);
-        return deferred.promise();
-    }
-
-    public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id) {
-        Deferred<AppearanceDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetAppearanceById(id, deferred);
-        return deferred.promise();
-
-    }
-
-    public Promise<WorkDto, Throwable, Object> getWorkById(int id) {
-        Deferred<WorkDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetWorkById(id, deferred);
-        return deferred.promise();
-    }
-
-    public Promise<ConnectionsDto, Throwable, Object> getConnectionsById(int id) {
-        Deferred<ConnectionsDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetConnectionsById(id, deferred);
-        return deferred.promise();
+    @Background
+    public void cacheComments(int id, String text) {
+        Comments comment = new Comments(id, text);
+        commentDao.insertComments(comment);
     }
 
     @Background
@@ -290,6 +280,32 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
+    public Promise<BiographyDto, Throwable, Object> getBiographyById(int id) {
+        Deferred<BiographyDto, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetBiographyById(id, deferred);
+        return deferred.promise();
+    }
+
+
+    public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id) {
+        Deferred<AppearanceDto, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetAppearanceById(id, deferred);
+        return deferred.promise();
+
+    }
+
+    public Promise<WorkDto, Throwable, Object> getWorkById(int id) {
+        Deferred<WorkDto, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetWorkById(id, deferred);
+        return deferred.promise();
+    }
+
+    public Promise<ConnectionsDto, Throwable, Object> getConnectionsById(int id) {
+        Deferred<ConnectionsDto, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetConnectionsById(id, deferred);
+        return deferred.promise();
+    }
+
     @Background
     public void getCharacteristics(int id, ItemCallback<Superhero> itemCallback) {
         DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
@@ -306,29 +322,6 @@ public class SuperheroesRepository {
         });
     }
 
-    @Background
-    public void getPowerstats(int id, ItemCallback<Powerstats> itemCallback) {
-        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
-        defaultDeferredManager.when(
-                getPowerstatsById(id)
-        ).done(result -> {
-            if (result != null) {
-                Powerstats powerstats = powerstatsDao.getPowerstats(id);
-                itemCallback.onSuccess(powerstats);
-            }
-        });
-    }
-
-    @Background
-    public void getCommentFromDbById(int id, ItemCallback<Comments> itemCallback) {
-        itemCallback.onSuccess(commentDao.getComment(id));
-    }
-
-    @Background
-    public void cacheComments(int id, String text) {
-        Comments comment = new Comments(id, text);
-        commentDao.insertComments(comment);
-    }
 
     @Background
     protected void cachePowerstats(Response<PowerstatsDto> response, Deferred<PowerstatsDto, Throwable, Object> deferred) {
@@ -363,13 +356,22 @@ public class SuperheroesRepository {
         });
     }
 
-    @Background
-    public void cacheFavourite(SuperheroMasterData data) {
-        superheroMasterDataDao.update(data);
+    public Promise<PowerstatsDto, Throwable, Object> getPowerstatsById(int id) {
+        Deferred<PowerstatsDto, Throwable, Object> deferred = new DeferredObject<>();
+        executeGetPowerstatsById(id, deferred);
+        return deferred.promise();
     }
 
     @Background
-    public void getFavourites(ListCallback<SuperheroMasterData> listCallback) {
-        listCallback.onSuccess(superheroMasterDataDao.getFavourites());
+    public void getPowerstats(int id, ItemCallback<Powerstats> itemCallback) {
+        DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
+        defaultDeferredManager.when(
+                getPowerstatsById(id)
+        ).done(result -> {
+            if (result != null) {
+                Powerstats powerstats = powerstatsDao.getPowerstats(id);
+                itemCallback.onSuccess(powerstats);
+            }
+        });
     }
 }

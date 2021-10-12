@@ -12,7 +12,7 @@
         android:id="@+id/emptyViewImage"
         android:layout_width="@dimen/design_150dp"
         android:layout_height="@dimen/design_150dp"
-        android:layout_marginBottom="@dimen/design_20dp"/>
+        android:layout_marginBottom="@dimen/design_20dp" />
 
     <TextView
         android:id="@+id/emptyViewText"
