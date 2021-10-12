@@ -69,8 +69,10 @@ public class PowerstatsFragment extends BaseFragment {
 
     private void observePowerstats() {
         viewModel.powerstats.observe(this, powerstats -> {
-            setRadarChart(powerstats);
-            setPercentageCharts(powerstats);
+            if(powerstats != null) {
+                setRadarChart(powerstats);
+                setPercentageCharts(powerstats);
+            }
         });
     }
 

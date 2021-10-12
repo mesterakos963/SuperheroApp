@@ -17,6 +17,7 @@ public class PowerstatsViewModel extends ViewModel {
     @Bean
     SuperheroesRepository repository;
 
+    private final MutableLiveData<Throwable> error = new MutableLiveData<>();
     private final MutableLiveData<Powerstats> _powerstats = new MutableLiveData<>();
     public LiveData<Powerstats> powerstats = _powerstats;
 
@@ -29,7 +30,8 @@ public class PowerstatsViewModel extends ViewModel {
 
             @Override
             public void onError(Powerstats fallbackResult, Throwable t) {
-
+                _powerstats.postValue(fallbackResult);
+                error.postValue(t);
             }
         });
     }
