@@ -37,7 +37,6 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
 
     @Override
     protected void doOnInit() {
-        EmptyView emptyView = new EmptyView(getContext());
         viewModel.fetchFavourites();
         observeFavourites();
     }
@@ -57,9 +56,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.favourites_empty_view));
         }
-        if (superheroList != null) {
-            adapter.setData(superheroList);
-        }
+        adapter.setData(superheroList);
     }
 
     private void observeFavourites() {

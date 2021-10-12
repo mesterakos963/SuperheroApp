@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -165,7 +166,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         if (superheroList != null && adapter.getItemCount() == 0) {
             loadingView.setVisibility(View.GONE);
         }
-        if (superheroList.isEmpty()) {
+        if (superheroList != null && superheroList.isEmpty()) {
             emptyViewNoHero();
             emptyView.setVisibility(View.VISIBLE);
         }
@@ -180,11 +181,13 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewNoHero() {
         emptyView.setText(getResources().getString(R.string.empty_view_error_text));
         emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_superhero_kguv));
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewOnFirstStart() {
         emptyView.setText(getResources().getString(R.string.empty_view_text));
         emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
