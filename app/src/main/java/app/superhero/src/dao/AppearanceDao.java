@@ -6,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import java.util.List;
-
 @Dao
 public interface AppearanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,6 +14,6 @@ public interface AppearanceDao {
     @Delete
     void delete(Appearance appearance);
 
-    @Query("SELECT * FROM appearance")
-    List<Appearance> getAll();
+    @Query("SELECT * FROM Appearance WHERE appearanceId = :id")
+    Appearance getAppearance(int id);
 }

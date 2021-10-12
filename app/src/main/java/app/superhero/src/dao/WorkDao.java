@@ -6,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import java.util.List;
-
 @Dao
 public interface WorkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,6 +14,6 @@ public interface WorkDao {
     @Delete
     void delete(Work work);
 
-    @Query("SELECT * FROM work")
-    List<Work> getAll();
+    @Query("SELECT * FROM Work WHERE workId = :id")
+    Work getWork(int id);
 }
