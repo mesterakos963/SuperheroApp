@@ -52,8 +52,6 @@ import static app.superhero.src.database.DatabaseModule.provideDatabase;
 @EBean(scope = EBean.Scope.Singleton)
 public class SuperheroesRepository {
 
-    //todo ha sikertelen a kérés, akkor a db-ből cacheljen
-
     SuperheroMasterDataDao superheroMasterDataDao;
     ConnectionsDao connectionsDao;
     BiographyDao biographyDao;
@@ -286,7 +284,6 @@ public class SuperheroesRepository {
         return deferred.promise();
     }
 
-
     public Promise<AppearanceDto, Throwable, Object> getAppearanceById(int id) {
         Deferred<AppearanceDto, Throwable, Object> deferred = new DeferredObject<>();
         executeGetAppearanceById(id, deferred);
@@ -322,7 +319,6 @@ public class SuperheroesRepository {
         });
     }
 
-
     @Background
     protected void cachePowerstats(Response<PowerstatsDto> response, Deferred<PowerstatsDto, Throwable, Object> deferred) {
         Powerstats powerstats = Stream.of(response.body())
@@ -336,7 +332,7 @@ public class SuperheroesRepository {
         deferred.resolve(response.body());
     }
 
-    private void executeGetPowerstatsById(int id, Deferred<PowerstatsDto, Throwable, Object> deferred) {
+    private void executeGetPowerstatsById(int id, Deferred<PowerstatsDto, Throwable, Object> deferred, ItemCallback<Powerstats> itemCallback) {
         Call<PowerstatsDto> call = getSuperheroService().listPowerstats(id);
         call.enqueue(new Callback<PowerstatsDto>() {
             @Override
@@ -350,15 +346,14 @@ public class SuperheroesRepository {
 
             @Override
             public void onFailure(Call<PowerstatsDto> call, Throwable t) {
-                call.cancel();
-                deferred.reject(new Throwable());
+                getPowerstatsFromDbById(id, itemCallback);
             }
         });
     }
 
-    public Promise<PowerstatsDto, Throwable, Object> getPowerstatsById(int id) {
+    public Promise<PowerstatsDto, Throwable, Object> getPowerstatsById(int id, ItemCallback<Powerstats> itemCallback) {
         Deferred<PowerstatsDto, Throwable, Object> deferred = new DeferredObject<>();
-        executeGetPowerstatsById(id, deferred);
+        executeGetPowerstatsById(id, deferred, itemCallback);
         return deferred.promise();
     }
 
@@ -366,12 +361,17 @@ public class SuperheroesRepository {
     public void getPowerstats(int id, ItemCallback<Powerstats> itemCallback) {
         DefaultDeferredManager defaultDeferredManager = new DefaultDeferredManager();
         defaultDeferredManager.when(
-                getPowerstatsById(id)
+                getPowerstatsById(id, itemCallback)
         ).done(result -> {
             if (result != null) {
                 Powerstats powerstats = powerstatsDao.getPowerstats(id);
                 itemCallback.onSuccess(powerstats);
             }
         });
+    }
+
+    @Background
+    public void getPowerstatsFromDbById(int id, ItemCallback<Powerstats> itemCallback) {
+        itemCallback.onSuccess(powerstatsDao.getPowerstats(id));
     }
 }
