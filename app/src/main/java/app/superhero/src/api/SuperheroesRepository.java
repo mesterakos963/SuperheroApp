@@ -52,6 +52,8 @@ import static app.superhero.src.database.DatabaseModule.provideDatabase;
 @EBean(scope = EBean.Scope.Singleton)
 public class SuperheroesRepository {
 
+    //todo ha sikertelen a kérés, akkor a db-ből cacheljen
+
     SuperheroMasterDataDao superheroMasterDataDao;
     ConnectionsDao connectionsDao;
     BiographyDao biographyDao;

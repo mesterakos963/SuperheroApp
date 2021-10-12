@@ -51,8 +51,6 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     protected abstract void doOnInit();
 
-    protected abstract void setEmptyViewText();
-
     protected abstract RecyclerViewEmptySupport getRecyclerView();
 
     protected abstract EmptyView getEmptyView();

@@ -1,6 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,17 +48,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     LoadingView loadingView;
 
     app.superhero.src.utils.Debouncer debouncer;
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    @Override
-    protected void setEmptyViewText() {
-        if (superheroListViewModel.getSearchTextString() == null
-                || superheroListViewModel.getSearchTextString().isEmpty()) {
-            emptyViewOnFirstStart();
-        } else {
-            emptyViewNoHero();
-        }
-    }
 
     @Override
     protected RecyclerViewEmptySupport getRecyclerView() {
@@ -144,7 +132,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @UiThread
     public void observeSearchText() {
         superheroListViewModel.getSearchText().observe(this, searchText -> {
-            setEmptyViewText();
+            //setEmptyViewText();
             if (!searchText.isEmpty()
                     && adapter.getItemCount() == 0
                     || superheroListViewModel.onPauseSearchText.getValue() != null
