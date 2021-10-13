@@ -15,7 +15,6 @@ import app.superhero.R;
 
 @EViewGroup(R.layout.save_comment_button)
 public class SaveCommentButtonView extends FrameLayout {
-
     @ViewById
     protected FrameLayout saveCommentButtonRoot;
 
@@ -42,5 +41,4 @@ public class SaveCommentButtonView extends FrameLayout {
             saveCommentButtonLabel.setEnabled(enabled);
         }
     }
-
 }

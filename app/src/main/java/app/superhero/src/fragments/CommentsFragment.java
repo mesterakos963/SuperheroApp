@@ -1,7 +1,5 @@
 package app.superhero.src.fragments;
 
-import android.view.View;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -17,7 +15,6 @@ import app.superhero.src.views.SaveCommentButtonView;
 
 @EFragment(R.layout.fragment_comments)
 public class CommentsFragment extends BaseFragment {
-
     @Bean
     CommentsViewModel viewModel;
 
@@ -37,12 +34,7 @@ public class CommentsFragment extends BaseFragment {
         observeComments();
         viewModel.getComment(superheroMasterData.getId());
         button.setEnabled(false);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickButton();
-            }
-        });
+        button.setOnClickListener(view -> clickButton());
     }
 
     private void clickButton() {

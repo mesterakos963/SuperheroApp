@@ -12,7 +12,6 @@ import app.superhero.src.dao.SuperheroMasterData;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroDetailsViewModel extends ViewModel {
-
     private final MutableLiveData<SuperheroMasterData> _superheroMasterData = new MutableLiveData<>();
     private final MutableLiveData<Integer> _selectedPage = new MutableLiveData<>();
     public LiveData<Integer> selectedPage = _selectedPage;

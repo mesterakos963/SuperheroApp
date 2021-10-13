@@ -14,12 +14,11 @@ import app.superhero.src.interfaces.ItemCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class CommentsViewModel extends ViewModel {
+    private final MutableLiveData<String> _comments = new MutableLiveData<>();
+    public LiveData<String> comments = _comments;
 
     @Bean
     SuperheroesRepository repository;
-
-    private final MutableLiveData<String> _comments = new MutableLiveData<>();
-    public LiveData<String> comments = _comments;
 
     @Background
     public void setComment(int id, String comment) {

@@ -20,7 +20,6 @@ import app.superhero.src.views.SuperheroCardView_;
 import app.superhero.src.views.ViewWrapper;
 
 public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<SuperheroCardView>> {
-
     private final ItemClickListener itemClickListener;
     private final StarClickCallback starClickCallback;
     private final ArrayList<SuperheroMasterData> data;
@@ -63,8 +62,6 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
         notifyItemRemoved(index);
         notifyItemChanged(index);
         notifyItemRangeChanged(0, getItemCount());
-        //notifyItemRangeRemoved(index, getItemCount());
-        //setData(data);
     }
 }
 

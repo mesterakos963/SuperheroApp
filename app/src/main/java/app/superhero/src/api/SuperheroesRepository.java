@@ -51,7 +51,6 @@ import static app.superhero.src.database.DatabaseModule.provideDatabase;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class SuperheroesRepository {
-
     SuperheroMasterDataDao superheroMasterDataDao;
     ConnectionsDao connectionsDao;
     BiographyDao biographyDao;

@@ -19,15 +19,13 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends FragmentActivity {
-
-    boolean isKeyboardShowing = false;
-
     @ViewById
     ConstraintLayout mainActivityRoot;
 
-
     @ViewById
     BottomNavigationView bottomNavigationView;
+
+    boolean isKeyboardShowing = false;
 
     void onKeyboardVisibilityChanged(boolean opened) {
         if (opened) {

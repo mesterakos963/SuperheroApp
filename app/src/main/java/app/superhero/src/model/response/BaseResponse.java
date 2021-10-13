@@ -3,7 +3,6 @@ package app.superhero.src.model.response;
 import java.io.Serializable;
 
 public class BaseResponse implements Serializable {
-
     protected ResponseResult response;
     protected String error;
 

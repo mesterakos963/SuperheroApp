@@ -24,7 +24,6 @@ import app.superhero.src.utils.OnFocusEvent;
 
 @EViewGroup(R.layout.comment_view)
 public class CommentView extends LinearLayout {
-
     @ViewById
     TextView characterCounter;
 

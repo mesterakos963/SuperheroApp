@@ -36,6 +36,5 @@ public class DiffUtilCallback extends DiffUtil.Callback {
         SuperheroMasterData newItem = newList.get(newItemPosition);
         return oldItem.getName().equals(newItem.getName()) && (oldItem.getUrl().equals(newItem.getUrl()));
     }
-
 }
 

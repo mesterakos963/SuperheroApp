@@ -43,5 +43,4 @@ public class ApiClient {
             return superheroesService;
         }
     }
-
 }

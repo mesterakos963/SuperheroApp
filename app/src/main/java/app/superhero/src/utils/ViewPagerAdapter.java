@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import app.superhero.src.fragments.CommentsFragment_;
 import app.superhero.src.fragments.PowerstatsFragment_;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-
     public static final int NUM_PAGES = 3;
     public static final int POWERSTATS_POSITION = 0;
     public static final int CHARACTERISTICS_POSITION = 1;
@@ -23,31 +24,28 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     List<Fragment> fragments = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentActivity fa) {
-        super(fa);
-    }
-
     public ViewPagerAdapter(FragmentActivity fa, SuperheroMasterData superheroMasterData) {
         super(fa);
         this.superheroMasterData = superheroMasterData;
     }
 
+    @NotNull
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
         switch (position) {
             case POWERSTATS_POSITION:
-                fragment = new PowerstatsFragment_().builder().superheroMasterData(superheroMasterData).build();
+                fragment = PowerstatsFragment_.builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
 
             case CHARACTERISTICS_POSITION:
-                fragment = new CharacteristicsFragment_().builder().superheroMasterData(superheroMasterData).build();
+                fragment = CharacteristicsFragment_.builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
 
             case COMMENTS_POSITION:
-                fragment = new CommentsFragment_().builder().superheroMasterData(superheroMasterData).build();
+                fragment = CommentsFragment_.builder().superheroMasterData(superheroMasterData).build();
                 fragments.add(fragment);
                 break;
             default:

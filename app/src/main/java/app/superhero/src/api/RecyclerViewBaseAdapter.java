@@ -11,9 +11,7 @@ import java.util.List;
 import app.superhero.src.views.ViewWrapper;
 
 public abstract class RecyclerViewBaseAdapter<T, V extends View> extends RecyclerView.Adapter<ViewWrapper<V>> {
-
     protected List<T> items = new ArrayList<>();
-
     private AdapterChanged callback;
 
     @Override

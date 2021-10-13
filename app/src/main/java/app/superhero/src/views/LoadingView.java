@@ -16,8 +16,6 @@ import app.superhero.R;
 
 @EViewGroup(R.layout.loading_view)
 public class LoadingView extends FrameLayout {
-
-
     @ViewById
     FrameLayout loadingRoot;
 

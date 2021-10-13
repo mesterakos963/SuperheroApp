@@ -22,7 +22,6 @@ import app.superhero.src.interfaces.StarClickCallback;
 
 @EViewGroup(R.layout.item_superhero)
 public class SuperheroCardView extends CardView {
-
     @ViewById
     TextView nameText;
 

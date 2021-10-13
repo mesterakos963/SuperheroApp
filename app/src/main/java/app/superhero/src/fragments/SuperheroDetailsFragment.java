@@ -33,7 +33,6 @@ import app.superhero.src.views.ButtonView;
 
 @EFragment(R.layout.fragment_superhero_details)
 public class SuperheroDetailsFragment extends BaseFragment {
-
     @ViewsById({R.id.powerstatsButton, R.id.characteristicsButton, R.id.commentsButton})
 
     protected List<ButtonView> buttons;

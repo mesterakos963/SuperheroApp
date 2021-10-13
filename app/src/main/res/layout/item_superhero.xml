@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="@id/starBackground"
             app:layout_constraintTop_toTopOf="@id/starBackground"
             app:layout_constraintBottom_toBottomOf="@id/starBackground"
-            app:layout_constraintEnd_toEndOf="@id/starBackground"/>
+            app:layout_constraintEnd_toEndOf="@id/starBackground" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

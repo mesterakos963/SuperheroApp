@@ -13,13 +13,12 @@ import app.superhero.src.interfaces.ItemCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class PowerstatsViewModel extends ViewModel {
-
-    @Bean
-    SuperheroesRepository repository;
-
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
     private final MutableLiveData<Powerstats> _powerstats = new MutableLiveData<>();
     public LiveData<Powerstats> powerstats = _powerstats;
+
+    @Bean
+    SuperheroesRepository repository;
 
     public void getPowerstats(int superheroId) {
         repository.getPowerstats(superheroId, new ItemCallback<Powerstats>() {

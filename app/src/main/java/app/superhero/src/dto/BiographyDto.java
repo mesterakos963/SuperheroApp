@@ -6,11 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import app.superhero.src.model.response.BaseResponse;
-import app.superhero.src.model.response.ResponseResult;
 import app.superhero.src.utils.ZeroWhenNull;
 
 public class BiographyDto extends BaseResponse implements Serializable {
-
     @ZeroWhenNull
     int id;
 
@@ -32,25 +30,6 @@ public class BiographyDto extends BaseResponse implements Serializable {
 
     String publisher;
     String alignment;
-
-    /*public BiographyDto(String response, int id, String name, String fullName, String alterEgos,
-                        List<String> aliases, String placeOfBirth, String firstAppearance,
-                        String publisher, String alignment) {
-        this.response = response;
-        this.id = id;
-        this.name = name;
-        this.fullName = fullName;
-        this.alterEgos = alterEgos;
-        this.aliases = aliases;
-        this.placeOfBirth = placeOfBirth;
-        this.firstAppearance = firstAppearance;
-        this.publisher = publisher;
-        this.alignment = alignment;
-    }*/
-
-    public ResponseResult getResponse() {
-        return response;
-    }
 
     public int getId() {
         return id;

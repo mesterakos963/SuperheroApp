@@ -12,7 +12,6 @@ import java.util.List;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class StringArrayConverter {
-
     @TypeConverter
     public static List<String> fromString(String value) {
         Type listType = new TypeToken<List<String>>() {

@@ -19,7 +19,6 @@ import app.superhero.src.views.EmptyView;
 
 @EFragment(R.layout.fragment_favourites)
 public class FavouritesListFragment extends SuperHeroListParentFragment {
-
     @Bean
     SuperheroListViewModel superheroListViewModel;
 

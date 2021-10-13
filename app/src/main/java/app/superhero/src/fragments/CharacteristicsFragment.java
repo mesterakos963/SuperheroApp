@@ -7,13 +7,13 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
+import app.superhero.src.dao.Superhero;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CharacteristicsViewModel;
 import app.superhero.src.views.DetailsItemView;
 
 @EFragment(R.layout.fragment_characteristics)
 public class CharacteristicsFragment extends BaseFragment {
-
     @FragmentArg
     SuperheroMasterData superheroMasterData;
 
@@ -80,28 +80,39 @@ public class CharacteristicsFragment extends BaseFragment {
 
     public void observeCharacteristics() {
         viewModel.superhero.observe(this, superhero -> {
-            fullName.setData(superhero.biography.getFullName());
-            alterEgos.setData(superhero.biography.getAlterEgos());
-            aliases.setData(superhero.biography.getAliases());
-            placeOfBirth.setData(superhero.biography.getPlaceOfBirth());
-            firstAppearance.setData(superhero.biography.getFirstAppearance());
-            publisher.setData(superhero.biography.getPublisher());
-            alignment.setData(superhero.biography.getAlignment());
-
-            gender.setData(superhero.appearance.getGender());
-            race.setData(superhero.appearance.getRace());
-            height.setData(superhero.appearance.getHeight());
-            weight.setData(superhero.appearance.getWeight());
-            eyeColor.setData(superhero.appearance.getEyeColor());
-            hairColor.setData(superhero.appearance.getHairColor());
-
-            occupation.setData(superhero.work.getOccupation());
-            base.setData(superhero.work.getBase());
-
-            groupAffiliation.setData(superhero.connections.getGroupAffiliation());
-            relatives.setData(superhero.connections.getRelatives());
+            setBiography(superhero);
+            setAppearance(superhero);
+            setWork(superhero);
+            setConnections(superhero);
         });
     }
 
+    private void setBiography(Superhero superhero) {
+        fullName.setData(superhero.biography.getFullName());
+        alterEgos.setData(superhero.biography.getAlterEgos());
+        aliases.setData(superhero.biography.getAliases());
+        placeOfBirth.setData(superhero.biography.getPlaceOfBirth());
+        firstAppearance.setData(superhero.biography.getFirstAppearance());
+        publisher.setData(superhero.biography.getPublisher());
+        alignment.setData(superhero.biography.getAlignment());
+    }
 
+    private void setAppearance(Superhero superhero) {
+        gender.setData(superhero.appearance.getGender());
+        race.setData(superhero.appearance.getRace());
+        height.setData(superhero.appearance.getHeight());
+        weight.setData(superhero.appearance.getWeight());
+        eyeColor.setData(superhero.appearance.getEyeColor());
+        hairColor.setData(superhero.appearance.getHairColor());
+    }
+
+    private void setWork(Superhero superhero) {
+        occupation.setData(superhero.work.getOccupation());
+        base.setData(superhero.work.getBase());
+    }
+
+    private void setConnections(Superhero superhero) {
+        groupAffiliation.setData(superhero.connections.getGroupAffiliation());
+        relatives.setData(superhero.connections.getRelatives());
+    }
 }

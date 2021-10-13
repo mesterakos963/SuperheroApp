@@ -10,13 +10,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import app.superhero.R;
 
 public class MarkerView extends com.github.mikephil.charting.components.MarkerView {
-    /**
-     * Constructor. Sets up the MarkerView with a custom layout resource.
-     *
-     * @param context
-     * @param layoutResource the layout resource to use for the MarkerView
-     */
-
     public MarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
     }

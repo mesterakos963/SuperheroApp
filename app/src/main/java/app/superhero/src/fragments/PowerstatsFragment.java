@@ -33,7 +33,6 @@ import app.superhero.src.views.MarkerView;
 
 @EFragment(R.layout.fragment_powerstats)
 public class PowerstatsFragment extends BaseFragment {
-
     @FragmentArg
     SuperheroMasterData superheroMasterData;
 
@@ -69,7 +68,7 @@ public class PowerstatsFragment extends BaseFragment {
 
     private void observePowerstats() {
         viewModel.powerstats.observe(this, powerstats -> {
-            if(powerstats != null) {
+            if (powerstats != null) {
                 setRadarChart(powerstats);
                 setPercentageCharts(powerstats);
             }
@@ -77,7 +76,7 @@ public class PowerstatsFragment extends BaseFragment {
     }
 
     private void setRadarChart(Powerstats powerstats) {
-        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.gotham_medium);
+        Typeface typeface = ResourcesCompat.getFont(requireContext(), R.font.gotham_medium);
         ArrayList<RadarEntry> entries = new ArrayList<>();
         Description description = radarChart.getDescription();
         MarkerView marker = new MarkerView(getContext(), R.layout.marker_view);

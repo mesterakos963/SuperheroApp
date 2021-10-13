@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Comments {
-
     @PrimaryKey
     int commentsId;
 

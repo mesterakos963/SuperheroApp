@@ -8,7 +8,6 @@ import java.util.List;
 import app.superhero.src.utils.ZeroWhenNull;
 
 public class AppearanceDto implements Serializable {
-
     @ZeroWhenNull
     int id;
 
@@ -17,6 +16,7 @@ public class AppearanceDto implements Serializable {
     String race;
     List<String> height;
     List<String> weight;
+
     @Json(name = "eye-color")
     String eyeColor;
 

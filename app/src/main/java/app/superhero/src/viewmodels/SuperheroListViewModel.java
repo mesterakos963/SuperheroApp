@@ -16,44 +16,35 @@ import app.superhero.src.interfaces.ListCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroListViewModel extends ViewModel {
-
     private final MutableLiveData<List<SuperheroMasterData>> _superheroes = new MutableLiveData<>();
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
-    private final MutableLiveData<String> searchText = new MutableLiveData<String>();
-    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<String> _searchText = new MutableLiveData<String>();
+    private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>();
     private final MutableLiveData<String> _onPauseSearchText = new MutableLiveData<>();
     private final MutableLiveData<List<SuperheroMasterData>> _favourites = new MutableLiveData<>();
-
     public LiveData<List<SuperheroMasterData>> superheroes = _superheroes;
     public LiveData<String> onPauseSearchText = _onPauseSearchText;
     public LiveData<List<SuperheroMasterData>> favourites = _favourites;
-
+    public LiveData<String> searchText = _searchText;
+    public LiveData<Boolean> isLoading = _isLoading;
 
     @Bean
     SuperheroesRepository superheroesRepository;
 
-    public LiveData<String> getSearchText() {
-        return searchText;
-    }
-
-    public LiveData<Boolean> getIsLoading() {
-        return isLoading;
-    }
-
     public void fetchSuperheroes(String name) {
-        isLoading.postValue(true);
+        _isLoading.postValue(true);
         superheroesRepository.searchByName(name, new ListCallback<SuperheroMasterData>() {
             @Override
             public void onSuccess(List<SuperheroMasterData> results) {
                 _superheroes.postValue(results);
-                isLoading.postValue(false);
+                _isLoading.postValue(false);
             }
 
             @Override
             public void onError(List<SuperheroMasterData> fallbackResult, Throwable t) {
                 _superheroes.postValue(fallbackResult);
                 error.postValue(t);
-                isLoading.postValue(false);
+                _isLoading.postValue(false);
             }
         });
     }
@@ -80,15 +71,15 @@ public class SuperheroListViewModel extends ViewModel {
 
     @AfterInject
     protected void init() {
-        isLoading.postValue(false);
+        _isLoading.postValue(false);
     }
 
     public void postSearch(String search) {
-        searchText.postValue(search);
+        _searchText.postValue(search);
     }
 
     public String getSearchTextString() {
-        return searchText.getValue();
+        return _searchText.getValue();
     }
 
     public void setOnPauseSearchText(String text) {

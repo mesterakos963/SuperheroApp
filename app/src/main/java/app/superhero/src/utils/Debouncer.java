@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import java.util.concurrent.TimeUnit;
 
 public class Debouncer {
-
     private final int MESSAGE_WHAT = 4533;
     private final int timeout;
     private final TimeUnit timeUnit;

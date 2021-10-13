@@ -3,7 +3,6 @@ package app.superhero.src.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -19,15 +18,13 @@ import app.superhero.src.interfaces.TabButtonCallback;
 
 @EViewGroup(R.layout.button_view)
 public class ButtonView extends FrameLayout {
-
     @ViewById
     FrameLayout buttonViewRoot;
-
-    TabButtonCallback tabButtonCallback;
 
     @ViewById
     TextView buttonViewText;
 
+    TabButtonCallback tabButtonCallback;
     String label;
 
     public ButtonView(@NonNull Context context) {
@@ -53,12 +50,9 @@ public class ButtonView extends FrameLayout {
     @AfterViews
     protected void init() {
         buttonViewText.setText(label);
-        buttonViewRoot.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (tabButtonCallback != null) {
-                    tabButtonCallback.onButtonClicked(ButtonView.this.getId(), buttonViewRoot.isSelected());
-                }
+        buttonViewRoot.setOnClickListener(view -> {
+            if (tabButtonCallback != null) {
+                tabButtonCallback.onButtonClicked(ButtonView.this.getId(), buttonViewRoot.isSelected());
             }
         });
     }
@@ -71,9 +65,5 @@ public class ButtonView extends FrameLayout {
 
     public void bind(TabButtonCallback callback) {
         tabButtonCallback = callback;
-    }
-
-    public void setButtonSelected(boolean isSelected) {
-        buttonViewRoot.setSelected(isSelected);
     }
 }

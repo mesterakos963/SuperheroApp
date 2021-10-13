@@ -36,10 +36,6 @@ public class PowerstatsDto implements Serializable {
         this.combat = combat;
     }
 
-    public String getResponse() {
-        return response;
-    }
-
     public int getId() {
         return id;
     }

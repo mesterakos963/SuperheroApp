@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
-import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -33,7 +32,6 @@ import app.superhero.src.views.SearchbarView;
 
 @EFragment(R.layout.fragment_superhero_list)
 public class SuperheroListFragment extends SuperHeroListParentFragment implements ItemClickListener {
-
     @Bean
     SuperheroListViewModel superheroListViewModel;
 
@@ -85,12 +83,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @Override
     protected void starClick() {
-        starClickCallback = new StarClickCallback() {
-            @Override
-            public void onStarClick(SuperheroMasterData superhero, int position) {
-                viewModel.setIsFavourite(superhero);
-            }
-        };
+        starClickCallback = (superhero, position) -> viewModel.setIsFavourite(superhero);
     }
 
     private void emptyViewOnClickListener() {
@@ -143,8 +136,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @UiThread
     public void observeSearchText() {
-        superheroListViewModel.getSearchText().observe(this, searchText -> {
-            //setEmptyViewText();
+        superheroListViewModel.searchText.observe(this, searchText -> {
             if (!searchText.isEmpty()
                     && adapter.getItemCount() == 0
                     || superheroListViewModel.onPauseSearchText.getValue() != null
@@ -157,7 +149,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @UiThread
     public void observeIsLoading() {
-        superheroListViewModel.getIsLoading().observe(this, isLoading -> {
+        superheroListViewModel.isLoading.observe(this, isLoading -> {
             if (isLoading && adapter.getItemCount() == 0) {
                 emptyView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.VISIBLE);

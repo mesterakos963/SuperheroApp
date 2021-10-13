@@ -19,7 +19,6 @@ import app.superhero.R;
 
 @EViewGroup(R.layout.details_item_view)
 public class DetailsItemView extends LinearLayout {
-
     @ViewById
     LinearLayout detailsItemViewRoot;
 
@@ -88,5 +87,4 @@ public class DetailsItemView extends LinearLayout {
         }
         data.setText(stringBuilder.toString());
     }
-
 }

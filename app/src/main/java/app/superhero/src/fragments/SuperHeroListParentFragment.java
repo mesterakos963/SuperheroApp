@@ -26,7 +26,6 @@ import static app.superhero.src.utils.Utils.pxFromDp;
 
 @EFragment
 public abstract class SuperHeroListParentFragment extends BaseFragment implements ItemClickListener {
-
     @Bean
     SuperheroListViewModel viewModel;
 
@@ -68,7 +67,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     public abstract void onItemClick(SuperheroMasterData superhero);
 
     protected int getNumberOfColumns() {
-        return (int) (getScreenWidth() / pxFromDp(getContext(), 170));
+        return (int) (getScreenWidth() / pxFromDp(requireContext(), 170));
     }
 
     @UiThread
