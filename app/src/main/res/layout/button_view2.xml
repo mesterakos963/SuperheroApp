@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/saveCommentButtonRoot"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/button2Root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_save_comment_button_bg">
+    android:background="@drawable/selector_button_background">
 
     <TextView
-        android:id="@+id/saveCommentButtonLabel"
+        android:id="@+id/button2Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@color/transparent"
         android:paddingTop="@dimen/design_14dp"
         android:paddingBottom="@dimen/design_14dp"
-        android:text="@string/save_comment_button_label"
+        tools:text="button label"
         style="@style/save_comment_button_label_font" />
 
 </FrameLayout>

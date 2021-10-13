@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <app.superhero.src.views.SaveCommentButtonView_
+    <app.superhero.src.views.ButtonView2_
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

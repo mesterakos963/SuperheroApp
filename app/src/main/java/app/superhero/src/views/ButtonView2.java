@@ -13,32 +13,36 @@ import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
 
-@EViewGroup(R.layout.save_comment_button)
-public class SaveCommentButtonView extends FrameLayout {
+@EViewGroup(R.layout.button_view2)
+public class ButtonView2 extends FrameLayout{
     @ViewById
-    protected FrameLayout saveCommentButtonRoot;
+    protected FrameLayout button2Root;
 
     @ViewById
-    protected TextView saveCommentButtonLabel;
+    protected TextView button2Label;
 
-    public SaveCommentButtonView(@NonNull Context context) {
+    public ButtonView2(@NonNull Context context) {
         super(context);
     }
 
-    public SaveCommentButtonView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ButtonView2(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SaveCommentButtonView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ButtonView2(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if (saveCommentButtonRoot != null) {
-            saveCommentButtonRoot.setEnabled(enabled);
-            saveCommentButtonLabel.setEnabled(enabled);
+        if (button2Root != null) {
+            button2Root.setEnabled(enabled);
+            button2Label.setEnabled(enabled);
         }
+    }
+
+    public void setButtonLabel(String label) {
+        button2Label.setText(label);
     }
 }

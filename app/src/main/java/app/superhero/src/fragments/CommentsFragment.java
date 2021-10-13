@@ -10,8 +10,8 @@ import app.superhero.MainActivity;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CommentsViewModel;
+import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.CommentView;
-import app.superhero.src.views.SaveCommentButtonView;
 
 @EFragment(R.layout.fragment_comments)
 public class CommentsFragment extends BaseFragment {
@@ -22,7 +22,7 @@ public class CommentsFragment extends BaseFragment {
     SuperheroMasterData superheroMasterData;
 
     @ViewById
-    SaveCommentButtonView button;
+    ButtonView2 button;
 
     @ViewById
     CommentView commentView;
@@ -31,6 +31,7 @@ public class CommentsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+        button.setButtonLabel(getResources().getString(R.string.save_comment_button_label));
         observeComments();
         viewModel.getComment(superheroMasterData.getId());
         button.setEnabled(false);
@@ -39,7 +40,7 @@ public class CommentsFragment extends BaseFragment {
 
     private void clickButton() {
         viewModel.setComment(superheroMasterData.getId(), commentView.getComment());
-        ((MainActivity) getActivity()).hideKeyboard(commentView.getEditText());
+        ((MainActivity) requireActivity()).hideKeyboard(commentView.getEditText());
     }
 
     private void observeComments() {

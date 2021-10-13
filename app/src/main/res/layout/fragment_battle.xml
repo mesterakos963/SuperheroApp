@@ -1,18 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/favourites"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/chartLeftSideHero"
+        android:layout_width="@dimen/design_42dp"
+        android:layout_height="@dimen/design_42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pcv_animDuration="800"
+        app:pcv_animInterpolator="anticipate_overshoot"
+        app:pcv_mode="pie"
+        app:pcv_orientation="counter_clockwise"
+        app:pcv_progress="10"
+        app:pcv_startAngle="90" />
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/chartRightSideHero"
+        android:layout_width="@dimen/design_42dp"
+        android:layout_height="@dimen/design_42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chartLeftSideHero"
+        app:pcv_animDuration="800"
+        app:pcv_animInterpolator="anticipate_overshoot"
+        app:pcv_mode="pie"
+        app:pcv_orientation="counter_clockwise"
+        app:pcv_progress="10"
+        app:pcv_startAngle="90" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/overallStatLabel"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Battle Fragment"
+        android:text="@string/overall_stat"
+        app:layout_constraintEnd_toEndOf="@id/chartRightSideHero"
+        app:layout_constraintStart_toStartOf="@+id/chartLeftSideHero"
+        app:layout_constraintTop_toTopOf="@+id/chartLeftSideHero" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/battleAnimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/battleProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/overallStatLabel" />
+
+    <ProgressBar
+        android:id="@+id/battleProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/design_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/battleAnimation" />
+
+    <app.superhero.src.views.ButtonView2_
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/design_54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
