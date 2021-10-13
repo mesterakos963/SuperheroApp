@@ -7,29 +7,42 @@
 
     <com.ramijemli.percentagechartview.PercentageChartView
         android:id="@+id/chartLeftSideHero"
-        android:layout_width="@dimen/design_42dp"
-        android:layout_height="@dimen/design_42dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pcv_animDuration="800"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:pcv_animDuration="1500"
         app:pcv_animInterpolator="anticipate_overshoot"
-        app:pcv_mode="pie"
-        app:pcv_orientation="counter_clockwise"
-        app:pcv_progress="10"
-        app:pcv_startAngle="90" />
+        app:pcv_backgroundBarColor="@color/pcv_bg_bar_color"
+        app:pcv_backgroundBarThickness="@dimen/design_8dp"
+        app:pcv_drawBackgroundBar="true"
+        app:pcv_mode="ring"
+        app:pcv_orientation="clockwise"
+        app:pcv_progressColor="@color/red"
+        app:pcv_startAngle="90"
+        app:pcv_textColor="@color/chart_text_color"
+        app:pcv_textStyle="bold"
+        app:pcv_textSize="@dimen/design_12sp" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
         android:id="@+id/chartRightSideHero"
-        android:layout_width="@dimen/design_42dp"
-        android:layout_height="@dimen/design_42dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chartLeftSideHero"
-        app:pcv_animDuration="800"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:pcv_animDuration="1500"
         app:pcv_animInterpolator="anticipate_overshoot"
-        app:pcv_mode="pie"
-        app:pcv_orientation="counter_clockwise"
-        app:pcv_progress="10"
-        app:pcv_startAngle="90" />
+        app:pcv_backgroundBarColor="@color/pcv_bg_bar_color"
+        app:pcv_backgroundBarThickness="@dimen/design_8dp"
+        app:pcv_drawBackgroundBar="true"
+        app:pcv_mode="ring"
+        app:pcv_orientation="clockwise"
+        app:pcv_progressColor="@color/red"
+        app:pcv_startAngle="90"
+        app:pcv_textColor="@color/chart_text_color"
+        app:pcv_textStyle="bold"
+        app:pcv_textSize="@dimen/design_12sp" />
 
     <TextView
         android:id="@+id/overallStatLabel"
