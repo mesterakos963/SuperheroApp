@@ -53,6 +53,9 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         starClickCallback = (superhero, position) -> {
             viewModel.setIsFavourite(superhero);
             adapter.deleteItem(position);
+            if (adapter.getItemCount() == 0) {
+                emptyView.setText(getResources().getString(R.string.favourites_empty_view));
+            }
         };
     }
 
@@ -68,10 +71,10 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Override
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
+        adapter.setData(superheroList);
         if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.favourites_empty_view));
         }
-        adapter.setData(superheroList);
     }
 
     private void observeFavourites() {
