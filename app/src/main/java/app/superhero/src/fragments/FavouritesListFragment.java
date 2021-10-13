@@ -1,5 +1,8 @@
 package app.superhero.src.fragments;
 
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -12,7 +15,6 @@ import java.util.List;
 
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
-import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -36,19 +38,21 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     }
 
     @Override
-    protected void doOnInit() {
-        viewModel.fetchFavourites();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         observeFavourites();
     }
 
     @Override
+    protected void doOnInit() {
+        viewModel.fetchFavourites();
+    }
+
+    @Override
     protected void starClick() {
-        starClickCallback = new StarClickCallback() {
-            @Override
-            public void onStarClick(SuperheroMasterData superhero, int position) {
-                viewModel.setIsFavourite(superhero);
-                adapter.deleteItem(position);
-            }
+        starClickCallback = (superhero, position) -> {
+            viewModel.setIsFavourite(superhero);
+            adapter.deleteItem(position);
         };
     }
 
