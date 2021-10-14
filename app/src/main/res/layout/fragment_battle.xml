@@ -1,82 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/favourites"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/list_background_color">
 
-    <com.ramijemli.percentagechartview.PercentageChartView
-        android:id="@+id/chartLeftSideHero"
+    <app.superhero.src.views.SuperheroCardView_
+        android:layout_marginTop="@dimen/design_40dp"
+        android:layout_marginStart="@dimen/design_10dp"
+        android:id="@+id/leftSuperhero"
+        android:layout_width="@dimen/design_150dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:pcv_animDuration="1500"
-        app:pcv_animInterpolator="anticipate_overshoot"
-        app:pcv_backgroundBarColor="@color/pcv_bg_bar_color"
-        app:pcv_backgroundBarThickness="@dimen/design_8dp"
-        app:pcv_drawBackgroundBar="true"
-        app:pcv_mode="ring"
-        app:pcv_orientation="clockwise"
-        app:pcv_progressColor="@color/red"
-        app:pcv_startAngle="90"
-        app:pcv_textColor="@color/chart_text_color"
-        app:pcv_textStyle="bold"
-        app:pcv_textSize="@dimen/design_12sp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <app.superhero.src.views.SuperheroCardView_
+        android:id="@+id/rightSuperhero"
+        android:layout_marginEnd="@dimen/design_10dp"
+        android:layout_width="@dimen/design_150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/leftSuperhero" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
-        android:id="@+id/chartRightSideHero"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/chartLeftSideHero"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:pcv_animDuration="1500"
-        app:pcv_animInterpolator="anticipate_overshoot"
-        app:pcv_backgroundBarColor="@color/pcv_bg_bar_color"
-        app:pcv_backgroundBarThickness="@dimen/design_8dp"
-        app:pcv_drawBackgroundBar="true"
+        android:id="@+id/leftChart"
+        android:layout_width="@dimen/design_60dp"
+        android:layout_height="@dimen/design_60dp"
+        app:layout_constraintTop_toBottomOf="@id/leftSuperhero"
+        app:layout_constraintStart_toStartOf="@id/leftSuperhero"
         app:pcv_mode="ring"
-        app:pcv_orientation="clockwise"
-        app:pcv_progressColor="@color/red"
-        app:pcv_startAngle="90"
-        app:pcv_textColor="@color/chart_text_color"
-        app:pcv_textStyle="bold"
-        app:pcv_textSize="@dimen/design_12sp" />
+        app:pcv_orientation="counter_clockwise"
+        app:pcv_animDuration="800"
+        app:pcv_animInterpolator="anticipate_overshoot"
+        app:pcv_progress="10"
+        app:pcv_startAngle="90"/>
+
+    <com.ramijemli.percentagechartview.PercentageChartView
+        android:id="@+id/rightChart"
+        android:layout_width="@dimen/design_60dp"
+        android:layout_height="@dimen/design_60dp"
+        app:layout_constraintTop_toBottomOf="@id/leftSuperhero"
+        app:layout_constraintEnd_toEndOf="@id/rightSuperhero"
+        app:pcv_mode="ring"
+        app:pcv_orientation="counter_clockwise"
+        app:pcv_animDuration="800"
+        app:pcv_animInterpolator="anticipate_overshoot"
+        app:pcv_progress="10"
+        app:pcv_startAngle="90"/>
 
     <TextView
-        android:id="@+id/overallStatLabel"
+        android:id="@+id/battleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/leftChart"
+        app:layout_constraintEnd_toStartOf="@id/rightChart"
+        app:layout_constraintTop_toTopOf="@id/leftChart"
+        app:layout_constraintBottom_toBottomOf="@id/leftChart"
         android:text="@string/overall_stat"
-        app:layout_constraintEnd_toEndOf="@id/chartRightSideHero"
-        app:layout_constraintStart_toStartOf="@+id/chartLeftSideHero"
-        app:layout_constraintTop_toTopOf="@+id/chartLeftSideHero" />
+        android:gravity="center"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/battleAnimation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/battleProgressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overallStatLabel" />
-
-    <ProgressBar
-        android:id="@+id/battleProgressBar"
+    <app.superhero.src.utils.RecyclerViewEmptySupport
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
-        android:layout_height="@dimen/design_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/leftChart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battleAnimation" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/startButton"/>
 
     <app.superhero.src.views.ButtonView2_
         android:id="@+id/startButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/design_54dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

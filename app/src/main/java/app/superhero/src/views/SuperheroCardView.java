@@ -1,11 +1,13 @@
 package app.superhero.src.views;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +44,14 @@ public class SuperheroCardView extends CardView {
 
     public SuperheroCardView(@NonNull Context context) {
         super(context);
+    }
+
+    public SuperheroCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public SuperheroCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback, int position) {
