@@ -135,4 +135,9 @@
         <item name="android:textColor">@color/chart_text_color</item>
     </style>
 
+    <style name="gothamMedium18" parent="gothamMedium">
+        <item name="android:textSize">@dimen/design_18sp</item>
+        <item name="android:textColor">@color/battle_screen_text_color</item>
+    </style>
+
 </resources>

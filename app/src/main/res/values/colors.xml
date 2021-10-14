@@ -66,6 +66,6 @@
     <color name="salmon">#f3c2b2</color>
     <color name="brown">#713e06</color>
     <color name="pcv_bg_bar_color">#FFBB3B</color>
-
-
+    <color name="battle_screen_text_color">#000000</color>
+    <color name="battle_chart_bar_bg">#CBA55E</color>
 </resources>
