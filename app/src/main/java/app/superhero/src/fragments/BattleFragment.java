@@ -2,6 +2,7 @@ package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -67,6 +68,9 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     LottieAnimationView animation;
 
+    @ViewById
+    ProgressBar battleProgress;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -92,6 +96,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                 recyclerView.setVisibility(View.GONE);
                 animation.setVisibility(View.VISIBLE);
                 animation.playAnimation();
+                battleProgress.setVisibility(View.VISIBLE);
+                battleProgress.setProgress((int) animation.getProgress());
             }
         });
     }

@@ -13,18 +13,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/design_10dp"
         android:layout_marginTop="@dimen/design_40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/rightSuperhero"
         android:background="@color/transparent"
+        app:layout_constraintEnd_toStartOf="@id/rightSuperhero"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/rightSuperhero"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/leftSuperhero"
         android:layout_marginEnd="@dimen/design_10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/leftSuperhero"
         app:layout_constraintTop_toTopOf="@+id/leftSuperhero" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
@@ -87,12 +87,12 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/design_64dp"
         app:layout_constraintBottom_toTopOf="@id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leftChart"
-        tools:listitem="@layout/item_superhero"
-        android:layout_marginTop="@dimen/design_64dp" />
+        tools:listitem="@layout/item_superhero" />
 
     <app.superhero.src.views.ButtonView2_
         android:id="@+id/startButton"
@@ -110,18 +110,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ProgressBar
+        android:id="@+id/battleProgress"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/design_10dp"
+        android:layout_marginStart="@dimen/design_20dp"
+        android:layout_marginTop="@dimen/design_20dp"
+        android:layout_marginEnd="@dimen/design_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animation"
+        app:layout_constraintBottom_toTopOf="@id/startButton"
+        android:visibility="gone"
+        android:progressBackgroundTint="@color/battle_chart_bar_bg"
+        android:progressTint="@color/bar_chart_color"
+        app:layout_goneMarginTop="@dimen/design_20dp"
+        android:layout_marginBottom="@dimen/design_100dp" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:lottie_rawRes="@raw/battle_animation"
-        app:lottie_autoPlay="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leftChart"
-        app:layout_constraintBottom_toTopOf="@id/startButton"
-        android:visibility="gone"
         android:background="@color/list_background_color"
-        />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/battleProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leftChart"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/battle_animation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
