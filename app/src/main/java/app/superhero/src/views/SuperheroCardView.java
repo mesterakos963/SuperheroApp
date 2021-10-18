@@ -3,6 +3,7 @@ package app.superhero.src.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,5 +73,19 @@ public class SuperheroCardView extends CardView {
                 .load(superhero.getUrl())
                 .placeholder(R.drawable.ic_place)
                 .into(heroImage);
+    }
+
+    public void setCardWidth(int width) {
+        ViewGroup.LayoutParams params = root.getLayoutParams();
+        params.width = width;
+        root.setLayoutParams(params);
+    }
+
+    public void hideStar() {
+        star.setEnabled(false);
+        star.setVisibility(GONE);
+        starBackground.setEnabled(false);
+        starBackground.setVisibility(GONE);
+        starClickTrap.setEnabled(false);
     }
 }

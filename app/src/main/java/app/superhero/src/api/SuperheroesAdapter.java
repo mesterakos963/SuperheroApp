@@ -23,6 +23,30 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     private final ItemClickListener itemClickListener;
     private final StarClickCallback starClickCallback;
     private final ArrayList<SuperheroMasterData> data;
+    private boolean showStar;
+    private boolean isHorizontal;
+
+    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
+                              ItemClickListener itemClickListener,
+                              StarClickCallback starClickCallback,
+                              boolean isHorizontal, boolean showStar) {
+        this.itemClickListener = itemClickListener;
+        this.starClickCallback = starClickCallback;
+        this.data = data;
+        this.isHorizontal = isHorizontal;
+        this.showStar = showStar;
+    }
+
+    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
+                              ItemClickListener itemClickListener,
+                              StarClickCallback starClickCallback,
+                              boolean showStar) {
+        this.itemClickListener = itemClickListener;
+        this.starClickCallback = starClickCallback;
+        this.data = data;
+        this.showStar = showStar;
+    }
+
 
     public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
                               ItemClickListener itemClickListener,
@@ -36,6 +60,12 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     @Override
     public ViewWrapper<SuperheroCardView> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         SuperheroCardView superheroCardView = SuperheroCardView_.build(parent.getContext());
+        if (isHorizontal) {
+            superheroCardView.setCardWidth(Math.round(parent.getContext().getResources().getDimension(R.dimen.design_150dp)));
+        }
+        if (!showStar) {
+            superheroCardView.hideStar();
+        }
         return new ViewWrapper<>(superheroCardView);
     }
 

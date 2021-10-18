@@ -14,7 +14,7 @@ import org.androidannotations.annotations.ViewById;
 import app.superhero.R;
 
 @EViewGroup(R.layout.button_view2)
-public class ButtonView2 extends FrameLayout{
+public class ButtonView2 extends FrameLayout {
     @ViewById
     protected FrameLayout button2Root;
 
