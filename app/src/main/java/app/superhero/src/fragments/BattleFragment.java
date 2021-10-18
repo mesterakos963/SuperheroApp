@@ -23,14 +23,14 @@ import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
-import app.superhero.src.viewmodels.SuperheroListViewModel;
+import app.superhero.src.viewmodels.BattleViewModel;
 import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.SuperheroCardView;
 
 @EFragment(R.layout.fragment_battle)
 public class BattleFragment extends BaseFragment implements ItemClickListener {
     @Bean
-    SuperheroListViewModel viewModel;
+    BattleViewModel viewModel;
 
     @ViewById
     ConstraintLayout battleRoot;
@@ -68,7 +68,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, true, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        viewModel.fetchFavourites();
+        viewModel.fetchSuperheroes();
         observeSuperheroes();
         observeFirstSuperhero();
         observeSecondSuperheroes();
@@ -80,7 +80,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void observeSuperheroes() {
-        viewModel.favourites.observe(this, superheroes -> {
+        viewModel.superheroes.observe(this, superheroes -> {
             refreshAdapter(superheroes);
             getRandomSuperheroes(superheroes);
         });

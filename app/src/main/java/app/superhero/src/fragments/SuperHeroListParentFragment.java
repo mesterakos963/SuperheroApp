@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -19,15 +18,13 @@ import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
-import app.superhero.src.viewmodels.SuperheroListViewModel;
+import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.views.EmptyView;
 
 import static app.superhero.src.utils.Utils.pxFromDp;
 
 @EFragment
 public abstract class SuperHeroListParentFragment extends BaseFragment implements ItemClickListener {
-    @Bean
-    SuperheroListViewModel viewModel;
 
     @ViewById
     EmptyView emptyView;
@@ -56,6 +53,8 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     protected abstract EmptyView getEmptyView();
 
+    protected abstract SuperheroParentViewModel getViewModel();
+
     @UiThread
     protected abstract void refreshAdapter(List<SuperheroMasterData> superheroList);
 
@@ -72,7 +71,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     @UiThread
     public void observeSuperheroes() {
-        viewModel.superheroes.observe(this, this::refreshAdapter);
+        getViewModel().getSuperheroes().observe(this, this::refreshAdapter);
     }
 }
 

@@ -25,7 +25,8 @@ import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
-import app.superhero.src.viewmodels.SuperheroListViewModel;
+import app.superhero.src.viewmodels.SuperheroParentViewModel;
+import app.superhero.src.viewmodels.SuperheroesListViewModel;
 import app.superhero.src.views.EmptyView;
 import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SearchbarView;
@@ -33,7 +34,7 @@ import app.superhero.src.views.SearchbarView;
 @EFragment(R.layout.fragment_superhero_list)
 public class SuperheroListFragment extends SuperHeroListParentFragment implements ItemClickListener {
     @Bean
-    SuperheroListViewModel superheroListViewModel;
+    SuperheroesListViewModel viewModel;
 
     @ViewById
     RecyclerViewEmptySupport recyclerView;
@@ -59,6 +60,11 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         return emptyView;
     }
 
+    @Override
+    protected SuperheroParentViewModel getViewModel() {
+        return viewModel;
+    }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
@@ -77,7 +83,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         observeSearchText();
         observeIsLoading();
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
-                message -> superheroListViewModel.postSearch(message)
+                message -> viewModel.postSearch(message)
         );
     }
 
@@ -126,7 +132,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     public void onPause() {
         super.onPause();
-        superheroListViewModel.setOnPauseSearchText(superheroListViewModel.getSearchTextString());
+        viewModel.setOnPauseSearchText(viewModel.getSearchTextString());
     }
 
     @Override
@@ -136,20 +142,20 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @UiThread
     public void observeSearchText() {
-        superheroListViewModel.searchText.observe(this, searchText -> {
+        viewModel.searchText.observe(this, searchText -> {
             if (!searchText.isEmpty()
                     && adapter.getItemCount() == 0
-                    || superheroListViewModel.onPauseSearchText.getValue() != null
-                    && !superheroListViewModel.onPauseSearchText.getValue().equals(searchText)) {
-                superheroListViewModel.fetchSuperheroes(searchText);
-                superheroListViewModel.setOnPauseSearchText("");
+                    || viewModel.onPauseSearchText.getValue() != null
+                    && !viewModel.onPauseSearchText.getValue().equals(searchText)) {
+                viewModel.fetchSuperheroes(searchText);
+                viewModel.setOnPauseSearchText("");
             }
         });
     }
 
     @UiThread
     public void observeIsLoading() {
-        superheroListViewModel.isLoading.observe(this, isLoading -> {
+        viewModel.isLoading.observe(this, isLoading -> {
             if (isLoading && adapter.getItemCount() == 0) {
                 emptyView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.VISIBLE);

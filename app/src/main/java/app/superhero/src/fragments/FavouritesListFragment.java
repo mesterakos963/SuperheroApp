@@ -16,13 +16,14 @@ import java.util.List;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
-import app.superhero.src.viewmodels.SuperheroListViewModel;
+import app.superhero.src.viewmodels.FavouritesViewModel;
+import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.views.EmptyView;
 
 @EFragment(R.layout.fragment_favourites)
 public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Bean
-    SuperheroListViewModel superheroListViewModel;
+    FavouritesViewModel viewModel;
 
     @ViewById
     RecyclerViewEmptySupport recyclerView;
@@ -38,6 +39,11 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     }
 
     @Override
+    protected SuperheroParentViewModel getViewModel() {
+        return viewModel;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         observeFavourites();
@@ -45,7 +51,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
 
     @Override
     protected void doOnInit() {
-        viewModel.fetchFavourites();
+        viewModel.fetchSuperheroes();
     }
 
     @Override
@@ -78,6 +84,6 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     }
 
     private void observeFavourites() {
-        viewModel.favourites.observe(this, this::refreshAdapter);
+        viewModel.superheroes.observe(this, this::refreshAdapter);
     }
 }
