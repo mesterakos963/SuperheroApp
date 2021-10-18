@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +20,7 @@ import java.util.Random;
 
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
+import app.superhero.src.dao.Powerstats;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
@@ -70,8 +72,29 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         recyclerView.setAdapter(adapter);
         viewModel.fetchSuperheroes();
         observeSuperheroes();
+        observePowerstats();
         observeFirstSuperhero();
         observeSecondSuperheroes();
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void observePowerstats() {
+        viewModel.firstHeroPowerstats.observe(this, powerstats -> {
+            if (powerstats != null) {
+                setChart(powerstats, leftChart);
+            }
+        });
+        viewModel.secondHeroPowerstats.observe(this, powerstats -> {
+            if (powerstats != null) {
+                setChart(powerstats, rightChart);
+            }
+        });
     }
 
     @Override
@@ -89,12 +112,14 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private void observeFirstSuperhero() {
         viewModel.firstSuperhero.observe(this, superhero -> {
             leftSuperhero.bind(superhero);
+            viewModel.getFirstPowerstats(superhero.getId());
         });
     }
 
     private void observeSecondSuperheroes() {
         viewModel.secondSuperhero.observe(this, superhero -> {
             rightSuperhero.bind(superhero);
+            viewModel.getSecondPowerstats(superhero.getId());
         });
     }
 
@@ -118,7 +143,16 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
             secondSuperhero = superheroes.get(rand.nextInt(superheroes.size()));
         } while (firstSuperhero.equals(secondSuperhero));
         viewModel.setSecondSuperhero(secondSuperhero);
+        viewModel.getFirstPowerstats(firstSuperhero.getId());
+        viewModel.getSecondPowerstats(secondSuperhero.getId());
     }
 
+    private float calculateOverallStat(Powerstats powerstats) {
+        return (powerstats.getIntelligence() + powerstats.getCombat() + powerstats.getDurability()
+                + powerstats.getPower() + powerstats.getSpeed() + powerstats.getStrength()) / 6;
+    }
 
+    private void setChart(Powerstats powerstats, PercentageChartView chart) {
+        chart.setProgress(calculateOverallStat(powerstats), true);
+    }
 }

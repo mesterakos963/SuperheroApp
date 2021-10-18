@@ -9,18 +9,20 @@
 
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/leftSuperhero"
-        android:layout_width="@dimen/design_150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/design_10dp"
         android:layout_marginTop="@dimen/design_40dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightSuperhero"
         android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/rightSuperhero"
-        android:layout_width="@dimen/design_150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/leftSuperhero"
         android:layout_marginEnd="@dimen/design_10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/leftSuperhero" />
@@ -40,7 +42,6 @@
         app:pcv_drawBackgroundBar="true"
         app:pcv_mode="ring"
         app:pcv_orientation="clockwise"
-        app:pcv_progress="100"
         app:pcv_progressBarStyle="square"
         app:pcv_progressBarThickness="@dimen/design_6dp"
         app:pcv_progressColor="@color/bar_chart_color"
@@ -63,7 +64,6 @@
         app:pcv_drawBackgroundBar="true"
         app:pcv_mode="ring"
         app:pcv_orientation="clockwise"
-        app:pcv_progress="62"
         app:pcv_progressBarStyle="square"
         app:pcv_progressBarThickness="@dimen/design_6dp"
         app:pcv_progressColor="@color/bar_chart_color"
@@ -92,7 +92,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leftChart"
         tools:listitem="@layout/item_superhero"
-        android:layout_marginTop="@dimen/design_64dp"/>
+        android:layout_marginTop="@dimen/design_64dp" />
 
     <app.superhero.src.views.ButtonView2_
         android:id="@+id/startButton"

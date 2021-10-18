@@ -9,15 +9,23 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
+import app.superhero.src.dao.Powerstats;
 import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.interfaces.ItemCallback;
 import app.superhero.src.interfaces.ListCallback;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class BattleViewModel extends SuperheroParentViewModel {
     private final MutableLiveData<SuperheroMasterData> _firstSuperhero = new MutableLiveData<>();
     private final MutableLiveData<SuperheroMasterData> _secondSuperhero = new MutableLiveData<>();
+    private final MutableLiveData<Throwable> error = new MutableLiveData<>();
+    private final MutableLiveData<Powerstats> _firstHeroPowerstats = new MutableLiveData<>();
+    private final MutableLiveData<Powerstats> _secondHeroPowerstats = new MutableLiveData<>();
+
     public LiveData<SuperheroMasterData> firstSuperhero = _firstSuperhero;
     public LiveData<SuperheroMasterData> secondSuperhero = _secondSuperhero;
+    public LiveData<Powerstats> firstHeroPowerstats = _firstHeroPowerstats;
+    public LiveData<Powerstats> secondHeroPowerstats = _secondHeroPowerstats;
 
     @Bean
     SuperheroesRepository repository;
@@ -32,6 +40,36 @@ public class BattleViewModel extends SuperheroParentViewModel {
             @Override
             public void onError(List<SuperheroMasterData> fallbackResult, Throwable t) {
                 _superheroes.postValue(fallbackResult);
+                error.postValue(t);
+            }
+        });
+    }
+
+    public void getFirstPowerstats(int superheroId) {
+        repository.getPowerstats(superheroId, new ItemCallback<Powerstats>() {
+            @Override
+            public void onSuccess(Powerstats result) {
+                _firstHeroPowerstats.postValue(result);
+            }
+
+            @Override
+            public void onError(Powerstats fallbackResult, Throwable t) {
+                _firstHeroPowerstats.postValue(fallbackResult);
+                error.postValue(t);
+            }
+        });
+    }
+
+    public void getSecondPowerstats(int superheroId) {
+        repository.getPowerstats(superheroId, new ItemCallback<Powerstats>() {
+            @Override
+            public void onSuccess(Powerstats result) {
+                _secondHeroPowerstats.postValue(result);
+            }
+
+            @Override
+            public void onError(Powerstats fallbackResult, Throwable t) {
+                _secondHeroPowerstats.postValue(fallbackResult);
                 error.postValue(t);
             }
         });
