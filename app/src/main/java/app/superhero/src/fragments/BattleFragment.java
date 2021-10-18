@@ -15,6 +15,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
@@ -61,7 +62,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     @AfterViews
     void init() {
-        hideStarsFromHeroes();
+        customizeSuperheroesCardViews();
         startButton.setButtonLabel(getResources().getString(R.string.start_label));
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, true, false);
@@ -69,6 +70,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         recyclerView.setAdapter(adapter);
         viewModel.fetchFavourites();
         observeSuperheroes();
+        observeFirstSuperhero();
+        observeSecondSuperheroes();
     }
 
     @Override
@@ -77,15 +80,45 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void observeSuperheroes() {
-        viewModel.favourites.observe(this, this::refreshAdapter);
+        viewModel.favourites.observe(this, superheroes -> {
+            refreshAdapter(superheroes);
+            getRandomSuperheroes(superheroes);
+        });
+    }
+
+    private void observeFirstSuperhero() {
+        viewModel.firstSuperhero.observe(this, superhero -> {
+            leftSuperhero.bind(superhero);
+        });
+    }
+
+    private void observeSecondSuperheroes() {
+        viewModel.secondSuperhero.observe(this, superhero -> {
+            rightSuperhero.bind(superhero);
+        });
     }
 
     private void refreshAdapter(List<SuperheroMasterData> superheroList) {
         adapter.setData(superheroList);
     }
 
-    private void hideStarsFromHeroes() {
+    private void customizeSuperheroesCardViews() {
         rightSuperhero.hideStar();
         leftSuperhero.hideStar();
+        rightSuperhero.hideBackground();
+        leftSuperhero.hideBackground();
     }
+
+    private void getRandomSuperheroes(List<SuperheroMasterData> superheroes) {
+        Random rand = new Random(System.currentTimeMillis());
+        SuperheroMasterData firstSuperhero = superheroes.get(rand.nextInt(superheroes.size()));
+        SuperheroMasterData secondSuperhero;
+        viewModel.setFirstSuperhero(firstSuperhero);
+        do {
+            secondSuperhero = superheroes.get(rand.nextInt(superheroes.size()));
+        } while (firstSuperhero.equals(secondSuperhero));
+        viewModel.setSecondSuperhero(secondSuperhero);
+    }
+
+
 }

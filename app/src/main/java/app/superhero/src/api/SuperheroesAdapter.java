@@ -23,8 +23,8 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     private final ItemClickListener itemClickListener;
     private final StarClickCallback starClickCallback;
     private final ArrayList<SuperheroMasterData> data;
-    private boolean showStar;
-    private boolean isHorizontal;
+    private final boolean showStar;
+    private final boolean isHorizontal;
 
     public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
                               ItemClickListener itemClickListener,
@@ -35,25 +35,6 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
         this.data = data;
         this.isHorizontal = isHorizontal;
         this.showStar = showStar;
-    }
-
-    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
-                              ItemClickListener itemClickListener,
-                              StarClickCallback starClickCallback,
-                              boolean showStar) {
-        this.itemClickListener = itemClickListener;
-        this.starClickCallback = starClickCallback;
-        this.data = data;
-        this.showStar = showStar;
-    }
-
-
-    public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
-                              ItemClickListener itemClickListener,
-                              StarClickCallback starClickCallback) {
-        this.itemClickListener = itemClickListener;
-        this.starClickCallback = starClickCallback;
-        this.data = data;
     }
 
     @NonNull

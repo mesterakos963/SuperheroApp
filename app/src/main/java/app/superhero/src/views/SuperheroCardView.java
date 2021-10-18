@@ -4,12 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 
@@ -24,7 +24,7 @@ import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
 
 @EViewGroup(R.layout.item_superhero)
-public class SuperheroCardView extends CardView {
+public class SuperheroCardView extends FrameLayout {
     @ViewById
     TextView nameText;
 
@@ -68,6 +68,11 @@ public class SuperheroCardView extends CardView {
         star.setSelected(superhero.getIsFavourite());
     }
 
+    public void bind(SuperheroMasterData superhero) {
+        nameText.setText(superhero.getName());
+        loadImage(superhero);
+    }
+
     private void loadImage(SuperheroMasterData superhero) {
         Glide.with(heroImage.getContext())
                 .load(superhero.getUrl())
@@ -87,5 +92,9 @@ public class SuperheroCardView extends CardView {
         starBackground.setEnabled(false);
         starBackground.setVisibility(GONE);
         starClickTrap.setEnabled(false);
+    }
+
+    public void hideBackground() {
+        root.setBackgroundColor(getResources().getColor(R.color.transparent));
     }
 }
