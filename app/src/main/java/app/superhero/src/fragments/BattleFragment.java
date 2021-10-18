@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.BattleViewModel;
 import app.superhero.src.views.ButtonView2;
+import app.superhero.src.views.EmptyView;
 import app.superhero.src.views.SuperheroCardView;
 
 @EFragment(R.layout.fragment_battle)
@@ -58,6 +60,9 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ButtonView2 startButton;
 
+    @ViewById
+    EmptyView emptyView;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -79,6 +84,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startButton.setEnabled(false);
+                recyclerView.setVisibility(View.GONE);
 
             }
         });
@@ -104,9 +111,27 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     private void observeSuperheroes() {
         viewModel.superheroes.observe(this, superheroes -> {
-            refreshAdapter(superheroes);
-            getRandomSuperheroes(superheroes);
+            if (superheroes.size() < 2) {
+                showEmptyView();
+            } else {
+                refreshAdapter(superheroes);
+                getRandomSuperheroes(superheroes);
+            }
         });
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void showEmptyView() {
+        emptyView.setVisibility(View.VISIBLE);
+        emptyView.setText(getResources().getString(R.string.empty_view_battle_screen));
+        emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+        leftSuperhero.setVisibility(View.GONE);
+        rightSuperhero.setVisibility(View.GONE);
+        leftChart.setVisibility(View.GONE);
+        rightChart.setVisibility(View.GONE);
+        battleText.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        startButton.setVisibility(View.GONE);
     }
 
     private void observeFirstSuperhero() {

@@ -1,5 +1,6 @@
 package app.superhero.src.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -54,6 +55,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         viewModel.fetchSuperheroes();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void starClick() {
         starClickCallback = (superhero, position) -> {
@@ -61,6 +63,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
             adapter.deleteItem(position);
             if (adapter.getItemCount() == 0) {
                 emptyView.setText(getResources().getString(R.string.favourites_empty_view));
+                emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
             }
         };
     }
@@ -74,12 +77,14 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         adapter.setData(superheroList);
         if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.favourites_empty_view));
+            emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
         }
     }
 

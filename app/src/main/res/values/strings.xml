@@ -48,6 +48,7 @@
     <string name="favourites_empty_view">You don\'t have favorite superheroes yet</string>
     <string name="overall_stat">Overall stat</string>
     <string name="start_label">start</string>
+    <string name="empty_view_battle_screen">You must have atleast two favourite superhero</string>
     <plurals name="character_limit_label">
         <item quantity="one">%1$d character left</item>
         <item quantity="other">%1$d characters left</item>
