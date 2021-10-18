@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.ramijemli.percentagechartview.PercentageChartView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -63,6 +64,9 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     EmptyView emptyView;
 
+    @ViewById
+    LottieAnimationView animation;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -86,7 +90,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
             public void onClick(View view) {
                 startButton.setEnabled(false);
                 recyclerView.setVisibility(View.GONE);
-
+                animation.setVisibility(View.VISIBLE);
+                animation.playAnimation();
             }
         });
     }
