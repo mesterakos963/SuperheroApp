@@ -2,6 +2,7 @@ package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -72,9 +73,17 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ProgressBar battleProgress;
 
+    @ViewById
+    TextView leftHeroHp;
+
+    @ViewById
+    TextView rightHeroHp;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
+    private float firstHeroMultiplier;
+    private float secondHeroMultiplier;
 
     @AfterViews
     void init() {
@@ -87,14 +96,13 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         viewModel.fetchSuperheroes();
         observeSuperheroes();
         observePowerstats();
-        observeFirstSuperhero();
-        observeSecondSuperheroes();
+        observeFightingSuperheroes();
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setComponentsVisibilityOnStartButtonClick();
-
+                observeHeroWithHp();
                 new CountDownTimer(10000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -110,6 +118,19 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         });
     }
 
+    private void observeHeroWithHp() {
+        viewModel.heroWithHp.observe(this, heroWithHp -> {
+            if(viewModel.firstSuperhero.getValue() != null && viewModel.secondSuperhero.getValue() != null) {
+                leftHeroHp.setText((heroWithHp.get(viewModel.firstSuperhero.getValue().getId())).toString());
+                rightHeroHp.setText((heroWithHp.get(viewModel.secondSuperhero.getValue().getId())).toString());
+            }
+        });
+    }
+
+    private float calculateBattleMultiplier(Powerstats powerstats) {
+        return calculateOverallStat(powerstats)/100 + 1;
+    }
+
     private void setComponentsVisibilityOnStartButtonClick() {
         startButton.setEnabled(false);
         recyclerView.setVisibility(View.GONE);
@@ -122,11 +143,13 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         viewModel.firstHeroPowerstats.observe(this, powerstats -> {
             if (powerstats != null) {
                 setChart(powerstats, leftChart);
+                firstHeroMultiplier = calculateBattleMultiplier(powerstats);
             }
         });
         viewModel.secondHeroPowerstats.observe(this, powerstats -> {
             if (powerstats != null) {
                 setChart(powerstats, rightChart);
+                secondHeroMultiplier = calculateBattleMultiplier(powerstats);
             }
         });
     }
@@ -150,6 +173,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                 battleText.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 startButton.setVisibility(View.VISIBLE);
+                leftHeroHp.setVisibility(View.VISIBLE);
+                rightHeroHp.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -168,14 +193,12 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         startButton.setVisibility(View.GONE);
     }
 
-    private void observeFirstSuperhero() {
+    private void observeFightingSuperheroes() {
         viewModel.firstSuperhero.observe(this, superhero -> {
             leftSuperhero.bind(superhero);
             viewModel.getFirstPowerstats(superhero.getId());
         });
-    }
 
-    private void observeSecondSuperheroes() {
         viewModel.secondSuperhero.observe(this, superhero -> {
             rightSuperhero.bind(superhero);
             viewModel.getSecondPowerstats(superhero.getId());

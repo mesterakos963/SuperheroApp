@@ -1,12 +1,16 @@
 package app.superhero.src.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.superhero.src.api.SuperheroesRepository;
 import app.superhero.src.dao.Powerstats;
@@ -21,11 +25,16 @@ public class BattleViewModel extends SuperheroParentViewModel {
     private final MutableLiveData<Throwable> error = new MutableLiveData<>();
     private final MutableLiveData<Powerstats> _firstHeroPowerstats = new MutableLiveData<>();
     private final MutableLiveData<Powerstats> _secondHeroPowerstats = new MutableLiveData<>();
-
+    private final MutableLiveData<Map<Integer, Integer>> _heroWithHp = new MutableLiveData<>();
+    private final MutableLiveData<Integer> _defender = new MutableLiveData<>();
     public LiveData<SuperheroMasterData> firstSuperhero = _firstSuperhero;
     public LiveData<SuperheroMasterData> secondSuperhero = _secondSuperhero;
     public LiveData<Powerstats> firstHeroPowerstats = _firstHeroPowerstats;
     public LiveData<Powerstats> secondHeroPowerstats = _secondHeroPowerstats;
+    public LiveData<Map<Integer, Integer>> heroWithHp =_heroWithHp;
+    public LiveData<Integer> defender = _defender;
+
+    private Map<Integer, Integer> tmp = new HashMap<>();
 
     @Bean
     SuperheroesRepository repository;
@@ -77,10 +86,19 @@ public class BattleViewModel extends SuperheroParentViewModel {
 
     public void setFirstSuperhero(SuperheroMasterData superhero) {
         _firstSuperhero.postValue(superhero);
+        tmp.put(superhero.getId(), 100);
+        _heroWithHp.postValue(tmp);
     }
 
     public void setSecondSuperhero(SuperheroMasterData superhero) {
         _secondSuperhero.postValue(superhero);
+        tmp.put(superhero.getId(), 100);
+        Log.d("TAG", "VALAMII " + tmp.get(superhero.getId()));
+        _heroWithHp.postValue(tmp);
+    }
+
+    public void setDefender(int id) {
+        _defender.postValue(id);
     }
 
     @Override

@@ -7,6 +7,28 @@
     android:layout_height="match_parent"
     android:background="@color/list_background_color">
 
+    <TextView
+        android:layout_marginStart="@dimen/design_10dp"
+        android:id="@+id/leftHeroHp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/leftSuperhero"
+        app:layout_constraintEnd_toEndOf="@id/leftSuperhero"
+        app:layout_constraintBottom_toTopOf="@id/leftSuperhero"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_marginStart="@dimen/design_10dp"
+        android:id="@+id/rightHeroHp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/rightSuperhero"
+        app:layout_constraintEnd_toEndOf="@id/rightSuperhero"
+        app:layout_constraintBottom_toTopOf="@id/rightSuperhero"
+        android:gravity="center"
+        android:visibility="gone" />
+
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/leftSuperhero"
         android:layout_width="0dp"
