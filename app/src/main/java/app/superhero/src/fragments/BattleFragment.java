@@ -97,7 +97,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                 animation.setVisibility(View.VISIBLE);
                 animation.playAnimation();
                 battleProgress.setVisibility(View.VISIBLE);
-                battleProgress.setProgress((int) animation.getProgress());
             }
         });
     }
@@ -127,6 +126,13 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
             } else {
                 refreshAdapter(superheroes);
                 getRandomSuperheroes(superheroes);
+                leftSuperhero.setVisibility(View.VISIBLE);
+                rightSuperhero.setVisibility(View.VISIBLE);
+                leftChart.setVisibility(View.VISIBLE);
+                rightChart.setVisibility(View.VISIBLE);
+                battleText.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                startButton.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -184,7 +190,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private float calculateOverallStat(Powerstats powerstats) {
-        return (powerstats.getIntelligence() + powerstats.getCombat() + powerstats.getDurability()
+        return (float) (powerstats.getIntelligence() + powerstats.getCombat() + powerstats.getDurability()
                 + powerstats.getPower() + powerstats.getSpeed() + powerstats.getStrength()) / 6;
     }
 
