@@ -1,6 +1,7 @@
 package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -92,13 +93,29 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startButton.setEnabled(false);
-                recyclerView.setVisibility(View.GONE);
-                animation.setVisibility(View.VISIBLE);
-                animation.playAnimation();
-                battleProgress.setVisibility(View.VISIBLE);
+                setComponentsVisibilityOnStartButtonClick();
+
+                new CountDownTimer(10000, 1000) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        animation.cancelAnimation();
+                    }
+                }.start();
             }
         });
+    }
+
+    private void setComponentsVisibilityOnStartButtonClick() {
+        startButton.setEnabled(false);
+        recyclerView.setVisibility(View.GONE);
+        animation.setVisibility(View.VISIBLE);
+        animation.playAnimation();
+        battleProgress.setVisibility(View.VISIBLE);
     }
 
     private void observePowerstats() {
