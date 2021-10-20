@@ -1,7 +1,5 @@
 package app.superhero.src.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -31,10 +29,10 @@ public class BattleViewModel extends SuperheroParentViewModel {
     public LiveData<SuperheroMasterData> secondSuperhero = _secondSuperhero;
     public LiveData<Powerstats> firstHeroPowerstats = _firstHeroPowerstats;
     public LiveData<Powerstats> secondHeroPowerstats = _secondHeroPowerstats;
-    public LiveData<Map<Integer, Integer>> heroWithHp =_heroWithHp;
+    public LiveData<Map<Integer, Integer>> heroWithHp = _heroWithHp;
     public LiveData<Integer> defender = _defender;
 
-    private Map<Integer, Integer> tmp = new HashMap<>();
+    private final Map<Integer, Integer> tmp = new HashMap<>();
 
     @Bean
     SuperheroesRepository repository;
@@ -91,14 +89,18 @@ public class BattleViewModel extends SuperheroParentViewModel {
     }
 
     public void setSecondSuperhero(SuperheroMasterData superhero) {
-        _secondSuperhero.postValue(superhero);
+        _secondSuperhero.setValue(superhero);
         tmp.put(superhero.getId(), 100);
-        Log.d("TAG", "VALAMII " + tmp.get(superhero.getId()));
         _heroWithHp.postValue(tmp);
     }
 
     public void setDefender(int id) {
         _defender.postValue(id);
+    }
+
+    public void refreshHp(int id, int hp) {
+        int newHp = heroWithHp.getValue().get(id) - hp;
+        heroWithHp.getValue().put(id, newHp);
     }
 
     @Override

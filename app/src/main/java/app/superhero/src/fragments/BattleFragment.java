@@ -2,7 +2,6 @@ package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -97,16 +96,22 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         observeSuperheroes();
         observePowerstats();
         observeFightingSuperheroes();
+        observeHeroWithHp();
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setComponentsVisibilityOnStartButtonClick();
-                observeHeroWithHp();
+                viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
                 new CountDownTimer(10000, 1000) {
                     @Override
                     public void onTick(long l) {
-
+                        viewModel.refreshHp(viewModel.defender.getValue(), 10);
+                        if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
+                            viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
+                        } else {
+                            viewModel.setDefender(viewModel.firstSuperhero.getValue().getId());
+                        }
                     }
 
                     @Override
@@ -120,7 +125,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     private void observeHeroWithHp() {
         viewModel.heroWithHp.observe(this, heroWithHp -> {
-            if(viewModel.firstSuperhero.getValue() != null && viewModel.secondSuperhero.getValue() != null) {
+            if (viewModel.firstSuperhero.getValue() != null && viewModel.secondSuperhero.getValue() != null) {
                 leftHeroHp.setText((heroWithHp.get(viewModel.firstSuperhero.getValue().getId())).toString());
                 rightHeroHp.setText((heroWithHp.get(viewModel.secondSuperhero.getValue().getId())).toString());
             }
@@ -128,7 +133,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private float calculateBattleMultiplier(Powerstats powerstats) {
-        return calculateOverallStat(powerstats)/100 + 1;
+        return calculateOverallStat(powerstats) / 100 + 1;
     }
 
     private void setComponentsVisibilityOnStartButtonClick() {
