@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -74,6 +75,12 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ProgressBar battleProgress;
 
+    @ViewById
+    ImageView changeLeftHero;
+
+    @ViewById
+    ImageView changeRightHero;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -104,22 +111,25 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                     progress -= 10;
                     setProgressBar(progress);
                     setDamage();
-                    if(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
-                        Log.d("TAG", "WINNER " + viewModel.secondSuperhero.getValue().getName());
-                        abortTimerTask();
-                    } else if(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
-                        Log.d("TAG", "WINNER " + viewModel.firstSuperhero.getValue().getName());
-                        abortTimerTask();
-                    }
+                    checkWinState();
                 }
 
                 @Override
                 public void onFinish() {
-
                     animation.cancelAnimation();
                 }
             }.start();
         });
+    }
+
+    private void checkWinState() {
+        if(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
+            Log.d("TAG", "WINNER " + viewModel.secondSuperhero.getValue().getName());
+            abortTimerTask();
+        } else if(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
+            Log.d("TAG", "WINNER " + viewModel.firstSuperhero.getValue().getName());
+            abortTimerTask();
+        }
     }
 
     private void abortTimerTask() {
@@ -293,5 +303,11 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     private void setChart(Powerstats powerstats, PercentageChartView chart) {
         chart.setProgress(calculateOverallStat(powerstats), true);
+    }
+
+    @Override
+    public void onPause() {
+        countDownTimer.cancel();
+        super.onPause();
     }
 }

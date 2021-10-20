@@ -57,6 +57,9 @@ public class SuperheroCardView extends FrameLayout {
     @ViewById
     ImageView heroHp;
 
+    @ViewById
+    ConstraintLayout hpBarContainer;
+
     public SuperheroCardView(@NonNull Context context) {
         super(context);
     }
@@ -130,9 +133,9 @@ public class SuperheroCardView extends FrameLayout {
 
     public void setHpBar(int hp) {
         ConstraintSet set = new ConstraintSet();
-        set.clone(cardViewContainer);
+        set.clone(hpBarContainer);
         set.constrainPercentHeight(R.id.heroHp, (float) hp/100);
-        set.applyTo(cardViewContainer);
+        set.applyTo(hpBarContainer);
         /*ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) heroHp.getLayoutParams();
         lp.matchConstraintPercentHeight = (float) hp/100;
         heroHp.setLayoutParams(lp);*/

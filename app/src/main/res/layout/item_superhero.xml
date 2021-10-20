@@ -36,15 +36,23 @@
             app:riv_corner_radius="@dimen/design_10dp"
             tools:src="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/heroHp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hpBarContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@drawable/hp_shape"
-            app:layout_constraintVertical_bias="1"
-            app:layout_constraintTop_toBottomOf="@id/hpBackground"
-            app:layout_constraintBottom_toTopOf="@id/nameText"/>
+            app:layout_constraintBottom_toTopOf="@id/nameText"
+            app:layout_constraintTop_toBottomOf="@id/hpBackground">
 
+            <ImageView
+                android:id="@+id/heroHp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/hp_shape"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/nameText"
@@ -52,11 +60,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/super_hero_item_name_background"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingTop="@dimen/design_6dp"
             android:paddingBottom="@dimen/design_6dp"
             android:textAppearance="@style/superheroItemNameFont"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Superhero" />
+        <!--app:autoSizeMaxTextSize="@dimen/design_18sp"
+        app:autoSizeMinTextSize="@dimen/design_10sp"
+        app:autoSizeStepGranularity="@dimen/design_1sp"
+        app:autoSizeTextType="uniform" -->
 
         <ImageView
             android:id="@+id/starBackground"
