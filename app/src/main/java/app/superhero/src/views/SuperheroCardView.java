@@ -43,6 +43,12 @@ public class SuperheroCardView extends FrameLayout {
     @ViewById
     View starClickTrap;
 
+    @ViewById
+    ImageView hpBackground;
+
+    @ViewById
+    TextView hpText;
+
     public SuperheroCardView(@NonNull Context context) {
         super(context);
     }
@@ -96,5 +102,10 @@ public class SuperheroCardView extends FrameLayout {
 
     public void hideBackground() {
         root.setBackgroundColor(getResources().getColor(R.color.transparent));
+    }
+
+    public void hideHpText() {
+        hpText.setVisibility(GONE);
+        hpBackground.setVisibility(GONE);
     }
 }

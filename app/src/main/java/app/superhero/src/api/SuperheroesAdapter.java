@@ -25,16 +25,18 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     private final ArrayList<SuperheroMasterData> data;
     private final boolean showStar;
     private final boolean isHorizontal;
+    private final boolean showHpText;
 
     public SuperheroesAdapter(ArrayList<SuperheroMasterData> data,
                               ItemClickListener itemClickListener,
                               StarClickCallback starClickCallback,
-                              boolean isHorizontal, boolean showStar) {
+                              boolean isHorizontal, boolean showStar, boolean showHpText) {
         this.itemClickListener = itemClickListener;
         this.starClickCallback = starClickCallback;
         this.data = data;
         this.isHorizontal = isHorizontal;
         this.showStar = showStar;
+        this.showHpText = showHpText;
     }
 
     @NonNull
@@ -46,6 +48,9 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
         }
         if (!showStar) {
             superheroCardView.hideStar();
+        }
+        if(!showHpText) {
+            superheroCardView.hideHpText();
         }
         return new ViewWrapper<>(superheroCardView);
     }

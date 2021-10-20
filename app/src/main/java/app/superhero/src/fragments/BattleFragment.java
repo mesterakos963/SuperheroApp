@@ -73,12 +73,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ProgressBar battleProgress;
 
-    @ViewById
-    TextView leftHeroHp;
-
-    @ViewById
-    TextView rightHeroHp;
-
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -90,7 +84,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         customizeSuperheroesCardViews();
         startButton.setButtonLabel(getResources().getString(R.string.start_label));
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, true, false);
+        adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, true, false, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         viewModel.fetchSuperheroes();
@@ -134,8 +128,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private void observeHeroWithHp() {
         viewModel.heroWithHp.observe(this, heroWithHp -> {
             if (viewModel.firstSuperhero.getValue() != null && viewModel.secondSuperhero.getValue() != null) {
-                leftHeroHp.setText((heroWithHp.get(viewModel.firstSuperhero.getValue().getId())).toString());
-                rightHeroHp.setText((heroWithHp.get(viewModel.secondSuperhero.getValue().getId())).toString());
+                //leftHeroHp.setText((heroWithHp.get(viewModel.firstSuperhero.getValue().getId())).toString());
+                //rightHeroHp.setText((heroWithHp.get(viewModel.secondSuperhero.getValue().getId())).toString());
             }
         });
     }
@@ -186,8 +180,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                 battleText.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 startButton.setVisibility(View.VISIBLE);
-                leftHeroHp.setVisibility(View.VISIBLE);
-                rightHeroHp.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -38,7 +38,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
         doOnInit();
         starClick();
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());
-        adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, false, true);
+        adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, false, true, false);
         getRecyclerView().setLayoutManager(layoutManager);
         getRecyclerView().setAdapter(adapter);
         getRecyclerView().setEmptyView(getEmptyView());
