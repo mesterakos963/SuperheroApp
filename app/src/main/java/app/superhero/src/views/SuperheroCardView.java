@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.bumptech.glide.Glide;
 
@@ -47,7 +49,13 @@ public class SuperheroCardView extends FrameLayout {
     ImageView hpBackground;
 
     @ViewById
+    ConstraintLayout cardViewContainer;
+
+    @ViewById
     TextView hpText;
+
+    @ViewById
+    ImageView heroHp;
 
     public SuperheroCardView(@NonNull Context context) {
         super(context);
@@ -104,8 +112,30 @@ public class SuperheroCardView extends FrameLayout {
         root.setBackgroundColor(getResources().getColor(R.color.transparent));
     }
 
-    public void hideHpText() {
+    public void hideHpComponents() {
         hpText.setVisibility(GONE);
         hpBackground.setVisibility(GONE);
+        heroHp.setVisibility(GONE);
+    }
+
+    public void showHpComponents() {
+        hpText.setVisibility(VISIBLE);
+        hpBackground.setVisibility(VISIBLE);
+        heroHp.setVisibility(VISIBLE);
+    }
+
+    public void setHpText(String text) {
+        hpText.setText(text);
+    }
+
+    public void setHpBar(int hp) {
+        ConstraintSet set = new ConstraintSet();
+        set.clone(cardViewContainer);
+        set.constrainPercentHeight(R.id.heroHp, (float) hp/100);
+        set.applyTo(cardViewContainer);
+        /*ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) heroHp.getLayoutParams();
+        lp.matchConstraintPercentHeight = (float) hp/100;
+        heroHp.setLayoutParams(lp);*/
+
     }
 }

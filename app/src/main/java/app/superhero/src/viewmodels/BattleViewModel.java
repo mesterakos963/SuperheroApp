@@ -100,9 +100,15 @@ public class BattleViewModel extends SuperheroParentViewModel {
 
     public void refreshHp(int id, int hp) {
         int newHp = heroWithHp.getValue().get(id) - hp;
-        tmp.put(defender.getValue(), newHp);
-        heroWithHp.getValue().put(id, newHp);
-        _heroWithHp.postValue(tmp);
+        if(newHp <= 0) {
+            tmp.put(defender.getValue(), 0);
+            heroWithHp.getValue().put(id, 0);
+            _heroWithHp.postValue(tmp);
+        } else {
+            tmp.put(defender.getValue(), newHp);
+            heroWithHp.getValue().put(id, newHp);
+            _heroWithHp.postValue(tmp);
+        }
     }
 
     @Override

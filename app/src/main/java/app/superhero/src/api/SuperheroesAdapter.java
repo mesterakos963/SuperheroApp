@@ -50,7 +50,7 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
             superheroCardView.hideStar();
         }
         if(!showHpText) {
-            superheroCardView.hideHpText();
+            superheroCardView.hideHpComponents();
         }
         return new ViewWrapper<>(superheroCardView);
     }

@@ -68,4 +68,6 @@
     <color name="pcv_bg_bar_color">#FFBB3B</color>
     <color name="battle_screen_text_color">#000000</color>
     <color name="battle_chart_bar_bg">#CBA55E</color>
+    <color name="hp_start_color">#99FF0000</color>
+    <color name="hp_end_color">#000000</color>
 </resources>

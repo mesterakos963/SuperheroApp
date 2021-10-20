@@ -1,6 +1,7 @@
 package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +79,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private StarClickCallback starClickCallback;
     private float firstHeroMultiplier;
     private float secondHeroMultiplier;
+    private CountDownTimer countDownTimer;
 
     @AfterViews
     void init() {
@@ -88,48 +90,96 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         viewModel.fetchSuperheroes();
-        observeSuperheroes();
-        observePowerstats();
-        observeFightingSuperheroes();
-        observeHeroWithHp();
-
+        observeToLiveDates();
+        leftSuperhero.hideHpComponents();
+        rightSuperhero.hideHpComponents();
         startButton.setOnClickListener(view -> {
             setComponentsVisibilityOnStartButtonClick();
+            animation.setSpeed(1.5f);
             viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
-            new CountDownTimer(10000, 1000) {
+            countDownTimer = new CountDownTimer(10000, 1000) {
+                int progress = 100;
                 @Override
                 public void onTick(long l) {
-                    Random rand = new Random(System.currentTimeMillis());
-                    float damage = rand.nextInt(20 - 0 + 1);
-                    if(viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
-                        damage = damage * firstHeroMultiplier;
-                    } else {
-                        damage = damage * secondHeroMultiplier;
-                    }
-                    viewModel.refreshHp(viewModel.defender.getValue(), (int) damage);
-                    Log.d("TAG", "VALAMI damage " + damage);
-                    Log.d("TAG", "VALAMI id " + viewModel.defender.getValue());
-                    Log.d("TAG", "VALAMI hp " + viewModel.heroWithHp.getValue().get(viewModel.defender.getValue()));
-                    if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
-                        viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
-                    } else {
-                        viewModel.setDefender(viewModel.firstSuperhero.getValue().getId());
+                    progress -= 10;
+                    setProgressBar(progress);
+                    setDamage();
+                    if(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
+                        Log.d("TAG", "WINNER " + viewModel.secondSuperhero.getValue().getName());
+                        abortTimerTask();
+                    } else if(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
+                        Log.d("TAG", "WINNER " + viewModel.firstSuperhero.getValue().getName());
+                        abortTimerTask();
                     }
                 }
 
                 @Override
                 public void onFinish() {
+
                     animation.cancelAnimation();
                 }
             }.start();
         });
     }
 
+    private void abortTimerTask() {
+        setProgressBar(0);
+        countDownTimer.cancel();
+        animation.cancelAnimation();
+    }
+
+    private void setDamage() {
+        Random rand = new Random(System.currentTimeMillis());
+        float damage = rand.nextInt(20 + 1);
+        if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
+            damage *= firstHeroMultiplier;
+        } else {
+            damage *= secondHeroMultiplier;
+        }
+        viewModel.refreshHp(viewModel.defender.getValue(), (int) damage);
+        if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
+            viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
+        } else {
+            viewModel.setDefender(viewModel.firstSuperhero.getValue().getId());
+        }
+    }
+
+    private void setProgressBar(int progress) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            battleProgress.setProgress(progress, true);
+        } else {
+            battleProgress.setProgress(progress);
+        }
+    }
+
+    private void observeToLiveDates() {
+        observeSuperheroes();
+        observePowerstats();
+        observeFightingSuperheroes();
+        observeHeroWithHp();
+    }
+
+
     private void observeHeroWithHp() {
         viewModel.heroWithHp.observe(this, heroWithHp -> {
-            if (viewModel.firstSuperhero.getValue() != null && viewModel.secondSuperhero.getValue() != null) {
-                //leftHeroHp.setText((heroWithHp.get(viewModel.firstSuperhero.getValue().getId())).toString());
-                //rightHeroHp.setText((heroWithHp.get(viewModel.secondSuperhero.getValue().getId())).toString());
+            if (viewModel.firstSuperhero.getValue() != null
+                    && viewModel.secondSuperhero.getValue() != null
+                    && getContext() != null
+            ) {
+                leftSuperhero.setHpText(
+                        getContext().getString(
+                                R.string.hp_text,
+                                heroWithHp.get(viewModel.firstSuperhero.getValue().getId()).toString()
+                        )
+                );
+                rightSuperhero.setHpText(
+                        getContext().getString(
+                                R.string.hp_text,
+                                heroWithHp.get(viewModel.secondSuperhero.getValue().getId()).toString()
+                        )
+                );
+                leftSuperhero.setHpBar(heroWithHp.get(viewModel.firstSuperhero.getValue().getId()));
+                rightSuperhero.setHpBar(heroWithHp.get(viewModel.secondSuperhero.getValue().getId()));
             }
         });
     }
@@ -144,6 +194,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         animation.setVisibility(View.VISIBLE);
         animation.playAnimation();
         battleProgress.setVisibility(View.VISIBLE);
+        leftSuperhero.showHpComponents();
+        rightSuperhero.showHpComponents();
     }
 
     private void observePowerstats() {
