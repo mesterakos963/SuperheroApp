@@ -134,7 +134,7 @@ public class SuperheroCardView extends FrameLayout {
     public void setHpBar(int hp) {
         ConstraintSet set = new ConstraintSet();
         set.clone(hpBarContainer);
-        if(hp <= 0) {
+        if (hp <= 0) {
             hpBarContainer.setVisibility(GONE);
         } else {
             set.constrainPercentHeight(R.id.heroHp, (float) hp / 100);

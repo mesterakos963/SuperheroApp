@@ -84,9 +84,14 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
+    private CountDownTimer countDownTimer;
     private float firstHeroMultiplier;
     private float secondHeroMultiplier;
-    private CountDownTimer countDownTimer;
+    private final int PROGRESS = 100;
+    private final int PROGRESS_DECREASE = 10;
+    private final int MILLIS_IN_FUTURE = 10000;
+    private final int COUNT_DOWN_INTERVAL = 1000;
+    private final float ANIMATION_SPEED = 1.5f;
 
     @AfterViews
     void init() {
@@ -102,14 +107,14 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         rightSuperhero.hideHpComponents();
         startButton.setOnClickListener(view -> {
             setComponentsVisibilityOnStartButtonClick();
-            animation.setSpeed(1.5f);
+            animation.setSpeed(ANIMATION_SPEED);
             viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
-            countDownTimer = new CountDownTimer(10000, 1000) {
-                int progress = 100;
+            countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
+                int progress = PROGRESS;
 
                 @Override
                 public void onTick(long l) {
-                    progress -= 10;
+                    progress -= PROGRESS_DECREASE;
                     setProgressBar(progress);
                     setDamage(progress);
                     checkWinState();
@@ -143,7 +148,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         Random rand = new Random(System.currentTimeMillis());
         float damage;
 
-        if(progress - 10 == 0) {
+        if (progress - 10 == 0) {
             damage = viewModel.heroWithHp.getValue().get(viewModel.defender.getValue());
         } else {
             damage = rand.nextInt(20 + 1);
@@ -235,7 +240,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     @Override
     public void onItemClick(SuperheroMasterData superheroDto) {
-
     }
 
     private void observeSuperheroes() {
@@ -317,7 +321,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     @Override
     public void onPause() {
-        if(countDownTimer != null) {
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
         super.onPause();
