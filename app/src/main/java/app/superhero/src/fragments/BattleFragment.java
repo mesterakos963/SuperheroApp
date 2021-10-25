@@ -107,11 +107,16 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         customizeSuperheroesCardViews();
         leftSuperhero.hideHpComponents();
         rightSuperhero.hideHpComponents();
-
         startButton.setOnClickListener(view -> {
             setComponentsVisibilityOnStartButtonClick();
             animation.setSpeed(ANIMATION_SPEED);
             viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
+            startBattle();
+        });
+    }
+
+    private void startBattle() {
+        handler.postDelayed(() -> {
             countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
                 int progress = PROGRESS;
 
@@ -127,18 +132,16 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                     animation.cancelAnimation();
                 }
             }.start();
-        });
+        }, HANDLER_DELAY);
     }
 
     private void setWinner(SuperheroCardView superhero) {
         if (superhero == leftSuperhero) {
             leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
             rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
-            leftSuperhero.hideLoserShape();
         } else {
             rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
             leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
-            rightSuperhero.hideLoserShape();
         }
     }
 

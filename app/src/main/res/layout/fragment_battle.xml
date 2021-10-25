@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightSuperhero"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/rightSuperhero"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/leftSuperhero"
         app:layout_constraintTop_toTopOf="@+id/leftSuperhero"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
         android:id="@+id/leftChart"
@@ -51,7 +51,7 @@
         app:pcv_startAngle="90"
         app:pcv_textColor="@color/battle_screen_text_color"
         app:pcv_textSize="@dimen/design_16sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
         android:id="@+id/rightChart"
@@ -74,7 +74,7 @@
         app:pcv_startAngle="90"
         app:pcv_textColor="@color/battle_screen_text_color"
         app:pcv_textSize="@dimen/design_16sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/battleText"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightChart"
         app:layout_constraintStart_toEndOf="@id/leftChart"
         app:layout_constraintTop_toTopOf="@id/leftChart"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <app.superhero.src.utils.RecyclerViewEmptySupport
         android:id="@+id/recyclerView"
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leftChart"
         tools:listitem="@layout/item_superhero"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <app.superhero.src.views.ButtonView2_
         android:id="@+id/startButton"
@@ -111,13 +111,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <app.superhero.src.views.EmptyView_
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/battleProgress"
