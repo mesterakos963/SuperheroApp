@@ -106,11 +106,12 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
             viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
             countDownTimer = new CountDownTimer(10000, 1000) {
                 int progress = 100;
+
                 @Override
                 public void onTick(long l) {
                     progress -= 10;
                     setProgressBar(progress);
-                    setDamage();
+                    setDamage(progress);
                     checkWinState();
                 }
 
@@ -123,10 +124,10 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void checkWinState() {
-        if(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
+        if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
             Log.d("TAG", "WINNER " + viewModel.secondSuperhero.getValue().getName());
             abortTimerTask();
-        } else if(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
+        } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
             Log.d("TAG", "WINNER " + viewModel.firstSuperhero.getValue().getName());
             abortTimerTask();
         }
@@ -138,9 +139,16 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         animation.cancelAnimation();
     }
 
-    private void setDamage() {
+    private void setDamage(int progress) {
         Random rand = new Random(System.currentTimeMillis());
-        float damage = rand.nextInt(20 + 1);
+        float damage;
+
+        if(progress - 10 == 0) {
+            damage = viewModel.heroWithHp.getValue().get(viewModel.defender.getValue());
+        } else {
+            damage = rand.nextInt(20 + 1);
+        }
+
         if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
             damage *= firstHeroMultiplier;
         } else {
