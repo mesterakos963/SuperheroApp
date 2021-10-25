@@ -214,6 +214,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         battleProgress.setVisibility(View.VISIBLE);
         leftSuperhero.showHpComponents();
         rightSuperhero.showHpComponents();
+        changeLeftHero.setVisibility(View.GONE);
+        changeRightHero.setVisibility(View.GONE);
     }
 
     private void observePowerstats() {
@@ -315,7 +317,9 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     @Override
     public void onPause() {
-        countDownTimer.cancel();
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         super.onPause();
     }
 }
