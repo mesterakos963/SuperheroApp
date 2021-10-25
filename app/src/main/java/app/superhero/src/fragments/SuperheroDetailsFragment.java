@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 import org.greenrobot.eventbus.EventBus;
@@ -69,14 +70,13 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     ViewPager2.OnPageChangeCallback pageChangeCallback;
     int currentPage;
-    private SuperheroMasterData superhero;
+
+    @FragmentArg
+    SuperheroMasterData superhero;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            superhero = SuperheroDetailsFragment_Args.fromBundle(getArguments()).getSuperheroMasterData();
-        }
     }
 
     @AfterViews
@@ -205,4 +205,5 @@ public class SuperheroDetailsFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
         viewPager.unregisterOnPageChangeCallback(pageChangeCallback);
     }
+
 }

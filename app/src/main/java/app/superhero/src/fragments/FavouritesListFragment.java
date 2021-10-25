@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -71,9 +72,13 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Override
     public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
-            NavDirections action =
-                    FavouritesListFragment_Directions.actionFavouritesListFragmentToSuperheroDetailsFragment(superhero);
-            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
+            SuperheroDetailsFragment superheroDetailsFragment = SuperheroDetailsFragment_.builder().superhero(superhero).build();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim,
+                            R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+                    .replace(R.id.navHostFragment, superheroDetailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 

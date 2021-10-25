@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -184,9 +183,13 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     public void onItemClick(SuperheroMasterData superhero) {
         if (getActivity() != null) {
-            NavDirections action =
-                    SuperheroListFragment_Directions.actionSuperheroListFragmentToSuperheroDetailsFragment(superhero);
-            Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(action);
+            SuperheroDetailsFragment superheroDetailsFragment = SuperheroDetailsFragment_.builder().superhero(superhero).build();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim,
+                            R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+                    .replace(R.id.navHostFragment, superheroDetailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 
