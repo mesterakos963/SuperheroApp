@@ -20,17 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/changeLeftHero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/leftSuperhero"
-        app:layout_constraintBottom_toBottomOf="@id/leftSuperhero"
-        app:layout_constraintStart_toStartOf="@id/leftSuperhero"
-        app:layout_constraintEnd_toEndOf="@id/leftSuperhero"
-        android:src="@drawable/ic_star_background" />
-
-
     <app.superhero.src.views.SuperheroCardView_
         android:id="@+id/rightSuperhero"
         android:layout_width="0dp"
@@ -40,16 +29,6 @@
         app:layout_constraintStart_toEndOf="@id/leftSuperhero"
         app:layout_constraintTop_toTopOf="@+id/leftSuperhero"
         android:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/changeRightHero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/rightSuperhero"
-        app:layout_constraintBottom_toBottomOf="@id/rightSuperhero"
-        app:layout_constraintStart_toStartOf="@id/rightSuperhero"
-        app:layout_constraintEnd_toEndOf="@id/rightSuperhero"
-        android:src="@drawable/ic_star_background" />
 
     <com.ramijemli.percentagechartview.PercentageChartView
         android:id="@+id/leftChart"

@@ -60,6 +60,12 @@ public class SuperheroCardView extends FrameLayout {
     @ViewById
     ConstraintLayout hpBarContainer;
 
+    @ViewById
+    ImageView loserShape;
+
+    @ViewById
+    TextView result;
+
     public SuperheroCardView(@NonNull Context context) {
         super(context);
     }
@@ -136,9 +142,18 @@ public class SuperheroCardView extends FrameLayout {
         set.clone(hpBarContainer);
         if (hp <= 0) {
             hpBarContainer.setVisibility(GONE);
+            loserShape.setVisibility(VISIBLE);
         } else {
             set.constrainPercentHeight(R.id.heroHp, (float) hp / 100);
             set.applyTo(hpBarContainer);
         }
+    }
+
+    public void setResult(String text, int color) {
+        hpText.setVisibility(GONE);
+        hpBarContainer.setVisibility(GONE);
+        result.setVisibility(VISIBLE);
+        result.setText(text);
+        result.setTextColor(color);
     }
 }

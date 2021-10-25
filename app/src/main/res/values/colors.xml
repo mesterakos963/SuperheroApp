@@ -70,4 +70,5 @@
     <color name="battle_chart_bar_bg">#CBA55E</color>
     <color name="hp_start_color">#99FF0000</color>
     <color name="hp_end_color">#000000</color>
+    <color name="looser_hero_color">#99323232</color>
 </resources>

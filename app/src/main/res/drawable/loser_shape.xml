@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/looser_hero_color" />
+    <corners
+        android:bottomLeftRadius="@dimen/design_10dp"
+        android:bottomRightRadius="@dimen/design_10dp"
+        android:topLeftRadius="@dimen/design_10dp"
+        android:topRightRadius="@dimen/design_10dp" />
+
+</shape>

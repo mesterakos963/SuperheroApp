@@ -3,13 +3,12 @@ package app.superhero.src.fragments;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,12 +74,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ProgressBar battleProgress;
 
-    @ViewById
-    ImageView changeLeftHero;
-
-    @ViewById
-    ImageView changeRightHero;
-
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -130,10 +123,12 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     private void checkWinState() {
         if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
-            Log.d("TAG", "WINNER " + viewModel.secondSuperhero.getValue().getName());
+            rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
+            leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
             abortTimerTask();
         } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
-            Log.d("TAG", "WINNER " + viewModel.firstSuperhero.getValue().getName());
+            leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
+            rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
             abortTimerTask();
         }
     }
@@ -219,8 +214,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         battleProgress.setVisibility(View.VISIBLE);
         leftSuperhero.showHpComponents();
         rightSuperhero.showHpComponents();
-        changeLeftHero.setVisibility(View.GONE);
-        changeRightHero.setVisibility(View.GONE);
     }
 
     private void observePowerstats() {
