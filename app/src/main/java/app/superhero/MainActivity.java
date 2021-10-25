@@ -1,7 +1,5 @@
 package app.superhero;
 
-import static android.view.View.GONE;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,6 +29,8 @@ import app.superhero.src.fragments.FavouritesListFragment;
 import app.superhero.src.fragments.FavouritesListFragment_;
 import app.superhero.src.fragments.SuperheroListFragment;
 import app.superhero.src.fragments.SuperheroListFragment_;
+
+import static android.view.View.GONE;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends FragmentActivity {
@@ -85,16 +83,14 @@ public class MainActivity extends FragmentActivity {
 
             selectedIndex = savedInstanceState.getInt(KEY_SELECTED_INDEX, 0);
         }
-
-        selectFragment(getSelectedFragment());
+        if(getSelectedFragment() != null) {
+            selectFragment(getSelectedFragment());
+        }
     }
 
 
     @AfterViews
     public void init() {
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
-        NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
-
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment;
             switch (item.getItemId()) {
@@ -142,17 +138,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     private Fragment getSelectedFragment() {
-        return fragments.get(selectedIndex);
+        if(fragments != null) {
+            return fragments.get(selectedIndex);
+        }
+        return null;
     }
 
     private void selectFragment(Fragment selectedFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (int i = 0; i < fragments.size(); ++i) {
-            if (selectedFragment == fragments.get(i)) {
-                transaction = transaction.attach(fragments.get(i));
-                selectedIndex = i;
-            } else {
-                transaction = transaction.detach(fragments.get(i));
+        if(fragments != null) {
+            for (int i = 0; i < fragments.size(); ++i) {
+                if (selectedFragment == fragments.get(i)) {
+                    transaction = transaction.attach(fragments.get(i));
+                    selectedIndex = i;
+                } else {
+                    transaction = transaction.detach(fragments.get(i));
+                }
             }
         }
         transaction.commit();
