@@ -1,5 +1,7 @@
 package app.superhero.src.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -103,12 +105,12 @@ public class BattleViewModel extends SuperheroParentViewModel {
         if (newHp <= 0) {
             tmp.put(defender.getValue(), 0);
             heroWithHp.getValue().put(id, 0);
-            _heroWithHp.postValue(tmp);
+            Log.d("VALAMI", "VALAMI id " + id + " dmg " + hp + " hp " + newHp);
         } else {
             tmp.put(defender.getValue(), newHp);
             heroWithHp.getValue().put(id, newHp);
-            _heroWithHp.postValue(tmp);
         }
+        _heroWithHp.postValue(tmp);
     }
 
     @Override

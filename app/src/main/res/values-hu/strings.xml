@@ -50,6 +50,9 @@
     <string name="overall_stat">Összesített pontszám</string>
     <string name="start_label">start</string>
     <string name="empty_view_battle_screen">Legalább két kedvenc szuperhős kell</string>
+    <string name="winner_label">nyertes</string>
+    <string name="loser_label">vesztes</string>
+    <string name="restart_label">újra</string>
     <plurals name="character_limit_label">
         <item quantity="one">%1$d karakter maradt</item>
         <item quantity="other">%1$d karakter maradt</item>

@@ -88,19 +88,26 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private final int COUNT_DOWN_INTERVAL = 1000;
     private final float ANIMATION_SPEED = 1.5f;
     private final int HANDLER_DELAY = 500;
+    private int firstHeroHp;
+    private int secondHeroHp;
 
     @AfterViews
     void init() {
-        customizeSuperheroesCardViews();
-        startButton.setButtonLabel(getResources().getString(R.string.start_label));
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, true, false, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         viewModel.fetchSuperheroes();
-        observeToLiveDates();
+        observeLiveData();
+        clearBattleState();
+    }
+
+    private void clearBattleState() {
+        startButton.setButtonLabel(getResources().getString(R.string.start_label));
+        customizeSuperheroesCardViews();
         leftSuperhero.hideHpComponents();
         rightSuperhero.hideHpComponents();
+
         startButton.setOnClickListener(view -> {
             setComponentsVisibilityOnStartButtonClick();
             animation.setSpeed(ANIMATION_SPEED);
@@ -113,7 +120,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                     progress -= PROGRESS_DECREASE;
                     setProgressBar(progress);
                     setDamage(progress);
-                    checkWinState();
                 }
 
                 @Override
@@ -124,61 +130,34 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         });
     }
 
-    private void checkWinState() {
-        if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
-            handler.postDelayed(() -> {
-                rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
-                leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
-            }, HANDLER_DELAY);
-            abortTimerTask();
-            setRestartButton();
-        } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
-            handler.postDelayed(() -> {
-                leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
-                rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
-            }, HANDLER_DELAY);
-            abortTimerTask();
-            setRestartButton();
+    private void setWinner(SuperheroCardView superhero) {
+        if (superhero == leftSuperhero) {
+            leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
+            rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
+        } else {
+            rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
+            leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
         }
-    }
-
-    private void setRestartButton() {
-        startButton.setEnabled(true);
-        startButton.setButtonLabel(getString(R.string.restart_label));
-        startButton.setOnClickListener(view -> {
-            leftSuperhero.hideResult();
-            rightSuperhero.hideResult();
-            animation.setVisibility(View.GONE);
-            battleProgress.setVisibility(View.GONE);
-            leftSuperhero.setHpBar(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()));
-            rightSuperhero.setHpBar(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()));
-            leftSuperhero.reInitCardView();
-            rightSuperhero.reInitCardView();
-            init();
-        });
-    }
-
-    private void abortTimerTask() {
-        setProgressBar(0);
-        countDownTimer.cancel();
-        animation.cancelAnimation();
     }
 
     private void setDamage(int progress) {
         Random rand = new Random(System.currentTimeMillis());
         float damage;
 
-        if (progress == 0
-                && viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) != 0
-                && viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) != 0) {
-            if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId())
-                    > viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId())) {
-                damage = viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId());
-                viewModel.refreshHp(viewModel.secondSuperhero.getValue().getId(), (int) damage);
-            } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId())
-                    > viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId())) {
-                damage = viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId());
-                viewModel.refreshHp(viewModel.firstSuperhero.getValue().getId(), (int) damage);
+        if (progress == 0) {
+            if (firstHeroHp != 0 && secondHeroHp != 0) {
+                cancelTimerTask();
+                if (firstHeroHp > secondHeroHp) {
+                    damage = secondHeroHp;
+                    viewModel.refreshHp(viewModel.secondSuperhero.getValue().getId(), (int) damage);
+                    finishBattle(true);
+                } else {
+                    damage = firstHeroHp;
+                    viewModel.refreshHp(viewModel.firstSuperhero.getValue().getId(), (int) damage);
+                    finishBattle(false);
+                }
+            } else {
+                cancelTimerTask();
             }
         } else {
             damage = rand.nextInt(20 + 1);
@@ -196,6 +175,36 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         }
     }
 
+    private void finishBattle(boolean isFirstHasWon) {
+        cancelTimerTask();
+        handler.postDelayed(() -> {
+            setWinner(isFirstHasWon ? leftSuperhero : rightSuperhero);
+            setRestartButton();
+        }, HANDLER_DELAY);
+    }
+
+    private void setRestartButton() {
+        startButton.setEnabled(true);
+        startButton.setButtonLabel(getString(R.string.restart_label));
+        startButton.setOnClickListener(view -> {
+            leftSuperhero.hideResult();
+            rightSuperhero.hideResult();
+            animation.setVisibility(View.GONE);
+            battleProgress.setVisibility(View.GONE);
+            leftSuperhero.setHpBar(firstHeroHp);
+            rightSuperhero.setHpBar(secondHeroHp);
+            leftSuperhero.reInitCardView();
+            rightSuperhero.reInitCardView();
+            init();
+        });
+    }
+
+    private void cancelTimerTask() {
+        setProgressBar(0);
+        countDownTimer.cancel();
+        animation.cancelAnimation();
+    }
+
     private void setProgressBar(int progress) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             battleProgress.setProgress(progress, true);
@@ -204,7 +213,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         }
     }
 
-    private void observeToLiveDates() {
+    private void observeLiveData() {
         observeSuperheroes();
         observePowerstats();
         observeFightingSuperheroes();
@@ -224,14 +233,22 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                                 heroWithHp.get(viewModel.firstSuperhero.getValue().getId()).toString()
                         )
                 );
+                firstHeroHp = viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId());
                 rightSuperhero.setHpText(
                         getContext().getString(
                                 R.string.hp_text,
                                 heroWithHp.get(viewModel.secondSuperhero.getValue().getId()).toString()
                         )
                 );
-                leftSuperhero.setHpBar(heroWithHp.get(viewModel.firstSuperhero.getValue().getId()));
-                rightSuperhero.setHpBar(heroWithHp.get(viewModel.secondSuperhero.getValue().getId()));
+                secondHeroHp = viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId());
+                leftSuperhero.setHpBar(firstHeroHp);
+                rightSuperhero.setHpBar(secondHeroHp);
+                if (firstHeroHp == 0) {
+                    finishBattle(false);
+                }
+                if (secondHeroHp == 0) {
+                    finishBattle(true);
+                }
             }
         });
     }
