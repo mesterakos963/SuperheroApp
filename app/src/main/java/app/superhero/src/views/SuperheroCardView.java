@@ -149,11 +149,20 @@ public class SuperheroCardView extends FrameLayout {
         }
     }
 
+    public void reInitCardView() {
+        loserShape.setVisibility(GONE);
+        hpBarContainer.setVisibility(VISIBLE);
+    }
+
     public void setResult(String text, int color) {
         hpText.setVisibility(GONE);
         hpBarContainer.setVisibility(GONE);
         result.setVisibility(VISIBLE);
         result.setText(text);
         result.setTextColor(color);
+    }
+
+    public void hideResult() {
+        result.setVisibility(GONE);
     }
 }

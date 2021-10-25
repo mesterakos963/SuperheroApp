@@ -3,6 +3,7 @@ package app.superhero.src.fragments;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -78,6 +79,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
     private CountDownTimer countDownTimer;
+    private final Handler handler = new Handler();
     private float firstHeroMultiplier;
     private float secondHeroMultiplier;
     private final int PROGRESS = 100;
@@ -85,6 +87,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private final int MILLIS_IN_FUTURE = 10000;
     private final int COUNT_DOWN_INTERVAL = 1000;
     private final float ANIMATION_SPEED = 1.5f;
+    private final int HANDLER_DELAY = 500;
 
     @AfterViews
     void init() {
@@ -123,14 +126,36 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
     private void checkWinState() {
         if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) <= 0) {
-            rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
-            leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
+            handler.postDelayed(() -> {
+                rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
+                leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
+            }, HANDLER_DELAY);
             abortTimerTask();
+            setRestartButton();
         } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) <= 0) {
-            leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
-            rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
+            handler.postDelayed(() -> {
+                leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(getContext(), R.color.green));
+                rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(getContext(), R.color.red));
+            }, HANDLER_DELAY);
             abortTimerTask();
+            setRestartButton();
         }
+    }
+
+    private void setRestartButton() {
+        startButton.setEnabled(true);
+        startButton.setButtonLabel(getString(R.string.restart_label));
+        startButton.setOnClickListener(view -> {
+            leftSuperhero.hideResult();
+            rightSuperhero.hideResult();
+            animation.setVisibility(View.GONE);
+            battleProgress.setVisibility(View.GONE);
+            leftSuperhero.setHpBar(viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()));
+            rightSuperhero.setHpBar(viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()));
+            leftSuperhero.reInitCardView();
+            rightSuperhero.reInitCardView();
+            init();
+        });
     }
 
     private void abortTimerTask() {
@@ -143,22 +168,31 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         Random rand = new Random(System.currentTimeMillis());
         float damage;
 
-        if (progress - 10 == 0) {
-            damage = viewModel.heroWithHp.getValue().get(viewModel.defender.getValue());
+        if (progress == 0
+                && viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId()) != 0
+                && viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId()) != 0) {
+            if (viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId())
+                    > viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId())) {
+                damage = viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId());
+                viewModel.refreshHp(viewModel.secondSuperhero.getValue().getId(), (int) damage);
+            } else if (viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId())
+                    > viewModel.heroWithHp.getValue().get(viewModel.firstSuperhero.getValue().getId())) {
+                damage = viewModel.heroWithHp.getValue().get(viewModel.secondSuperhero.getValue().getId());
+                viewModel.refreshHp(viewModel.firstSuperhero.getValue().getId(), (int) damage);
+            }
         } else {
             damage = rand.nextInt(20 + 1);
-        }
-
-        if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
-            damage *= firstHeroMultiplier;
-        } else {
-            damage *= secondHeroMultiplier;
-        }
-        viewModel.refreshHp(viewModel.defender.getValue(), (int) damage);
-        if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
-            viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
-        } else {
-            viewModel.setDefender(viewModel.firstSuperhero.getValue().getId());
+            if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
+                damage *= firstHeroMultiplier;
+            } else {
+                damage *= secondHeroMultiplier;
+            }
+            viewModel.refreshHp(viewModel.defender.getValue(), (int) damage);
+            if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
+                viewModel.setDefender(viewModel.secondSuperhero.getValue().getId());
+            } else {
+                viewModel.setDefender(viewModel.firstSuperhero.getValue().getId());
+            }
         }
     }
 

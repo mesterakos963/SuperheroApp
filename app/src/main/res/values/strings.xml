@@ -52,6 +52,7 @@
     <string name="hp_text" translatable="false">%1$s%%</string>
     <string name="winner_label">winner</string>
     <string name="loser_label">loser</string>
+    <string name="restart_label">restart</string>
     <plurals name="character_limit_label">
         <item quantity="one">%1$d character left</item>
         <item quantity="other">%1$d characters left</item>
