@@ -134,9 +134,11 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         if (superhero == leftSuperhero) {
             leftSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
             rightSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
+            leftSuperhero.hideLoserShape();
         } else {
             rightSuperhero.setResult(getString(R.string.winner_label), ContextCompat.getColor(requireContext(), R.color.green));
             leftSuperhero.setResult(getString(R.string.loser_label), ContextCompat.getColor(requireContext(), R.color.red));
+            rightSuperhero.hideLoserShape();
         }
     }
 
@@ -146,7 +148,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
 
         if (progress == 0) {
             if (firstHeroHp != 0 && secondHeroHp != 0) {
-                cancelTimerTask();
                 if (firstHeroHp > secondHeroHp) {
                     damage = secondHeroHp;
                     viewModel.refreshHp(viewModel.secondSuperhero.getValue().getId(), (int) damage);
@@ -156,9 +157,8 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                     viewModel.refreshHp(viewModel.firstSuperhero.getValue().getId(), (int) damage);
                     finishBattle(false);
                 }
-            } else {
-                cancelTimerTask();
             }
+            cancelTimerTask();
         } else {
             damage = rand.nextInt(20 + 1);
             if (viewModel.defender.getValue() == viewModel.firstSuperhero.getValue().getId()) {
