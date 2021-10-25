@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import app.superhero.MainActivity;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.utils.OnFocusEvent;
@@ -81,6 +82,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+        ((MainActivity) getActivity()).setBottomNavigationViewVisibile(false);
         EventBus.getDefault().register(this);
         starClick();
         backButtonClick();

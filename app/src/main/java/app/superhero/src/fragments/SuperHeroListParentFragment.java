@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.superhero.MainActivity;
 import app.superhero.src.api.SuperheroesAdapter;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
@@ -35,6 +36,7 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
 
     @AfterViews
     protected void init() {
+        ((MainActivity) getActivity()).setBottomNavigationViewVisibile(true);
         doOnInit();
         starClick();
         layoutManager = new GridLayoutManager(getContext(), getNumberOfColumns());

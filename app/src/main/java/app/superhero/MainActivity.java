@@ -1,9 +1,10 @@
 package app.superhero;
 
+import static android.view.View.GONE;
+
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -30,7 +31,6 @@ import app.superhero.src.fragments.BattleFragment;
 import app.superhero.src.fragments.BattleFragment_;
 import app.superhero.src.fragments.FavouritesListFragment;
 import app.superhero.src.fragments.FavouritesListFragment_;
-import app.superhero.src.fragments.SuperheroDetailsFragment;
 import app.superhero.src.fragments.SuperheroListFragment;
 import app.superhero.src.fragments.SuperheroListFragment_;
 
@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment;
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_list: {
                     fragment = superheroListFragment;
                     break;
@@ -110,15 +110,11 @@ public class MainActivity extends FragmentActivity {
                     fragment = battleFragment;
                     break;
                 }
-                default: throw new IllegalArgumentException("Unexpected itemId");
+                default:
+                    throw new IllegalArgumentException("Unexpected itemId");
             }
-            if (getSelectedFragment() ==  fragment) {
-                /*if (fragment instanceof OnBottomNavigationFragmentReselectListener){
-                    fragment.onBottomNavigationFragmentReselected()
-                }*/
-            } else {
-                selectFragment(fragment);
-            }
+
+            selectFragment(fragment);
 
             return true;
         });
@@ -151,7 +147,7 @@ public class MainActivity extends FragmentActivity {
 
     private void selectFragment(Fragment selectedFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for(int i = 0; i < fragments.size(); ++i){
+        for (int i = 0; i < fragments.size(); ++i) {
             if (selectedFragment == fragments.get(i)) {
                 transaction = transaction.attach(fragments.get(i));
                 selectedIndex = i;
@@ -176,7 +172,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        switch (selectedIndex){
+        switch (selectedIndex) {
             case 0: {
                 bottomNavigationView.setSelectedItemId(R.id.nav_list);
                 break;
@@ -201,14 +197,16 @@ public class MainActivity extends FragmentActivity {
 
     void onKeyboardVisibilityChanged(boolean opened) {
         if (opened) {
-            bottomNavigationView.setVisibility(View.GONE);
+            bottomNavigationView.setVisibility(GONE);
         } else {
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
     }
 
-    interface OnBottomNavigationFragmentReselectListener {
-        public void onBottomNavigationFragmentReselected();
-    }
 
+    public void setBottomNavigationViewVisibile(boolean visibile) {
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setVisibility(visibile ? View.VISIBLE : View.GONE);
+        }
+    }
 }
