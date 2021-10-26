@@ -28,6 +28,10 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @ViewById
     RecyclerView recyclerView;
 
+    @ViewById
+    EmptyView favouritesEmptyView;
+
+
     @Override
     protected RecyclerView getRecyclerView() {
         return recyclerView;
@@ -35,7 +39,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
 
     @Override
     protected EmptyView getEmptyView() {
-        return emptyView;
+        return favouritesEmptyView;
     }
 
     @Override
@@ -63,8 +67,8 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
                 viewModel.removeSuperHeroFromList(superhero);
             }
             if (adapter.getItemCount() == 0) {
-                emptyView.setText(getResources().getString(R.string.favourites_empty_view));
-                emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+                favouritesEmptyView.setText(getResources().getString(R.string.favourites_empty_view));
+                favouritesEmptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
             }
         };
     }
@@ -87,12 +91,14 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @UiThread
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         adapter.setData(superheroList);
-        if (superheroList.isEmpty()) {
-            emptyView.setText(getResources().getString(R.string.favourites_empty_view));
-            emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
-            emptyView.setVisibility(View.VISIBLE);
+        if (favouritesEmptyView != null && superheroList.isEmpty()) {
+            favouritesEmptyView.setText(getResources().getString(R.string.favourites_empty_view));
+            favouritesEmptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+            favouritesEmptyView.setVisibility(View.VISIBLE);
         } else {
-            emptyView.setVisibility(View.GONE);
+            if(favouritesEmptyView != null) {
+                favouritesEmptyView.setVisibility(View.GONE);
+            }
         }
     }
 

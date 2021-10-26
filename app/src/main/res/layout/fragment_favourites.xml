@@ -31,7 +31,7 @@
         tools:listitem="@layout/item_superhero" />
 
     <app.superhero.src.views.EmptyView_
-        android:id="@+id/emptyView"
+        android:id="@+id/favouritesEmptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"

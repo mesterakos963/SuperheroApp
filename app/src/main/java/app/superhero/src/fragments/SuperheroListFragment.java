@@ -46,6 +46,9 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @ViewById
     LoadingView loadingView;
 
+    @ViewById
+    EmptyView emptyView;
+
     app.superhero.src.utils.Debouncer debouncer;
 
     @Override
@@ -106,9 +109,11 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
-                loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
-                toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                if(emptyView != null) {
+                    emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                    loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
+                    toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
             }
         });
     }
@@ -171,14 +176,18 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
             adapter.setData(superheroList);
-            emptyView.setVisibility(View.GONE);
+            if(emptyView != null) {
+                emptyView.setVisibility(View.GONE);
+            }
         }
-        if (superheroList != null && adapter.getItemCount() == 0) {
+        if (loadingView != null && superheroList != null && adapter.getItemCount() == 0) {
             loadingView.setVisibility(View.GONE);
         }
         if (superheroList != null && superheroList.isEmpty()) {
             emptyViewNoHero();
-            emptyView.setVisibility(View.VISIBLE);
+            if(emptyView != null) {
+                emptyView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -197,13 +206,17 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewNoHero() {
-        emptyView.setText(getResources().getString(R.string.empty_view_error_text));
-        emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_superhero_kguv));
+        if(emptyView != null) {
+            emptyView.setText(getResources().getString(R.string.empty_view_error_text));
+            emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_superhero_kguv));
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewOnFirstStart() {
-        emptyView.setText(getResources().getString(R.string.empty_view_text));
-        emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+        if(emptyView != null) {
+            emptyView.setText(getResources().getString(R.string.empty_view_text));
+            emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+        }
     }
 }

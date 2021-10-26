@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,6 @@ import static app.superhero.src.utils.Utils.pxFromDp;
 
 @EFragment
 public abstract class SuperHeroListParentFragment extends BaseFragment implements ItemClickListener {
-
-    @ViewById
-    EmptyView emptyView;
 
     protected SuperheroesAdapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
