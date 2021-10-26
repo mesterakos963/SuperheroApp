@@ -31,7 +31,6 @@ import app.superhero.src.dao.Powerstats;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
-import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.BattleViewModel;
 import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.EmptyView;
@@ -61,7 +60,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     TextView battleText;
 
     @ViewById
-    RecyclerViewEmptySupport recyclerView;
+    RecyclerView recyclerView;
 
     @ViewById
     ButtonView2 startButton;

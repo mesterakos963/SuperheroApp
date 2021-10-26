@@ -2,8 +2,10 @@ package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -14,7 +16,6 @@ import java.util.List;
 
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
-import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.FavouritesViewModel;
 import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.views.EmptyView;
@@ -25,10 +26,10 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     FavouritesViewModel viewModel;
 
     @ViewById
-    RecyclerViewEmptySupport recyclerView;
+    RecyclerView recyclerView;
 
     @Override
-    protected RecyclerViewEmptySupport getRecyclerView() {
+    protected RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
@@ -59,7 +60,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         starClickCallback = (superhero, position) -> {
             viewModel.setIsFavourite(superhero);
             if (adapter.getItemCount() > 0) {
-                adapter.deleteItem(position);
+                viewModel.removeSuperHeroFromList(superhero);
             }
             if (adapter.getItemCount() == 0) {
                 emptyView.setText(getResources().getString(R.string.favourites_empty_view));
@@ -89,6 +90,9 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
         if (superheroList.isEmpty()) {
             emptyView.setText(getResources().getString(R.string.favourites_empty_view));
             emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
         }
     }
 

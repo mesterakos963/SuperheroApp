@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
@@ -39,5 +40,11 @@ public class FavouritesViewModel extends SuperheroParentViewModel {
     @Override
     public MutableLiveData<List<SuperheroMasterData>> getSuperheroes() {
         return _superheroes;
+    }
+
+    public void removeSuperHeroFromList(SuperheroMasterData superhero){
+        List<SuperheroMasterData> newList = _superheroes.getValue();
+        newList.remove(superhero);
+        _superheroes.postValue(newList);
     }
 }

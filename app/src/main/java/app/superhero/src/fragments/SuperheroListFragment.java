@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.androidannotations.annotations.Bean;
@@ -21,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import app.superhero.R;
 import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
-import app.superhero.src.utils.RecyclerViewEmptySupport;
 import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.viewmodels.SuperheroesListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -34,7 +35,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     SuperheroesListViewModel viewModel;
 
     @ViewById
-    RecyclerViewEmptySupport recyclerView;
+    RecyclerView recyclerView;
 
     @ViewById
     SearchbarView searchBar;
@@ -48,7 +49,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     app.superhero.src.utils.Debouncer debouncer;
 
     @Override
-    protected RecyclerViewEmptySupport getRecyclerView() {
+    protected RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
