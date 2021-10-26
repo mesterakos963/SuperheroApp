@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity {
 
             selectedIndex = savedInstanceState.getInt(KEY_SELECTED_INDEX, 0);
         }
-        if(getSelectedFragment() != null) {
+        if (getSelectedFragment() != null) {
             selectFragment(getSelectedFragment());
         }
     }
@@ -138,7 +138,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private Fragment getSelectedFragment() {
-        if(fragments != null) {
+        if (fragments != null) {
             return fragments.get(selectedIndex);
         }
         return null;
@@ -146,7 +146,7 @@ public class MainActivity extends FragmentActivity {
 
     private void selectFragment(Fragment selectedFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if(fragments != null) {
+        if (fragments != null) {
             for (int i = 0; i < fragments.size(); ++i) {
                 if (selectedFragment == fragments.get(i)) {
                     transaction = transaction.attach(fragments.get(i));

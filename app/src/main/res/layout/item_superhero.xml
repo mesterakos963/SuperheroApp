@@ -74,7 +74,11 @@
             android:paddingBottom="@dimen/design_6dp"
             android:textAppearance="@style/superheroItemNameFont"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Superhero" />
+            tools:text="Superhero"
+            android:autoSizeMaxTextSize="@dimen/design_18sp"
+            android:autoSizeMinTextSize="@dimen/design_9sp"
+            android:autoSizeStepGranularity="@dimen/design_1sp"
+            android:autoSizeTextType="uniform" />
 
         <ImageView
             android:id="@+id/starBackground"

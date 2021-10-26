@@ -58,7 +58,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     protected void starClick() {
         starClickCallback = (superhero, position) -> {
             viewModel.setIsFavourite(superhero);
-            if(adapter.getItemCount() > 0) {
+            if (adapter.getItemCount() > 0) {
                 adapter.deleteItem(position);
             }
             if (adapter.getItemCount() == 0) {
