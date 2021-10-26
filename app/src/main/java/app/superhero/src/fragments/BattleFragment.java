@@ -302,6 +302,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
                 battleText.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 startButton.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
             }
         });
     }
