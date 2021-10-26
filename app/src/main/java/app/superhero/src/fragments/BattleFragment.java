@@ -29,10 +29,10 @@ import java.util.Random;
 
 import app.superhero.R;
 import app.superhero.src.api.SuperheroesAdapter;
-import app.superhero.src.dao.Powerstats;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
+import app.superhero.src.model.dao.Powerstats;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.BattleViewModel;
 import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.EmptyView;
@@ -126,23 +126,21 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void startBattle() {
-        handler.postDelayed(() -> {
-            countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
-                int progress = PROGRESS;
+        handler.postDelayed(() -> countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
+            int progress = PROGRESS;
 
-                @Override
-                public void onTick(long l) {
-                    progress -= PROGRESS_DECREASE;
-                    setProgressBar(progress);
-                    setDamage(progress);
-                }
+            @Override
+            public void onTick(long l) {
+                progress -= PROGRESS_DECREASE;
+                setProgressBar(progress);
+                setDamage(progress);
+            }
 
-                @Override
-                public void onFinish() {
-                    animation.cancelAnimation();
-                }
-            }.start();
-        }, HANDLER_DELAY);
+            @Override
+            public void onFinish() {
+                animation.cancelAnimation();
+            }
+        }.start(), HANDLER_DELAY);
     }
 
     private void setWinner(SuperheroCardView superhero) {
@@ -235,9 +233,7 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void observeLoading() {
-        viewModel.isLoading.observe(this, isLoading -> {
-            battleFragmentLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        });
+        viewModel.isLoading.observe(this, isLoading -> battleFragmentLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE));
     }
 
     private void observeHeroWithHp() {

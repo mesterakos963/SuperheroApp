@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 public class DiffUtilCallback extends DiffUtil.Callback {
     List<SuperheroMasterData> newList;

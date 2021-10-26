@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ListCallback;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class FavouritesViewModel extends SuperheroParentViewModel {
@@ -42,8 +42,8 @@ public class FavouritesViewModel extends SuperheroParentViewModel {
         return _superheroes;
     }
 
-    public void removeSuperHeroFromList(SuperheroMasterData superhero){
-        List<SuperheroMasterData> newList = new ArrayList<>(_superheroes.getValue()) ;
+    public void removeSuperHeroFromList(SuperheroMasterData superhero) {
+        List<SuperheroMasterData> newList = new ArrayList<>(_superheroes.getValue());
         newList.remove(superhero);
         _superheroes.postValue(newList);
     }

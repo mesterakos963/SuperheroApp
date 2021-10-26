@@ -26,8 +26,8 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 import app.superhero.R;
-import app.superhero.src.dao.Powerstats;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.Powerstats;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.PowerstatsViewModel;
 import app.superhero.src.views.MarkerView;
 

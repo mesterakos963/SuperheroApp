@@ -1,10 +1,9 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
 
 @Dao
 public interface AppearanceDao {
@@ -13,7 +12,4 @@ public interface AppearanceDao {
 
     @Delete
     void delete(Appearance appearance);
-
-    @Query("SELECT * FROM Appearance WHERE appearanceId = :id")
-    Appearance getAppearance(int id);
 }

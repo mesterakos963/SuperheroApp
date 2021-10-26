@@ -3,7 +3,6 @@ package app.superhero.src.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ import java.util.List;
 
 import app.superhero.MainActivity;
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.utils.OnFocusEvent;
 import app.superhero.src.utils.ViewPagerAdapter;
 import app.superhero.src.viewmodels.SuperheroDetailsViewModel;
@@ -105,12 +104,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnFocusEvent event) {
         if (motionLayout.getProgress() < 1.0) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    motionLayout.transitionToEnd();
-                }
-            }, 500);
+            handler.postDelayed(() -> motionLayout.transitionToEnd(), 500);
         }
     }
 
@@ -170,9 +164,7 @@ public class SuperheroDetailsFragment extends BaseFragment {
 
     private void bindButtons() {
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).bind((buttonId, isSelected) -> {
-                selectButtonByViewId(buttonId);
-            });
+            buttons.get(i).bind((buttonId, isSelected) -> selectButtonByViewId(buttonId));
         }
     }
 
@@ -188,17 +180,6 @@ public class SuperheroDetailsFragment extends BaseFragment {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setSelected(i == position);
         }
-    }
-
-    public void measureViewPager(View view) {
-        int wMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY);
-        int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(view.getHeight(), View.MeasureSpec.UNSPECIFIED);
-        view.measure(wMeasureSpec, hMeasureSpec);
-
-        ViewGroup.LayoutParams params = viewPager.getLayoutParams();
-        params.height = view.getMeasuredHeight();
-        viewPager.setLayoutParams(params);
-        viewPager.requestLayout();
     }
 
     @Override

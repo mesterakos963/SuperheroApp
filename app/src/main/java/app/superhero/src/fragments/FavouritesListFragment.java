@@ -15,7 +15,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.FavouritesViewModel;
 import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.views.EmptyView;
@@ -35,11 +35,6 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     @Override
     protected RecyclerView getRecyclerView() {
         return recyclerView;
-    }
-
-    @Override
-    protected EmptyView getEmptyView() {
-        return favouritesEmptyView;
     }
 
     @Override
@@ -96,7 +91,7 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
             favouritesEmptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
             favouritesEmptyView.setVisibility(View.VISIBLE);
         } else {
-            if(favouritesEmptyView != null) {
+            if (favouritesEmptyView != null) {
                 favouritesEmptyView.setVisibility(View.GONE);
             }
         }

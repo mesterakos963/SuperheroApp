@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 public abstract class SuperheroParentViewModel extends ViewModel {
     protected final MutableLiveData<List<SuperheroMasterData>> _superheroes = new MutableLiveData<>();

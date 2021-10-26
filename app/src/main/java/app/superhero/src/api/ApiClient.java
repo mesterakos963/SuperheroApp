@@ -32,7 +32,6 @@ public class ApiClient {
                     .client(client)
                     .build();
         }
-
         return retrofit;
     }
 

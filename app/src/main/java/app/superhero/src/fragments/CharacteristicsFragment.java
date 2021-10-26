@@ -7,8 +7,8 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
-import app.superhero.src.dao.Superhero;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.Superhero;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CharacteristicsViewModel;
 import app.superhero.src.views.DetailsItemView;
 

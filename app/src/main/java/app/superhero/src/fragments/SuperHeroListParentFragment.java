@@ -16,11 +16,10 @@ import java.util.List;
 
 import app.superhero.MainActivity;
 import app.superhero.src.api.SuperheroesAdapter;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.SuperheroParentViewModel;
-import app.superhero.src.views.EmptyView;
 
 import static app.superhero.src.utils.Utils.pxFromDp;
 
@@ -53,8 +52,6 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     protected abstract void starClick();
 
     protected abstract RecyclerView getRecyclerView();
-
-    protected abstract EmptyView getEmptyView();
 
     protected abstract SuperheroParentViewModel getViewModel();
 

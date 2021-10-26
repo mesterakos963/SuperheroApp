@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.Powerstats;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemCallback;
 import app.superhero.src.interfaces.ListCallback;
+import app.superhero.src.model.dao.Powerstats;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class BattleViewModel extends SuperheroParentViewModel {

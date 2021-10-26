@@ -8,7 +8,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroDetailsViewModel extends ViewModel {

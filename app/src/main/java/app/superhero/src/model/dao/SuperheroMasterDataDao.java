@@ -1,4 +1,4 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -25,5 +25,4 @@ public interface SuperheroMasterDataDao {
 
     @Query("SELECT * FROM SuperheroMasterData WHERE isFavourite = 1")
     List<SuperheroMasterData> getFavourites();
-
 }

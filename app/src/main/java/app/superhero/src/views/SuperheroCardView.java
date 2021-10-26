@@ -21,9 +21,9 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 @EViewGroup(R.layout.item_superhero)
 public class SuperheroCardView extends FrameLayout {
@@ -81,9 +81,7 @@ public class SuperheroCardView extends FrameLayout {
     public void bind(SuperheroMasterData superhero, ItemClickListener itemClickListener, StarClickCallback starClickCallback, int position) {
         nameText.setText(superhero.getName());
         loadImage(superhero);
-        root.setOnClickListener(v -> {
-            itemClickListener.onItemClick(superhero);
-        });
+        root.setOnClickListener(v -> itemClickListener.onItemClick(superhero));
         starClickTrap.setOnClickListener(v -> {
             starClickCallback.onStarClick(superhero, position);
             star.setSelected(superhero.getIsFavourite());
@@ -152,10 +150,6 @@ public class SuperheroCardView extends FrameLayout {
     public void reInitCardView() {
         loserShape.setVisibility(GONE);
         hpBarContainer.setVisibility(VISIBLE);
-    }
-
-    public void hideLoserShape() {
-        loserShape.setVisibility(GONE);
     }
 
     public void setResult(String text, int color) {

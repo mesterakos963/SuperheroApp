@@ -1,10 +1,9 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
 
 @Dao
 public interface ConnectionsDao {
@@ -13,7 +12,4 @@ public interface ConnectionsDao {
 
     @Delete
     void delete(Connections connections);
-
-    @Query("SELECT * FROM Connections WHERE connectionsId = :id")
-    Connections getConnections(int id);
 }

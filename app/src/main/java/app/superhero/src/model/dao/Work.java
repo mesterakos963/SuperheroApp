@@ -1,4 +1,4 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,10 +15,6 @@ public class Work {
         this.workId = workId;
         this.occupation = occupation;
         this.base = base;
-    }
-
-    public int getWorkId() {
-        return workId;
     }
 
     public String getOccupation() {

@@ -1,10 +1,9 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
 
 @Dao
 public interface WorkDao {
@@ -13,7 +12,4 @@ public interface WorkDao {
 
     @Delete
     void delete(Work work);
-
-    @Query("SELECT * FROM Work WHERE workId = :id")
-    Work getWork(int id);
 }

@@ -4,21 +4,21 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import app.superhero.src.dao.Appearance;
-import app.superhero.src.dao.AppearanceDao;
-import app.superhero.src.dao.Biography;
-import app.superhero.src.dao.BiographyDao;
-import app.superhero.src.dao.Comments;
-import app.superhero.src.dao.CommentsDao;
-import app.superhero.src.dao.Connections;
-import app.superhero.src.dao.ConnectionsDao;
-import app.superhero.src.dao.Powerstats;
-import app.superhero.src.dao.PowerstatsDao;
-import app.superhero.src.dao.SuperheroDao;
-import app.superhero.src.dao.SuperheroMasterData;
-import app.superhero.src.dao.SuperheroMasterDataDao;
-import app.superhero.src.dao.Work;
-import app.superhero.src.dao.WorkDao;
+import app.superhero.src.model.dao.Appearance;
+import app.superhero.src.model.dao.AppearanceDao;
+import app.superhero.src.model.dao.Biography;
+import app.superhero.src.model.dao.BiographyDao;
+import app.superhero.src.model.dao.Comments;
+import app.superhero.src.model.dao.CommentsDao;
+import app.superhero.src.model.dao.Connections;
+import app.superhero.src.model.dao.ConnectionsDao;
+import app.superhero.src.model.dao.Powerstats;
+import app.superhero.src.model.dao.PowerstatsDao;
+import app.superhero.src.model.dao.SuperheroDao;
+import app.superhero.src.model.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterDataDao;
+import app.superhero.src.model.dao.Work;
+import app.superhero.src.model.dao.WorkDao;
 import app.superhero.src.utils.StringArrayConverter;
 
 @Database(entities = {SuperheroMasterData.class, Appearance.class,

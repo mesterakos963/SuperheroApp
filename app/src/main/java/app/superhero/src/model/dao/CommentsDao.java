@@ -1,4 +1,4 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

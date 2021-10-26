@@ -8,8 +8,8 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.Powerstats;
 import app.superhero.src.interfaces.ItemCallback;
+import app.superhero.src.model.dao.Powerstats;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class PowerstatsViewModel extends ViewModel {

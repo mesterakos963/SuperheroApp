@@ -1,4 +1,4 @@
-package app.superhero.src.dao;
+package app.superhero.src.model.dao;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -42,6 +42,4 @@ public class SuperheroMasterData implements Serializable {
     public void setFavourite(boolean favourite) {
         isFavourite = favourite;
     }
-
-
 }

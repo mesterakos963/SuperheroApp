@@ -11,8 +11,8 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import app.superhero.src.api.SuperheroesRepository;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ListCallback;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 @EBean(scope = EBean.Scope.Fragment)
 public class SuperheroesListViewModel extends SuperheroParentViewModel {
@@ -29,7 +29,7 @@ public class SuperheroesListViewModel extends SuperheroParentViewModel {
     @Background
     public void fetchSuperheroes(String name, boolean forcedToRefreshImmediately) {
         _isLoading.postValue(true);
-        if(forcedToRefreshImmediately){
+        if (forcedToRefreshImmediately) {
             _superheroes.postValue(repository.getSuperHeroesFromDbByName(name));
         }
         getRepository().searchByName(name, new ListCallback<SuperheroMasterData>() {

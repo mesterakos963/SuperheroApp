@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
 import app.superhero.src.interfaces.StarClickCallback;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.utils.DiffUtilCallback;
 import app.superhero.src.views.SuperheroCardView;
 import app.superhero.src.views.SuperheroCardView_;
@@ -71,14 +71,6 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
         data.clear();
         data.addAll(newData);
         diffResult.dispatchUpdatesTo(this);
-    }
-
-    public void deleteItem(int index) {
-        if (index < getItemCount()) {
-            data.remove(index);
-            notifyItemRemoved(index);
-            notifyItemRangeChanged(index, getItemCount());
-        }
     }
 }
 

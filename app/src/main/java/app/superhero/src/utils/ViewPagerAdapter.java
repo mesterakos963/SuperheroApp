@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.fragments.CharacteristicsFragment_;
 import app.superhero.src.fragments.CommentsFragment_;
 import app.superhero.src.fragments.PowerstatsFragment_;
+import app.superhero.src.model.dao.SuperheroMasterData;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public static final int NUM_PAGES = 3;

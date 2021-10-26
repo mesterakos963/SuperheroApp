@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
 import app.superhero.src.interfaces.ItemClickListener;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.SuperheroParentViewModel;
 import app.superhero.src.viewmodels.SuperheroesListViewModel;
 import app.superhero.src.views.EmptyView;
@@ -54,11 +54,6 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     @Override
     protected RecyclerView getRecyclerView() {
         return recyclerView;
-    }
-
-    @Override
-    protected EmptyView getEmptyView() {
-        return emptyView;
     }
 
     @Override
@@ -109,7 +104,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         toolbarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if(emptyView != null) {
+                if (emptyView != null) {
                     emptyView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
                     loadingView.setPaddingBottom(toolbarLayout.getMeasuredHeight());
                     toolbarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -176,7 +171,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
     protected void refreshAdapter(List<SuperheroMasterData> superheroList) {
         if (superheroList != null) {
             adapter.setData(superheroList);
-            if(emptyView != null) {
+            if (emptyView != null) {
                 emptyView.setVisibility(View.GONE);
             }
         }
@@ -185,7 +180,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         }
         if (superheroList != null && superheroList.isEmpty()) {
             emptyViewNoHero();
-            if(emptyView != null) {
+            if (emptyView != null) {
                 emptyView.setVisibility(View.VISIBLE);
             }
         }
@@ -206,7 +201,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewNoHero() {
-        if(emptyView != null) {
+        if (emptyView != null) {
             emptyView.setText(getResources().getString(R.string.empty_view_error_text));
             emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_superhero_kguv));
         }
@@ -214,7 +209,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void emptyViewOnFirstStart() {
-        if(emptyView != null) {
+        if (emptyView != null) {
             emptyView.setText(getResources().getString(R.string.empty_view_text));
             emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));
         }

@@ -8,7 +8,7 @@ import org.androidannotations.annotations.ViewById;
 
 import app.superhero.MainActivity;
 import app.superhero.R;
-import app.superhero.src.dao.SuperheroMasterData;
+import app.superhero.src.model.dao.SuperheroMasterData;
 import app.superhero.src.viewmodels.CommentsViewModel;
 import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.CommentView;
@@ -54,8 +54,6 @@ public class CommentsFragment extends BaseFragment {
     }
 
     private void bindCommentComponent(String commentText) {
-        commentView.bind(commentText, isChanged -> {
-            button.setEnabled(isChanged);
-        });
+        commentView.bind(commentText, isChanged -> button.setEnabled(isChanged));
     }
 }
