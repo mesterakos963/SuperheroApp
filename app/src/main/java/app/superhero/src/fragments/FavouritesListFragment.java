@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -61,7 +58,9 @@ public class FavouritesListFragment extends SuperHeroListParentFragment {
     protected void starClick() {
         starClickCallback = (superhero, position) -> {
             viewModel.setIsFavourite(superhero);
-            adapter.deleteItem(position);
+            if(adapter.getItemCount() > 0) {
+                adapter.deleteItem(position);
+            }
             if (adapter.getItemCount() == 0) {
                 emptyView.setText(getResources().getString(R.string.favourites_empty_view));
                 emptyView.setEmptyViewImage(getResources().getDrawable(R.drawable.ic_undraw_be_the_hero_ssr2));

@@ -74,9 +74,11 @@ public class SuperheroesAdapter extends RecyclerView.Adapter<ViewWrapper<Superhe
     }
 
     public void deleteItem(int index) {
-        data.remove(index);
-        notifyItemRemoved(index);
-        notifyItemRangeChanged(index, getItemCount());
+        if(index < getItemCount()) {
+            data.remove(index);
+            notifyItemRemoved(index);
+            notifyItemRangeChanged(index, getItemCount());
+        }
     }
 }
 
