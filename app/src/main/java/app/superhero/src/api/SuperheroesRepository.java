@@ -107,7 +107,7 @@ public class SuperheroesRepository {
         listCallback.onError(superheroMasterDataList, t);
     }
 
-    protected List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
+    public List<SuperheroMasterData> getSuperHeroesFromDbByName(String name) {
         return superheroMasterDataDao.getSuperheroesByName("%" + name + "%");
     }
 

@@ -57,6 +57,7 @@
             android:paddingStart="@dimen/design_10dp"
             android:paddingEnd="@dimen/design_10dp"
             android:visibility="visible"
+            android:background="@color/list_background_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_superhero" />

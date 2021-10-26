@@ -1,7 +1,9 @@
 package app.superhero.src.fragments;
 
 import android.content.res.Resources;
+import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,12 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
     protected RecyclerView.LayoutManager layoutManager;
     protected StarClickCallback starClickCallback;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        observeSuperheroes();
+    }
+
     @AfterViews
     protected void init() {
         ((MainActivity) getActivity()).setBottomNavigationViewVisibile(true);
@@ -42,7 +50,6 @@ public abstract class SuperHeroListParentFragment extends BaseFragment implement
         adapter = new SuperheroesAdapter(new ArrayList<>(), this, starClickCallback, false, true, false);
         getRecyclerView().setLayoutManager(layoutManager);
         getRecyclerView().setAdapter(adapter);
-        observeSuperheroes();
     }
 
     protected abstract void doOnInit();

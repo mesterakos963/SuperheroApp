@@ -83,6 +83,9 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
         debouncer = new app.superhero.src.utils.Debouncer(500, TimeUnit.MILLISECONDS,
                 message -> viewModel.postSearch(message)
         );
+        if (viewModel.getSearchTextString() != null) {
+            viewModel.fetchSuperheroes(viewModel.getSearchTextString(), true);
+        }
     }
 
     @Override
@@ -145,7 +148,7 @@ public class SuperheroListFragment extends SuperHeroListParentFragment implement
                     && adapter.getItemCount() == 0
                     || viewModel.onPauseSearchText.getValue() != null
                     && !viewModel.onPauseSearchText.getValue().equals(searchText)) {
-                viewModel.fetchSuperheroes(searchText);
+                viewModel.fetchSuperheroes(searchText, false);
                 viewModel.setOnPauseSearchText("");
             }
         });

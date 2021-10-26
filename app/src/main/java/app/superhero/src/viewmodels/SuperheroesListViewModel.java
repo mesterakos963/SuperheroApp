@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
@@ -25,8 +26,12 @@ public class SuperheroesListViewModel extends SuperheroParentViewModel {
     @Bean
     SuperheroesRepository repository;
 
-    public void fetchSuperheroes(String name) {
+    @Background
+    public void fetchSuperheroes(String name, boolean forcedToRefreshImmediately) {
         _isLoading.postValue(true);
+        if(forcedToRefreshImmediately){
+            _superheroes.postValue(repository.getSuperHeroesFromDbByName(name));
+        }
         getRepository().searchByName(name, new ListCallback<SuperheroMasterData>() {
             @Override
             public void onSuccess(List<SuperheroMasterData> results) {

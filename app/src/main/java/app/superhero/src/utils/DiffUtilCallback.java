@@ -34,7 +34,7 @@ public class DiffUtilCallback extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         SuperheroMasterData oldItem = oldList.get(oldItemPosition);
         SuperheroMasterData newItem = newList.get(newItemPosition);
-        return oldItem.getName().equals(newItem.getName()) && (oldItem.getUrl().equals(newItem.getUrl()));
+        return oldItem.getName().equals(newItem.getName()) && (oldItem.getUrl().equals(newItem.getUrl()) && oldItem.getIsFavourite() == newItem.getIsFavourite());
     }
 }
 

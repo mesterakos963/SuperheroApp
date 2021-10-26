@@ -43,7 +43,7 @@ public class FavouritesViewModel extends SuperheroParentViewModel {
     }
 
     public void removeSuperHeroFromList(SuperheroMasterData superhero){
-        List<SuperheroMasterData> newList = _superheroes.getValue();
+        List<SuperheroMasterData> newList = new ArrayList<>(_superheroes.getValue()) ;
         newList.remove(superhero);
         _superheroes.postValue(newList);
     }

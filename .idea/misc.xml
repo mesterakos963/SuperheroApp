@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/drawable/selector_favourite.xml" value="0.121875" />
         <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/layout/fragment_battle.xml" value="0.1796875" />
         <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/layout/fragment_favourites.xml" value="0.1796875" />
         <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/layout/fragment_superhero_list.xml" value="0.1796875" />
+        <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/layout/item_superhero.xml" value="0.1015625" />
         <entry key="..\:/Users/uszka/AndroidStudioProjects/SuperheroApp/app/src/main/res/menu/bottom_navigation.xml" value="0.10052083333333334" />
       </map>
     </option>
