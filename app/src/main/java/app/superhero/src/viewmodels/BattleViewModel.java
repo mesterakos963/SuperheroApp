@@ -25,6 +25,8 @@ public class BattleViewModel extends SuperheroParentViewModel {
     private final MutableLiveData<Powerstats> _secondHeroPowerstats = new MutableLiveData<>();
     private final MutableLiveData<Map<Integer, Integer>> _heroWithHp = new MutableLiveData<>();
     private final MutableLiveData<Integer> _defender = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>(true);
+    public LiveData<Boolean> isLoading = _isLoading;
     public LiveData<SuperheroMasterData> firstSuperhero = _firstSuperhero;
     public LiveData<SuperheroMasterData> secondSuperhero = _secondSuperhero;
     public LiveData<Powerstats> firstHeroPowerstats = _firstHeroPowerstats;
@@ -38,15 +40,18 @@ public class BattleViewModel extends SuperheroParentViewModel {
     SuperheroesRepository repository;
 
     public void fetchSuperheroes() {
+        _isLoading.postValue(true);
         getRepository().getFavourites(new ListCallback<SuperheroMasterData>() {
             @Override
             public void onSuccess(List<SuperheroMasterData> results) {
                 _superheroes.postValue(results);
+                _isLoading.postValue(false);
             }
 
             @Override
             public void onError(List<SuperheroMasterData> fallbackResult, Throwable t) {
                 _superheroes.postValue(fallbackResult);
+                _isLoading.postValue(false);
                 error.postValue(t);
             }
         });

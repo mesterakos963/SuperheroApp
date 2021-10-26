@@ -2,12 +2,14 @@ package app.superhero.src.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +36,7 @@ import app.superhero.src.interfaces.StarClickCallback;
 import app.superhero.src.viewmodels.BattleViewModel;
 import app.superhero.src.views.ButtonView2;
 import app.superhero.src.views.EmptyView;
+import app.superhero.src.views.LoadingView;
 import app.superhero.src.views.SuperheroCardView;
 
 @EFragment(R.layout.fragment_battle)
@@ -74,6 +77,9 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     @ViewById
     ProgressBar battleProgress;
 
+    @ViewById
+    LoadingView battleFragmentLoading;
+
     private SuperheroesAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private StarClickCallback starClickCallback;
@@ -90,6 +96,12 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
     private int firstHeroHp;
     private int secondHeroHp;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        observeLiveData();
+    }
+
     @AfterViews
     void init() {
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -97,7 +109,6 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         viewModel.fetchSuperheroes();
-        observeLiveData();
         clearBattleState();
     }
 
@@ -220,8 +231,14 @@ public class BattleFragment extends BaseFragment implements ItemClickListener {
         observePowerstats();
         observeFightingSuperheroes();
         observeHeroWithHp();
+        observeLoading();
     }
 
+    private void observeLoading() {
+        viewModel.isLoading.observe(this, isLoading -> {
+            battleFragmentLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+    }
 
     private void observeHeroWithHp() {
         viewModel.heroWithHp.observe(this, heroWithHp -> {
